@@ -20,9 +20,11 @@ def classify(decisionTree, example):
 
 ##Learn
 #-------
-def learn(dataset):
+def learn(dataset, pruneFlag, examples):
     learner = DecisionTreeLearner()
     learner.train( dataset)
+    if pruneFlag:
+        prune(learner, examples)
     return learner.dt
 
 # main
@@ -79,18 +81,26 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
     valcumulativescore = 0.0
     learncumulativescore = 0.0
     for i in range(10):
+        #divide up the data into chunks of 90% training, 10% validation
         learndata = dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
+        #if you want to prune, further allocate pruning data
         if pruneFlag:
             training_data = learndata[valSetSize:]
             pruning_data = learndata[:valSetSize]
         else:
             training_data = learndata
+        #set aside validation data
         validationdata = dataset.examples[(i-1)*numexamples/10+numexamples:(i)*numexamples/10+numexamples]
         old = dataset.examples
+        #create a data set with examples from training_data
         dataset.examples = training_data
-        train = learn(dataset)
+        #build the tree
         if pruneFlag:
-            prune(train, pruning_data)
+            examples = DataSet(examples = pruning_data)
+        else:
+            examples = DataSet(examples = training_data)
+        train = learn(dataset, pruneFlag, examples)
+        #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
         learnscore = check_examples(train, learndata,targetval)
         valcumulativescore +=valscore
@@ -98,13 +108,11 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
         dataset.examples = old
     valcumulativescore /= 10
     learncumulativescore /= 10
-    return valcumulativescore,learncumulativescore
+    return valcumulativescore, learncumulativescore
 
 def prune(z, examples):
     # if it's a lea, leave it alone
-    if z.nodetype == DecisionTree.LEAF:
-        return z
-    else:
+    try:
         #get branches
         branches = z.branches
         attr = z.attr
@@ -118,7 +126,9 @@ def prune(z, examples):
         z_score = check_examples(z, examples)
         if z_score <= t0_score:
             z = DecisionTree(DecisionTree.LEAF, classification = yz)
-            
+    except:
+        return 
+
 def main():
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
