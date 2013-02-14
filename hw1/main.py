@@ -108,7 +108,7 @@ def prune(z, examples):
         #get branches
         branches = z.branches
         attr = z.attr
-        for (v, examples_i) in self.split_by(attr, examples):
+        for (v, examples_i) in z.split_by(attr, examples):
             prune(z.branches[v], examples_i)
         #yz = majority class
         yz = z.majority_value(examples)
