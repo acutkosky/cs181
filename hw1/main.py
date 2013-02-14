@@ -74,16 +74,23 @@ def check_examples(dtree, examples):
             score += 1.0
     return score/len(examples)
 
-def crossvalidation(dataset,numexamples):
+def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
     targetval = dataset.target
     valcumulativescore = 0.0
     learncumulativescore = 0.0
     for i in range(10):
-        learndata =dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
+        learndata = dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
+        if pruneFlag:
+            training_data = learndata[valSetSize:]
+            pruning_data = learndata[:valSetSize]
+        else:
+            training_data = learndata
         validationdata = dataset.examples[(i-1)*numexamples/10+numexamples:(i)*numexamples/10+numexamples]
         old = dataset.examples
-        dataset.examples = learndata
+        dataset.examples = training_data
         train = learn(dataset)
+        if pruneFlag:
+            prune(train, pruning_data)
         valscore = check_examples(train, validationdata)
         learnscore = check_examples(train, learndata)
         valcumulativescore +=valscore
@@ -139,8 +146,11 @@ def main():
       dataset.use_boosting = True
       dataset.num_rounds = boostRounds
       
-    valscore,learnscore = crossvalidation(dataset,numexamples)
+    valscore,learnscore = crossvalidation(dataset,numexamples, pruneFlag, valSetSize)
     print "validation score: ",valscore," learningset score: ",learnscore
+
+    
+        
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
