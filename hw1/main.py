@@ -65,6 +65,15 @@ def validateInput(args):
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
 
+def check_examples(dtree, examples):
+    score = 0.0
+    for example in examples:
+        test = classify(dtree,example)
+        check = example.attrs[targetval]
+        if(test==check):
+            score += 1.0
+    return score/len(examples)
+
 def crossvalidation(dataset,numexamples):
     targetval = dataset.target
     valcumulativescore = 0.0
@@ -75,28 +84,34 @@ def crossvalidation(dataset,numexamples):
         old = dataset.examples
         dataset.examples = learndata
         train = learn(dataset)
-        valscore = 0.0
-        for example in validationdata:
-            test = classify(train,example)
-            check = example.attrs[targetval]
-            if(test==check):
-                valscore+=1.0
-        valscore = valscore/len(validationdata)
-        learnscore = 0.0
-        for example in learndata:
-            test = classify(train,example)
-            check = example.attrs[targetval]
-            if(test==check):
-                learnscore+=1.0
-        learnscore = learnscore/len(learndata)
+        valscore = check_examples(train, validationdata)
+        learnscore = check_examples(train, learndata)
         valcumulativescore +=valscore
         learncumulativescore +=learnscore
         dataset.examples = old
     valcumulativescore /= 10
     learncumulativescore /= 10
-
     return valcumulativescore,learncumulativescore
 
+def prune(z, examples):
+    # if it's a lea, leave it alone
+    if z.nodetype == DecisionTree.LEAF:
+        return z
+    else:
+        #get branches
+        branches = z.branches
+        attr = z.attr
+        for (v, examples_i) in self.split_by(attr, examples):
+            prune(z.branches[v], examples_i)
+        #yz = majority class
+        yz = z.majority_value(examples)
+        num_yz = count(yz, z, examples)
+        tot = len(examples)
+        t0_score = float(num_yz)/tot
+        z_score = check_examples(z, examples)
+        if z_score <= t0_score:
+            z = DecisionTree(DecisionTree.LEAF, classification = yz)
+            
 def main():
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
@@ -128,7 +143,7 @@ def main():
     print "validation score: ",valscore," learningset score: ",learnscore
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
-    # ====================================
+# ====================================
 
 main()
 

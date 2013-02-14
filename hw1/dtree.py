@@ -68,16 +68,6 @@ class DataSet:
         self.max_depth = -1
         self.use_boosting = False
         self.num_rounds = 0
-        self.numexamples = len(self.examples)
-
-    def initweights(self):
-      """The weight of each examples should start at 1/numexamples. This function also updates numexamples"""
-      self.numexamples = len(self.examples)
-      for example in self.examples:
-        example.weight = 1.0/self.numexamples
-
-
-
 
     def setproblem(self, target, inputs=None, exclude=()):
         """Set (or change) the target and/or inputs.
