@@ -65,7 +65,7 @@ def validateInput(args):
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
 
-def check_examples(dtree, examples):
+def check_examples(dtree, examples,targetval):
     score = 0.0
     for example in examples:
         test = classify(dtree,example)
@@ -84,8 +84,8 @@ def crossvalidation(dataset,numexamples):
         old = dataset.examples
         dataset.examples = learndata
         train = learn(dataset)
-        valscore = check_examples(train, validationdata)
-        learnscore = check_examples(train, learndata)
+        valscore = check_examples(train, validationdata,targetval)
+        learnscore = check_examples(train, learndata,targetval)
         valcumulativescore +=valscore
         learncumulativescore +=learnscore
         dataset.examples = old
