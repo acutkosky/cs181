@@ -79,6 +79,7 @@
 \DeclareMathOperator{\End}{End}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\WPr}{WPr}
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lemma}[thm]{Lemma}
@@ -201,12 +202,36 @@ All examples have the same value for $B$ and $D$, so clearly $B$ and $D$ offer n
 
 \newpage
 
-\noindent \textbf{Problem 2.} 
+\noindent \textbf{Problem 2.} (a) For the non-noisy dataset, we found a training performance of $1.0$ and a test performance of $0.87$. For the noisy dataset, we found a training performance of $0.98$ and a test performance of $0.78$. 
 
 \newpage
 
-\noindent \textbf{Problem 3.} 
-
+\noindent \textbf{Problem 3.} (a)  Let $w(x_i)$ be the weight of $x_i$. We define the \emph{weighted} mass function of the examples $x_1, \ldots, x_n$ by 
+\[
+M = \sum_{i=1}^n w(x_i). 
+\]
+Scaling the weighting, we may assume that $M=1$. Then introduce the idea of weighted entropy by replacing each discrete example $x_i$ with a probability mass of size $w(x_i)$. Formally, if $X$ represents the classification and $\Omega$ its values, then we define the weighted probability 
+\[
+Pr_w(\omega) = \sum_{X(x_i) = \omega} w(x_i) 
+\]
+The weighted information is $I_w(\omega)  := \log \frac{1}{Pr_w(\omega)}$, and the weighted entropy is 
+\[
+H_w(X) = \sum_{\omega \in \Omega} Pr_w(\omega) I_w(\omega)
+\]
+If $y$ is a value of the random variable $Y$, then we extend this definition 
+\[
+Pr_w(y) = \sum_{Y(x_i) = y} w(x_i).
+\]
+Analogously, the weighted conditional probability is 
+\[
+Pr_w(\omega \mid y) =\frac{ \sum_{X(x_i) = \omega, Y(x_i) = y} w(x_i)}{Pr_w(y)}
+\]
+and the weighted conditional information is $I_w(\omega \mid y ) := \log \frac{1}{Pr_w(\omega \mid y)}$. 
+Finally we define the weighted conditional entropy to be  
+\[
+H_w(X \mid Y) = \sum_y Pr_w(y) \sum_{\omega \in \Omega} Pr_w(\omega \mid y) I_w(\omega \mid y).
+\]
+As mentioned above, this is the ordinary entropy obtained by viewing each $x_i$ as representing a proportion $w(x_i)$ of the data, which is a reasonable interpretation of weighting (but how well this works obviously depends on how the weighting is constructed). 
 \newpage
 
 \noindent \textbf{Problem 4.} 

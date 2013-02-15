@@ -1,7 +1,10 @@
 # main.py
 # -------
-# YOUR NAME HERE
+# Ashok Cutkosky and Tony Feng
 
+import matplotlib.pyplot as plt
+from pylab import *
+import random
 from dtree import *
 import sys
 
@@ -84,6 +87,8 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
     for i in range(10):
         #divide up the data into chunks of 90% training, 10% validation
         learndata = dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
+        #sort the data for randomization purposes
+        random.sort(learndata)
         #if you want to prune, further allocate pruning data
         if pruneFlag:
             training_data = learndata[valSetSize:]
@@ -137,11 +142,13 @@ def prune(learner, z, examples):
  #           print "I didn't prune!"
 
 
-def main():
+def main(n, p, v):
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
     print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
-
+    noisyFlag = n
+    pruneFlag = p
+    valSetSize = v
     # Read in the data file
     
     if noisyFlag:
@@ -165,15 +172,47 @@ def main():
       dataset.num_rounds = boostRounds
       
     valscore,learnscore = crossvalidation(dataset,numexamples, pruneFlag, valSetSize)
-    print "validation score: ",valscore," learningset score: ",learnscore
-
+    #print "validation score: ",valscore," learningset score: ",learnscore
+    return (valscore, learnscore)
     
         
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
 
-main()
+xs = range(1, 81)
+valscores_noiseless = []
+learnscores_noiseless = []
+for x in xs:
+    a,b = main(False, True, x)
+    valscores_noiseless.append(a)
+    learnscores_noiseless.append(b)
+
+print valscores_noiseless
+print learnscores_noiseless
+
+valscores_noise = []
+learnscores_noise = []
+for x in xs:
+    a,b = main(True, True, x)
+    valscores_noise.append(a)
+    learnscores_noise.append(b)
+
+print valscores_noise
+print learnscores_noise
+
+
+ax=plt.subplot(111)
+ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
+ax.plot(xs, learnscores_noiseless, 'b-', linewidth = 2.5, label = "Learning scores, noiseless")
+ax.plot(xs, valscores_noise, 'b-', linewidth = 2.5, label = "Validation scores, noisy")
+ax.plot(xs, learnscores_noise, 'b-', linewidth = 2.5, label = "Learning scores, noisy")
+ax.legend()
+ax.set_xlabel("Pruning validation set size", fontsize = 16)
+ax.set_ylabel("Score", fontsize = 16) 
+ax.set_title("Validation Set Size and Performance", fontsize = 20)
+plt.show()
+    
 
 
 
