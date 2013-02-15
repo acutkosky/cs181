@@ -150,13 +150,15 @@ def prune(learner, z, examples):
  #           print "I didn't prune!"
 
 
-def main(n, p, v):
+def main(n, p, v, d, br):
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
     print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
-    #noisyFlag = n
-    #pruneFlag = p
-    #valSetSize = v
+    noisyFlag = n
+    pruneFlag = p
+    valSetSize = v
+    maxDepth = d
+    boostRounds = br
     # Read in the data file
     
     if noisyFlag:
@@ -187,26 +189,26 @@ def main(n, p, v):
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
-print main(False,False,0)
+#print main(False,False,0)
 
-#xs = range(1, 81)
-#valscores_noiseless = []
+xs = range(10, 31)
+valscores_noiseless = []
 #learnscores_noiseless = []
-#for x in xs:
-#    a,b = main(False, True, x)
-#    valscores_noiseless.append(a)
-#    learnscores_noiseless.append(b)
-#print valscores_noiseless
+for x in xs:
+    a,b = main(False, False, 0, 1, x)
+    valscores_noiseless.append(a)
+    #learnscores_noiseless.append(b)
+print valscores_noiseless
 #print learnscores_noiseless
 
-#valscores_noise = []
+valscores_noise = []
 #learnscores_noise = []
-#for x in xs:
-#    a,b = main(True, True, x)
-#    valscores_noise.append(a)
+for x in xs:
+    a,b = main(True, False, 0, 1, x)
+    valscores_noise.append(a)
 #    learnscores_noise.append(b)
 
-#print valscores_noise
+print valscores_noise
 #print learnscores_noise
 
 
