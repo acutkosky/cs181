@@ -329,7 +329,6 @@ class DecisionTreeLearner(Learner):
         self.training = deepcopy(dataset)
         self.validation.examples = validationdata
         self.training.examples = trainingdata
-#        print "lens: ",len(self.validation.examples),len(self.training.examples)
         self.attrnames = dataset.attrnames
         self.dt = self.decision_tree_learning(self.training.examples, dataset.inputs,0)
         if(self.pruningsize>0):
@@ -338,14 +337,11 @@ class DecisionTreeLearner(Learner):
 
     def decision_tree_learning(self, examples, attrs, depth, default=None):
         if len(examples) == 0:
-  #          if(depth >2):
- #             print "depth: ",depth
             return DecisionTree(DecisionTree.LEAF, classification=default)
         elif self.all_same_class(examples):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
         elif  len(attrs) == 0 or depth == self.depth:
-#            print "here: ",len(attrs)
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
@@ -357,13 +353,17 @@ class DecisionTreeLearner(Learner):
             return tree
     
     def decision_tree_pruning(self,z,trainexamples,valexamples,attrs,default=None):
+        #if it's a leaf, leave it alone
         if z.nodetype == DecisionTree.LEAF:
             return
         else:
+            #get branches and attributes
             branches = z.branches
             attr = z.attr
             for (v,examples_i) in self.split_by(attr, trainexamples):
-                self.decision_tree_pruning(z.branches[v],examples_i,valexamples,attrs)
+                #if there aren't any such examples, ignore that branch
+                if(len(examples_i)>0):
+                    self.decision_tree_pruning(z.branches[v],examples_i,valexamples,attrs)
             yz = self.majority_value(trainexamples)
             num_yz = self.countweights(self.dataset.target,yz,valexamples)
             tot = self.sumweights(valexamples)
@@ -501,9 +501,7 @@ def update_example_weights(hypothesis,hypoweight,dataset):
             factor = exp(hypoweight)
         example.weight = example.weight*factor
     
- #   print len(dataset.examples)
     total = reduce(lambda x,ex:x+ex.weight,dataset.examples,0.0)
-#    print total
     for example in dataset.examples:
         example.weight /= total
 
@@ -513,9 +511,6 @@ def splitdata(list,splitnum):
     random.shuffle(training)
     validation = training[:splitnum]
     training = training[splitnum:]
-#    validation = []
-#    for i in range(splitnum):
-#        validation.append(training.pop(random.choice(range(len(training)-1))))
     return validation,training
         
         

@@ -93,13 +93,6 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
     for i in range(10):
         #divide up the data into chunks of 90% training, 10% validation
         learndata = dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
-        #sort the data for randomization purposes
-#        random.shuffle(learndata)
-        #if you want to prune, further allocate pruning data
-#        if pruneFlag:
-#            training_data = learndata[valSetSize:]
-#            pruning_data = learndata[:valSetSize]
-#        else:
         training_data = learndata
         #set aside validation data
         validationdata = dataset.examples[(i-1)*numexamples/10+numexamples:(i)*numexamples/10+numexamples]
@@ -107,13 +100,7 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
         #create a data set with examples from training_data
         dataset.examples = training_data
         #build the tree
-#        if pruneFlag:
-#            examples = pruning_data
-#        else:
-#            examples = training_data
-        train = learn(dataset, valSetSize,maxDepth)#, examples)
-#        print train.dt
-#        exit()
+        train = learn(dataset, valSetSize,maxDepth)
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
         learnscore = check_examples(train, learndata,targetval)
@@ -123,32 +110,6 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
     valcumulativescore /= 10
     learncumulativescore /= 10
     return valcumulativescore, learncumulativescore
-
-def prune(learner, z, examples):
-    #if it's a leaf, leave it alone
-    if z.nodetype == DecisionTree.NODE:
-        #get branches
-        branches = z.branches
-        #get the attribute
-        attr = z.attr
-        for (v, examples_i) in learner.split_by(attr, examples):
-            #if there aren't any such examples, ignore that branch
-            if len(examples_i)>0:
-                prune(learner, branches[v], examples_i)
-        #yz = majority class
-        yz = learner.majority_value(examples)
-        num_yz = learner.count(learner.dataset.target, yz, examples)
-        tot = len(examples)
-        t0_score = float(num_yz)/tot
-        z_score = check_examples(z, examples, learner.dataset.target)
-        #print z_score, t0_score
-        #if the majority rule performs better, cut off the rest of the tree
-        if z_score <= t0_score:
-            z = DecisionTree(DecisionTree.LEAF, classification = yz)
-  #          print "I pruned something!"
-#        else:
- #           print "I didn't prune!"
-
 
 def main(n, p, v):
     arguments = validateInput(sys.argv)
@@ -180,47 +141,47 @@ def main(n, p, v):
       dataset.num_rounds = boostRounds
       
     valscore,learnscore = crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth)
-    #print "validation score: ",valscore," learningset score: ",learnscore
     return (valscore, learnscore)
     
         
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
-print main(False,False,0)
+valscore,learnscore = main(False,False,0)
+print "Validation set score: ",valscore," Learning set score: ",learnscore
+"""
+xs = range(1, 81)
+valscores_noiseless = []
+learnscores_noiseless = []
+for x in xs:
+    a,b = main(False, True, x)
+    valscores_noiseless.append(a)
+    learnscores_noiseless.append(b)
+print valscores_noiseless
+print learnscores_noiseless
 
-#xs = range(1, 81)
-#valscores_noiseless = []
-#learnscores_noiseless = []
-#for x in xs:
-#    a,b = main(False, True, x)
-#    valscores_noiseless.append(a)
-#    learnscores_noiseless.append(b)
-#print valscores_noiseless
-#print learnscores_noiseless
+valscores_noise = []
+learnscores_noise = []
+for x in xs:
+    a,b = main(True, True, x)
+    valscores_noise.append(a)
+    learnscores_noise.append(b)
 
-#valscores_noise = []
-#learnscores_noise = []
-#for x in xs:
-#    a,b = main(True, True, x)
-#    valscores_noise.append(a)
-#    learnscores_noise.append(b)
-
-#print valscores_noise
-#print learnscores_noise
+print valscores_noise
+print learnscores_noise
 
 
-#ax=plt.subplot(111)
-#ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
-#ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scores, noiseless")
-#ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
-#ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
-#ax.legend()
-#ax.set_xlabel("Pruning validation set size", fontsize = 16)
-#ax.set_ylabel("Score", fontsize = 16) 
-#ax.set_title("Validation Set Size and Performance", fontsize = 20)
-#plt.show()
+ax=plt.subplot(111)
+ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
+ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scores, noiseless")
+ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
+ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
+ax.legend()
+ax.set_xlabel("Pruning validation set size", fontsize = 16)
+ax.set_ylabel("Score", fontsize = 16) 
+ax.set_title("Validation Set Size and Performance", fontsize = 20)
+plt.show()
     
-
+"""
 
 
