@@ -1,6 +1,6 @@
 \documentclass[12pt]{amsart}
 \usepackage[margin = 1in]{geometry}
-\usepackage{amsmath, amssymb, amsthm}
+\usepackage{amsmath, amssymb, amsthm, graphicx}
 \usepackage{enumerate}
 \usepackage[all]{xy}
 \usepackage{mathrsfs}
@@ -204,6 +204,29 @@ All examples have the same value for $B$ and $D$, so clearly $B$ and $D$ offer n
 
 \noindent \textbf{Problem 2.} (a) For the non-noisy dataset, we found a training performance of $1.0$ and a test performance of $0.87$. For the noisy dataset, we found a training performance of $0.98$ and a test performance of $0.78$. 
 
+(b) See the graphs below, depicting the results with and without randomization of the validation set. 
+
+
+\begin{figure}[!h]
+\includegraphics[scale=.4]{pruneperformancenorandom.png}
+\caption{Without randomization}
+\end{figure}
+
+\begin{figure}[!h]
+\includegraphics[scale=.4]{pruneperformance.png}
+\caption{With randomization}
+\end{figure}
+
+
+
+(c) Validation set pruning does improve performance. In both cases, the test performance increased initially with validation set size and eventually dipped back down. This is to be expected: when the validation set is too large, there is not enough training data. To speak to the details of each scenario:
+
+\begin{itemize}
+\item Without randomization, the test performance increases from $0.78$ up to $0.80$ (peaking at a size between $10$ and $20$, and then dips back down. The trend is relatively stable. 
+\item With randomization, the test performance is much less stable, but it peaks at around $0.86$ between $40$ and $50$ (but the worst performance also decreases steadily). 
+\end{itemize}
+
+(d) The results do seem indicate some level of overfitting. First, the fact that pruning improves performance suggests that the trees obtained without pruning are too complex, which corresponds to overfitting. Furthermore, validation test performance improves even while the performance on the learning set decreases, which is another indication that the trees being constructed with no validation pruning are overfitted to the training data. 
 \newpage
 
 \noindent \textbf{Problem 3.} (a)  Let $w(x_i)$ be the weight of $x_i$. We define the \emph{weighted} mass function of the examples $x_1, \ldots, x_n$ by 
@@ -232,6 +255,18 @@ Finally we define the weighted conditional entropy to be
 H_w(X \mid Y) = \sum_y Pr_w(y) \sum_{\omega \in \Omega} Pr_w(\omega \mid y) I_w(\omega \mid y).
 \]
 As mentioned above, this is the ordinary entropy obtained by viewing each $x_i$ as representing a proportion $w(x_i)$ of the data, which is a reasonable interpretation of weighting (but how well this works obviously depends on how the weighting is constructed). 
+
+A. 
+\[
+\begin{tabular}{|l|l|l|l|}
+\hline
+ Rounds & 10 & 30 \\
+\hline
+Depth 1& 0.89 &  0.89 \\
+Depth 2 & 0.95 &  0.95\\
+\hline
+\end{tabular}
+\]
 \newpage
 
 \noindent \textbf{Problem 4.} 

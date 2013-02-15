@@ -2,8 +2,8 @@
 # -------
 # Ashok Cutkosky and Tony Feng
 
-import matplotlib.pyplot as plt
-from pylab import *
+#import matplotlib.pyplot as plt
+#from pylab import *
 import random
 from dtree import *
 import sys
