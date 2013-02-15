@@ -23,12 +23,12 @@ def classify(decisionTree, example):
 
 ##Learn
 #-------
-def learn(dataset, pruneFlag, examples):
-    learner = DecisionTreeLearner()
+def learn(dataset, prune):#, examples):
+    learner = DecisionTreeLearner(pruningsize = prune)
     learner.train( dataset)
-    dtree = learner.dt
-    if pruneFlag:
-        prune(learner, dtree, examples)
+#    dtree = learner.dt
+#    if pruneFlag:
+#        prune(learner, dtree, examples)
     return learner.dt
 
 # main
@@ -84,28 +84,30 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
     targetval = dataset.target
     valcumulativescore = 0.0
     learncumulativescore = 0.0
+    if (not pruneFlag):
+        valSetSize = 0
     for i in range(10):
         #divide up the data into chunks of 90% training, 10% validation
         learndata = dataset.examples[i*numexamples/10:(i-1)*numexamples/10+numexamples]
         #sort the data for randomization purposes
-        random.sort(learndata)
+#        random.shuffle(learndata)
         #if you want to prune, further allocate pruning data
-        if pruneFlag:
-            training_data = learndata[valSetSize:]
-            pruning_data = learndata[:valSetSize]
-        else:
-            training_data = learndata
+#        if pruneFlag:
+#            training_data = learndata[valSetSize:]
+#            pruning_data = learndata[:valSetSize]
+#        else:
+        training_data = learndata
         #set aside validation data
         validationdata = dataset.examples[(i-1)*numexamples/10+numexamples:(i)*numexamples/10+numexamples]
         old = dataset.examples
         #create a data set with examples from training_data
         dataset.examples = training_data
         #build the tree
-        if pruneFlag:
-            examples = pruning_data
-        else:
-            examples = training_data
-        train = learn(dataset, pruneFlag, examples)
+#        if pruneFlag:
+#            examples = pruning_data
+#        else:
+#            examples = training_data
+        train = learn(dataset, valSetSize)#, examples)
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
         learnscore = check_examples(train, learndata,targetval)

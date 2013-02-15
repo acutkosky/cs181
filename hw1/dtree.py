@@ -1,6 +1,7 @@
 """Learn to estimate functions  from examples. (Chapters 18-20)"""
 
 from utils import *
+from copy import deepcopy
 import random, operator
 
 #______________________________________________________________________________
@@ -68,6 +69,11 @@ class DataSet:
         self.max_depth = -1
         self.use_boosting = False
         self.num_rounds = 0
+
+
+    def setuniformweight(self,weight):
+        for example in self.examples:
+            example.weight = weight
 
     def setproblem(self, target, inputs=None, exclude=()):
         """Set (or change) the target and/or inputs.
@@ -307,30 +313,68 @@ Yes, No = True, False
 
 class DecisionTreeLearner(Learner):
 
+    def __init__(self,pruningsize = 0, depth=-1):
+        self.depth = depth
+        self.pruningsize = pruningsize
+
     def predict(self, example):
         return self.dt.predict(example)
 
     def train(self, dataset):
         self.dataset = dataset
-        self.attrnames = dataset.attrnames
-        self.dt = self.decision_tree_learning(dataset.examples, dataset.inputs)
 
-    def decision_tree_learning(self, examples, attrs, default=None):
+        validationdata,trainingdata = splitdata(dataset.examples,self.pruningsize)
+        self.validation = deepcopy(dataset)
+        self.training = deepcopy(dataset)
+        self.validation.examples = validationdata
+        self.training.examples = trainingdata
+        print "lens: ",len(self.validation.examples),len(self.training.examples)
+        self.attrnames = dataset.attrnames
+        self.dt = self.decision_tree_learning(self.training.examples, dataset.inputs,0)
+        if(self.pruningsize>0):
+          self.decision_tree_pruning(self.dt,self.training.examples,self.validation.examples, dataset.inputs)
+
+
+    def decision_tree_learning(self, examples, attrs, depth, default=None):
         if len(examples) == 0:
             return DecisionTree(DecisionTree.LEAF, classification=default)
         elif self.all_same_class(examples):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
-        elif  len(attrs) == 0:
+        elif  len(attrs) == 0 or depth == self.depth:
+            print "here: ",len(attrs)
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
             tree = DecisionTree(DecisionTree.NODE, attr=best, attrname=self.attrnames[best])
             for (v, examples_i) in self.split_by(best, examples):
                 subtree = self.decision_tree_learning(examples_i,
-                  removeall(best, attrs), self.majority_value(examples))
+                  removeall(best, attrs),depth,self.majority_value(examples))
                 tree.add(v, subtree)
             return tree
+    
+    def decision_tree_pruning(self,z,trainexamples,valexamples,attrs,default=None):
+        if z.nodetype == DecisionTree.LEAF:
+            return
+        else:
+            branches = z.branches
+            attr = z.attr
+            for (v,examples_i) in self.split_by(attr, trainexamples):
+                self.decision_tree_pruning(z.branches[v],examples_i,valexamples,attrs)
+            yz = self.majority_value(trainexamples)
+            num_yz = self.countweights(self.dataset.target,yz,valexamples)
+            tot = self.sumweights(valexamples)
+            t0_score = float(num_yz)/tot
+            z_score = 0.0
+            for example in valexamples:
+                test = z.predict(example)
+                check = example.attrs[self.dataset.target]
+                if (test==check):
+                    z_score += example.weight
+            z_score /= tot
+            
+            if (z_score <= t0_score):
+                z = DecisionTree(DecisionTree.LEAF,classification = yz)
 
     def choose_attribute(self, attrs, examples):
         "Choose the attribute with the highest information gain."
@@ -354,12 +398,19 @@ class DecisionTreeLearner(Learner):
     def count(self, attr, val, examples):
         return count_if(lambda e: e.attrs[attr] == val, examples)
     
+    def countweights(self,attr,val,examples):
+        filteredexamples = filter(lambda e:e.attrs[attr] == val,examples)
+        return reduce(lambda x,y:x+y.weight,filteredexamples,0)
+
+    def sumweights(self,examples):
+        return reduce(lambda x,y:x+y.weight,examples,float(0))
+
     def information_gain(self, attr, examples):
         def I(examples):
             target = self.dataset.target
-            return information_content([self.count(target, v, examples)
+            return information_content([self.countweights(target, v, examples)
                                         for v in self.dataset.values[target]])
-        N = float(len(examples))
+        N = self.sumweights(examples)
         remainder = 0
         for (v, examples_i) in self.split_by(attr, examples):
             remainder += (len(examples_i) / N) * I(examples_i)
@@ -381,3 +432,77 @@ def information_content(values):
     return sum([- v * log2(v) for v in values])
 
 #_________________________________________________
+
+class BoostingLearner(Learner):
+   
+
+    def __init__(self,rounds,depth,hypotheses = [], hypoweights = []):
+        self.hypotheses = hypotheses
+        self.hypoweights = hypoweights
+        Assert(len(hypotheses)==len(hypoweights))
+        self.rounds = rounds
+        self.depth = depth
+
+        
+    def round(self):
+        hypothesis = DecisionTreeLearner(depth)
+        hypothesis.train(self.dataset)
+        self.hypotheses.append(hypothesis)
+
+        hypoweight = get_hypothesis_weight(hypothesis,self.dataset)
+        self.hypoweights.append(hypoweight)
+
+        update_example_weights(hypothesis,hypoweight,self.dataset)
+
+    def train(dataset):
+        self.dataset = datset
+        self.dataset.setuniformweights(1.0/len(dataset.examples))
+        for r in range(rounds):
+            self.round()
+
+    def predict(example):
+        predictions = [hypothesis.predict(example) for hypothesis in self.hypotheses]
+        uniques = list(set(predictions))
+        zipped = zip(predictions,self.hypoweights)
+        score = {}
+        for item in zipped:
+          if(item[0] not in score):
+              score[item[0]] = item[1]
+          else:
+              score[item[0]] += item[1]
+
+        return argmax(uniques,lambda x:score[x])
+
+
+
+
+def get_hypothesis_weight(hypothesis,dataset):
+    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)==ex.attrs[dataset.target]),dataset.examples,0)
+    return 0.5*log( (1-er)/er )
+
+
+def upate_example_weights(hypothesis,hypoweight,dataset):
+    for example in dataset.examples:
+        if(hypotheis.predict(example) == example.attrs[dataset.target]):
+            factor = exp(-hypoweight)
+        else:
+            factor = exp(hypoweight)
+        example.weight = example.weight*factor
+    
+
+    total = reduce(lambda x,ex:x+ex.weight,dataset.examples,0)
+    for example in dataset.examples:
+        example.weight /= total
+
+def splitdata(list,splitnum):
+    """partitions a list into two lists, a training list of size len(list)-splitnum and a validation list of size splitnum"""
+    training = deepcopy(list)
+    random.shuffle(training)
+    validation = training[:splitnum]
+    training = training[splitnum:]
+#    validation = []
+#    for i in range(splitnum):
+#        validation.append(training.pop(random.choice(range(len(training)-1))))
+    return validation,training
+        
+        
