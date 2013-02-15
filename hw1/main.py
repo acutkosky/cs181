@@ -204,9 +204,9 @@ print learnscores_noise
 
 ax=plt.subplot(111)
 ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
-ax.plot(xs, learnscores_noiseless, 'b-', linewidth = 2.5, label = "Learning scores, noiseless")
-ax.plot(xs, valscores_noise, 'b-', linewidth = 2.5, label = "Validation scores, noisy")
-ax.plot(xs, learnscores_noise, 'b-', linewidth = 2.5, label = "Learning scores, noisy")
+ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scores, noiseless")
+ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
+ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
 ax.legend()
 ax.set_xlabel("Pruning validation set size", fontsize = 16)
 ax.set_ylabel("Score", fontsize = 16) 
