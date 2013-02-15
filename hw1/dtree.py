@@ -465,7 +465,6 @@ class BoostingLearner(Learner):
     def train(self,dataset):
         self.dataset = dataset
         self.dataset.setuniformweight(1.0/len(dataset.examples))
-        #print "sum: ",reduce(lambda x,y:x+y.weight,dataset.examples,0.0)
         for r in range(self.rounds):
             if(self.round()):
               return
@@ -487,15 +486,9 @@ class BoostingLearner(Learner):
 
 
 def get_hypothesis_weight(hypothesis,dataset):
-    er = 0.0
-    for example in dataset.examples:
-      if hypothesis.predict(example)!=example.attrs[dataset.target]:
-        er += example.weight
-    
-#    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
+    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
     try:
       ret = 0.5*log( (1-er)/er )
-#      print ret,er
     except ZeroDivisionError:
       return -1
     return ret

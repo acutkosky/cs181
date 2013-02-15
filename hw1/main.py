@@ -24,16 +24,13 @@ def classify(learner, example):
 
 ##Learn
 #-------
-def learn(dataset, prune,maxdepth):#, examples):
+def learn(dataset, prune,maxdepth):
     if (not dataset.use_boosting):
         learner = DecisionTreeLearner(pruningsize = prune)
     else:
         learner = BoostingLearner(dataset.num_rounds,maxdepth,[],[])
     learner.train( dataset)
 
-#    dtree = learner.dt
-#    if pruneFlag:
-#        prune(learner, dtree, examples)
     return learner
 
 # main
@@ -109,9 +106,7 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
         valcumulativescore +=valscore
         learncumulativescore +=learnscore
         dataset.examples = old
-#        print valscore,learnscore
-#        print train.dt
-#        exit()
+
     valcumulativescore /= 10
     learncumulativescore /= 10
     return valcumulativescore, learncumulativescore
