@@ -7,6 +7,7 @@ from pylab import *
 import random
 from dtree import *
 import sys
+from copy import deepcopy
 
 class Globals:
     noisyFlag = False
@@ -27,7 +28,7 @@ def learn(dataset, prune,maxdepth):#, examples):
     if (not dataset.use_boosting):
         learner = DecisionTreeLearner(pruningsize = prune)
     else:
-        learner = BoostingLearner(dataset.num_rounds,maxdepth)
+        learner = BoostingLearner(dataset.num_rounds,maxdepth,[],[])
     learner.train( dataset)
 
 #    dtree = learner.dt
@@ -75,10 +76,10 @@ def validateInput(args):
     return [noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds]
 
 
-def check_examples(dtree, examples,targetval):
+def check_examples(train, examples,targetval):
     score = 0.0
     for example in examples:
-        test = classify(dtree,example)
+        test = classify(train,example)
         check = example.attrs[targetval]
         if(test==check):
             score += 1.0
@@ -96,10 +97,11 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
         training_data = learndata
         #set aside validation data
         validationdata = dataset.examples[(i-1)*numexamples/10+numexamples:(i)*numexamples/10+numexamples]
-        old = dataset.examples
+        old = deepcopy(dataset.examples)
         #create a data set with examples from training_data
         dataset.examples = training_data
         #build the tree
+
         train = learn(dataset, valSetSize,maxDepth)
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
@@ -107,6 +109,9 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
         valcumulativescore +=valscore
         learncumulativescore +=learnscore
         dataset.examples = old
+#        print valscore,learnscore
+#        print train.dt
+#        exit()
     valcumulativescore /= 10
     learncumulativescore /= 10
     return valcumulativescore, learncumulativescore

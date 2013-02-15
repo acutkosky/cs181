@@ -364,6 +364,7 @@ class DecisionTreeLearner(Learner):
                 #if there aren't any such examples, ignore that branch
                 if(len(examples_i)>0):
                     self.decision_tree_pruning(z.branches[v],examples_i,valexamples,attrs)
+            #yz = majority class
             yz = self.majority_value(trainexamples)
             num_yz = self.countweights(self.dataset.target,yz,valexamples)
             tot = self.sumweights(valexamples)
@@ -395,8 +396,9 @@ class DecisionTreeLearner(Learner):
         """Return the most popular target value for this set of examples.
         (If target is binary, this is the majority; otherwise plurality.)"""
         g = self.dataset.target
-        return argmax(self.dataset.values[g],
-                      lambda v: self.count(g, v, examples))
+        ret = argmax(self.dataset.values[g],
+                      lambda v: self.countweights(g, v, examples))
+        return ret
 
     def count(self, attr, val, examples):
         return count_if(lambda e: e.attrs[attr] == val, examples)
@@ -416,7 +418,7 @@ class DecisionTreeLearner(Learner):
         N = self.sumweights(examples)
         remainder = 0
         for (v, examples_i) in self.split_by(attr, examples):
-            remainder += (len(examples_i) / N) * I(examples_i)
+            remainder += (self.sumweights(examples_i) / N) * I(examples_i)
         return I(examples) - remainder
 
     def split_by(self, attr, examples=None):
@@ -463,6 +465,7 @@ class BoostingLearner(Learner):
     def train(self,dataset):
         self.dataset = dataset
         self.dataset.setuniformweight(1.0/len(dataset.examples))
+        #print "sum: ",reduce(lambda x,y:x+y.weight,dataset.examples,0.0)
         for r in range(self.rounds):
             if(self.round()):
               return
@@ -484,9 +487,15 @@ class BoostingLearner(Learner):
 
 
 def get_hypothesis_weight(hypothesis,dataset):
-    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
+    er = 0.0
+    for example in dataset.examples:
+      if hypothesis.predict(example)!=example.attrs[dataset.target]:
+        er += example.weight
+    
+#    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
     try:
       ret = 0.5*log( (1-er)/er )
+#      print ret,er
     except ZeroDivisionError:
       return -1
     return ret
