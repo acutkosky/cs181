@@ -453,10 +453,10 @@ class BoostingLearner(Learner):
 
         hypoweight = get_hypothesis_weight(hypothesis,self.dataset)
         if(hypoweight == -1):
+          hypoweight = infinity
           self.hypoweights.append(infinity)
           return 1
         self.hypoweights.append(hypoweight)
-
         update_example_weights(hypothesis,hypoweight,self.dataset)
         return 0
 
@@ -489,6 +489,7 @@ def get_hypothesis_weight(hypothesis,dataset):
       ret = 0.5*log( (1-er)/er )
     except ZeroDivisionError:
       return -1
+    return ret
       
 
 
@@ -500,9 +501,9 @@ def update_example_weights(hypothesis,hypoweight,dataset):
             factor = exp(hypoweight)
         example.weight = example.weight*factor
     
-    print len(dataset.examples)
+ #   print len(dataset.examples)
     total = reduce(lambda x,ex:x+ex.weight,dataset.examples,0.0)
-    print total
+#    print total
     for example in dataset.examples:
         example.weight /= total
 
