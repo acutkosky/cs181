@@ -1,44 +1,34 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  15 FEB 2013 00:29
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.21)  15 FEB 2013 11:18
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **HW1.tex
 (./HW1.tex
 LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
-rman-x-2009-06-19, ngerman-x-2009-06-19, afrikaans, ancientgreek, ibycus, arabi
-c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
-h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
-h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
- icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
-iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
- lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
-ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
-ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
-.
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amscls/amsart.cls
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/amscls/amsart.cls
 Document Class: amsart 2009/07/02 v2.20.1
 \linespacing=\dimen102
 \normalparindent=\dimen103
 \normaltopskip=\skip41
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsmath.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip42
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen104
 ))
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen105
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count79
@@ -81,10 +71,10 @@ LaTeX Info: Redefining \] on input line 2667.
 )
 LaTeX Font Info:    Try loading font information for U+msa on input line 388.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
@@ -115,23 +105,20 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 \thm@headsep=\skip50
 \dth@everypar=\toks24
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2010/09/12 v5.6 Page Geometry
+(/usr/share/texmf-texlive/tex/latex/geometry/geometry.sty
+Package: geometry 2008/12/21 v4.2 Page Geometry
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks25
 )
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2009/04/10 v2.0 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
 )
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifvtex.sty
-Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
 Package ifvtex Info: VTeX not detected.
-)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/ifxetex/ifxetex.sty
-Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count99
 \Gm@cntv=\count100
@@ -140,97 +127,85 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@wd@mp=\dimen115
 \Gm@odd@mp=\dimen116
 \Gm@even@mp=\dimen117
-\Gm@layoutwidth=\dimen118
-\Gm@layoutheight=\dimen119
-\Gm@layouthoffset=\dimen120
-\Gm@layoutvoffset=\dimen121
 \Gm@dimlist=\toks26
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
-)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count102
 ))
-\Gin@req@height=\dimen122
-\Gin@req@width=\dimen123
+\Gin@req@height=\dimen118
+\Gin@req@width=\dimen119
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/enumerate.sty
+(/usr/share/texmf-texlive/tex/latex/tools/enumerate.sty
 Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
 \@enLab=\toks27
 )
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xy.sty
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xy.tex Bootstrap'ing:
-catcodes, docmode,
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyrecat.tex)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyidioms.tex)
+(/usr/share/texmf-texlive/tex/generic/xypic/xy.sty
+(/usr/share/texmf-texlive/tex/generic/xypic/xy.tex Bootstrap'ing: catcodes,
+docmode, (/usr/share/texmf-texlive/tex/generic/xypic/xyrecat.tex)
+(/usr/share/texmf-texlive/tex/generic/xypic/xyidioms.tex)
 
- Xy-pic version 3.8.5 <2011/02/11>
- Copyright (c) 1991-2010 by Kristoffer H. Rose <krisrose@tug.org>
+ Xy-pic version 3.7 <1999/02/16>
+ Copyright (c) 1991-1998 by Kristoffer H. Rose <krisrose@ens-lyon.fr>
  Xy-pic is free software: see the User's Guide for details.
 
 Loading kernel: messages; fonts; allocations: state,
-\X@c=\dimen124
-\Y@c=\dimen125
-\U@c=\dimen126
-\D@c=\dimen127
-\L@c=\dimen128
-\R@c=\dimen129
+\X@c=\dimen120
+\Y@c=\dimen121
+\U@c=\dimen122
+\D@c=\dimen123
+\L@c=\dimen124
+\R@c=\dimen125
 \Edge@c=\toks28
-\X@p=\dimen130
-\Y@p=\dimen131
-\U@p=\dimen132
-\D@p=\dimen133
-\L@p=\dimen134
-\R@p=\dimen135
+\X@p=\dimen126
+\Y@p=\dimen127
+\U@p=\dimen128
+\D@p=\dimen129
+\L@p=\dimen130
+\R@p=\dimen131
 \Edge@p=\toks29
-\X@origin=\dimen136
-\Y@origin=\dimen137
-\X@xbase=\dimen138
-\Y@xbase=\dimen139
-\X@ybase=\dimen140
-\Y@ybase=\dimen141
-\X@min=\dimen142
-\Y@min=\dimen143
-\X@max=\dimen144
-\Y@max=\dimen145
+\X@origin=\dimen132
+\Y@origin=\dimen133
+\X@xbase=\dimen134
+\Y@xbase=\dimen135
+\X@ybase=\dimen136
+\Y@ybase=\dimen137
+\X@min=\dimen138
+\Y@min=\dimen139
+\X@max=\dimen140
+\Y@max=\dimen141
 \lastobjectbox@=\box29
 \zerodotbox@=\box30
-\almostz@=\dimen146
+\almostz@=\dimen142
  direction,
-\d@X=\dimen147
-\d@Y=\dimen148
+\d@X=\dimen143
+\d@Y=\dimen144
 \K@=\count103
 \KK@=\count104
 \Direction=\count105
-\K@dXdY=\dimen149
-\K@dYdX=\dimen150
+\K@dXdY=\dimen145
+\K@dYdX=\dimen146
 \xyread@=\read1
 \xywrite@=\write3
 \csp@=\count106
-\quotPTK@=\dimen151
+\quotPTK@=\dimen147
 
 utility macros; pictures: \xy, positions,
 \swaptoks@@=\toks30
@@ -240,38 +215,38 @@ utility macros; pictures: \xy, positions,
  decorations;
 kernel objects: directionals, circles, text; options; algorithms: directions,
 edges, connections;  Xy-pic loaded)
-Package: xy 2011/02/11 Xy-pic version 3.8.5
+Package: xy 1999/02/16 Xy-pic version 3.7
 
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyall.tex
- Xy-pic option: All features v.3.7
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xycurve.tex
- Xy-pic option: Curve and Spline extension v.3.11 curve,
+(/usr/share/texmf-texlive/tex/generic/xypic/xyall.tex
+ Xy-pic option: All features v.3.3
+(/usr/share/texmf-texlive/tex/generic/xypic/xycurve.tex
+ Xy-pic option: Curve and Spline extension v.3.7 curve,
 \crv@cnt@=\count107
 \crvpts@=\toks32
 \splinebox@=\box32
-\splineval@=\dimen152
-\splinedepth@=\dimen153
-\splinetol@=\dimen154
-\splinelength@=\dimen155
+\splineval@=\dimen148
+\splinedepth@=\dimen149
+\splinetol@=\dimen150
+\splinelength@=\dimen151
  circles,
-\L@=\dimen156
+\L@=\dimen152
  loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyframe.tex
- Xy-pic option: Frame and Bracket extension v.3.12 loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xycmtip.tex
- Xy-pic option: Computer Modern tip extension v.3.6
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xytips.tex
- Xy-pic option: More Tips extension v.3.8 loaded) loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyline.tex
- Xy-pic option: Line styles extension v.3.9
-\xylinethick@=\dimen157
+(/usr/share/texmf-texlive/tex/generic/xypic/xyframe.tex
+ Xy-pic option: Frame and Bracket extension v.3.7 loaded)
+(/usr/share/texmf-texlive/tex/generic/xypic/xycmtip.tex
+ Xy-pic option: Computer Modern tip extension v.3.3
+(/usr/share/texmf-texlive/tex/generic/xypic/xytips.tex
+ Xy-pic option: More Tips extension v.3.3 loaded) loaded)
+(/usr/share/texmf-texlive/tex/generic/xypic/xyline.tex
+ Xy-pic option: Line styles extension v.3.6
+\xylinethick@=\dimen153
  loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyrotate.tex
- Xy-pic option: Rotate and Scale extension v.3.7 loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xycolor.tex
- Xy-pic option: Colour extension v.3.10 loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xymatrix.tex
- Xy-pic option: Matrix feature v.3.9
+(/usr/share/texmf-texlive/tex/generic/xypic/xyrotate.tex
+ Xy-pic option: Rotate and Scale extension v.3.3 loaded)
+(/usr/share/texmf-texlive/tex/generic/xypic/xycolor.tex
+ Xy-pic option: Colour extension v.3.3 loaded)
+(/usr/share/texmf-texlive/tex/generic/xypic/xymatrix.tex
+ Xy-pic option: Matrix feature v.3.4
 \Row=\count108
 \Col=\count109
 \queue@=\toks33
@@ -280,37 +255,26 @@ Package: xy 2011/02/11 Xy-pic version 3.8.5
 \qcount@@=\count111
 \matrixsize@=\count112
  loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xyarrow.tex
- Xy-pic option: Arrow and Path feature v.3.8 path, \ar, loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xygraph.tex
- Xy-pic option: Graph feature v.3.10 loaded) loaded)
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf.tex
- Xy-pic option: PDF driver v.1.6 Xy-pic pdf driver: `color' extension support
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf-co.tex loaded)
-Xy-pic pdf driver: `curve' extension support
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf-cu.tex loaded)
-Xy-pic pdf driver: `frame' extension support
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf-fr.tex loaded)
-Xy-pic pdf driver: `line' extension support
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf-li.tex loaded)
-Xy-pic pdf driver: `rotate' extension support
-(/usr/local/texlive/2011/texmf-dist/tex/generic/xypic/xypdf-ro.tex loaded)
-loaded)) (/usr/local/texlive/2011/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
+(/usr/share/texmf-texlive/tex/generic/xypic/xyarrow.tex
+ Xy-pic option: Arrow and Path feature v.3.5 path, \ar, loaded)
+(/usr/share/texmf-texlive/tex/generic/xypic/xygraph.tex
+ Xy-pic option: Graph feature v.3.7 loaded) loaded))
+(/usr/share/texmf-texlive/tex/latex/jknapltx/mathrsfs.sty
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/color.cfg
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-(/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/color.cfg
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Package option `usenames' ignored on input line 216.
@@ -326,12 +290,11 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/dvipsnam.def
+(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \c@thm=\count113
-
-(./HW1.aux)
+ (./HW1.aux)
 \openout1 = `HW1.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
@@ -347,111 +310,74 @@ LaTeX Font Info:    ... okay on input line 107.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
 LaTeX Font Info:    ... okay on input line 107.
 LaTeX Font Info:    Try loading font information for U+msa on input line 107.
- (/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 107.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+rsfs on input line 107.
 
-(/usr/local/texlive/2011/texmf-dist/tex/latex/jknapltx/ursfs.fd
+(/usr/share/texmf-texlive/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: twoside 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-22.0pt
-* \headheight=8.0pt
-* \headsep=14.0pt
-* \topskip=10.0pt
-* \footskip=12.0pt
-* \marginparwidth=90.0pt
-* \marginparsep=11.0pt
-* \columnsep=10.0pt
-* \skip\footins=7.0pt plus 11.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidetrue
-* \@mparswitchtrue
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+*geometry auto-detecting driver*
+*geometry detected driver: pdftex*
+-------------------- Geometry parameters
+paper: class default
+landscape: --
+twocolumn: --
+twoside: true
+asymmetric: --
+h-parts: 72.26999pt, 469.75502pt, 72.26999pt
+v-parts: 72.26999pt, 650.43001pt, 72.26999pt
+hmarginratio: --
+vmarginratio: --
+lines: --
+heightrounded: --
+bindingoffset: 0.0pt
+truedimen: --
+includehead: --
+includefoot: --
+includemp: --
+driver: pdftex
+-------------------- Page layout dimensions and switches
+\paperwidth  614.295pt
+\paperheight 794.96999pt
+\textwidth  469.75502pt
+\textheight 650.43001pt
+\oddsidemargin  0.0pt
+\evensidemargin 0.0pt
+\topmargin  -22.0pt
+\headheight 8.0pt
+\headsep    14.0pt
+\footskip   12.0pt
+\marginparwidth 90.0pt
+\marginparsep   11.0pt
+\columnsep  10.0pt
+\skip\footins  7.0pt plus 11.0pt
+\hoffset 0.0pt
+\voffset 0.0pt
+\mag 1000
+\@twosidetrue \@mparswitchtrue 
+(1in=72.27pt, 1cm=28.45pt)
+-----------------------
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count114
-\scratchdimen=\dimen158
+\scratchdimen=\dimen154
 \scratchbox=\box33
 \nofMPsegments=\count115
 \nofMParguments=\count116
 \everyMPshowfont=\toks35
 \MPscratchCnt=\count117
-\MPscratchDim=\dimen159
+\MPscratchDim=\dimen155
 \MPnumerator=\count118
-\makeMPintoPDFobject=\count119
 \everyMPtoPDFconversion=\toks36
-) (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
-
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
 )
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
-
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
-))
-(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
-
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
-
-(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-Package xypdf Info: Line width: 0.47998pt on input line 107.
-
 Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
  []
@@ -459,91 +385,77 @@ Underfull \hbox (badness 10000) in paragraph at lines 134--135
 
 Underfull \vbox (badness 1735) has occurred while \output is active []
 
- [1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] <xym
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <xymatrix 9x4 347> <xym
 atrix 9x4
-347> <xymatrix 9x4 470> [2] <xymatrix 7x3 328> [3]
-<pruneperformancenorandom.png, id=22, 586.8324pt x 442.2924pt>
-File: pruneperformancenorandom.png Graphic file (type png)
+470> [2] <xymatrix 7x3 328> [3]
+<hw1/pruneperformancenorandom.png, id=22, 586.8324pt x 442.2924pt>
+File: hw1/pruneperformancenorandom.png Graphic file (type png)
 
-<use pruneperformancenorandom.png>
-Package pdftex.def Info: pruneperformancenorandom.png used on input line 211.
-(pdftex.def)             Requested size: 234.72879pt x 176.91382pt.
+<use hw1/pruneperformancenorandom.png>
+<hw1/pruneperformance.png, id=24, 1156.32pt x 669.9429pt>
+File: hw1/pruneperformance.png Graphic file (type png)
 
-<pruneperformance.png, id=24, 1156.32pt x 669.9429pt>
-File: pruneperformance.png Graphic file (type png)
-
-<use pruneperformance.png>
-Package pdftex.def Info: pruneperformance.png used on input line 216.
-(pdftex.def)             Requested size: 462.5198pt x 267.97241pt.
- [4 <./pruneperformancenorandom.png> <./pruneperformance.png>] [5]
-Underfull \hbox (badness 10000) in paragraph at lines 269--271
+<use hw1/pruneperformance.png> [4 <./hw1/pruneperformancenorandom.png> <./hw1/p
+runeperformance.png>] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 277--279
 
  []
 
-<boostingscores.png, id=35, 1156.32pt x 669.9429pt>
-File: boostingscores.png Graphic file (type png)
- <use boostingscores.png>
-Package pdftex.def Info: boostingscores.png used on input line 274.
-(pdftex.def)             Requested size: 462.5198pt x 267.97241pt.
+[6] <hw1/boostingscores.png, id=41, 586.8324pt x 442.2924pt>
+File: hw1/boostingscores.png Graphic file (type png)
 
-Overfull \hbox (4.76479pt too wide) in paragraph at lines 274--275
-[][] 
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 276--277
+<use hw1/boostingscores.png>
+Underfull \hbox (badness 10000) in paragraph at lines 284--285
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 278--279
+Underfull \hbox (badness 10000) in paragraph at lines 286--287
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 280--281
+Underfull \hbox (badness 10000) in paragraph at lines 288--289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--283
+Underfull \hbox (badness 10000) in paragraph at lines 290--291
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 285--286
+Underfull \hbox (badness 10000) in paragraph at lines 293--294
 
  []
 
-[7 <./boostingscores.png>] [8] (./HW1.aux) ) 
+[7 <./hw1/boostingscores.png>] [8] (./HW1.aux) ) 
 Here is how much of TeX's memory you used:
- 6703 strings out of 493633
- 84270 string characters out of 3143378
- 213789 words of memory out of 3000000
- 9705 multiletter control sequences out of 15000+200000
- 13652 words of font info for 59 fonts, out of 3000000 for 9000
- 992 hyphenation exceptions out of 8191
- 38i,12n,35p,3235b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2011/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2011/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2011/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2011/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2011/texmf-dist/font
-s/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2011/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2011/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr9.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmti12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/x
-ypic/xyatip10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/xypic/
-xybtip10.pfb>
-Output written on HW1.pdf (8 pages, 434832 bytes).
+ 5613 strings out of 495061
+ 66590 string characters out of 1182621
+ 182606 words of memory out of 3000000
+ 8547 multiletter control sequences out of 15000+50000
+ 13370 words of font info for 57 fonts, out of 3000000 for 9000
+ 189 hyphenation exceptions out of 8191
+ 34i,12n,35p,453b,417s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm
+/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/xypic/xyatip10.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/xypic/xybtip10.pfb></usr/share/texmf-texlive/fonts/type1/public/xypic/xyd
+ash10.pfb>
+Output written on HW1.pdf (8 pages, 446279 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 66 compressed objects within 1 object stream
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

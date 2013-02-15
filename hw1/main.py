@@ -106,6 +106,9 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
         valcumulativescore +=valscore
         learncumulativescore +=learnscore
         dataset.examples = old
+#        print train.dt
+#        print "valscore: ",valscore,"learnscore: ",learnscore
+#        exit()
 
     valcumulativescore /= 10
     learncumulativescore /= 10
@@ -192,7 +195,7 @@ print learnscores_noiseless
 
 
 """
-xs = range(10, 31)
+xs = range(1, 31)
 valscores_noiseless = []
 learnscores_noiseless = []
 for x in xs:

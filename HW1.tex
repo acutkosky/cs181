@@ -109,7 +109,7 @@
 
 \noindent \textbf{Problem 1.} (a) We calculate respective information content of $A$ and $B$. First, we find the entropy of the variable. 
 \[
-H(X) = \left( \frac{4}{7} \log \frac{4}{7} + \frac{3}{7} \log \frac{3}{7} \right) \approx 0.985. 
+H(X) = -\left( \frac{4}{7} \log \frac{4}{7} + \frac{3}{7} \log \frac{3}{7} \right) \approx 0.985. 
 \]
 [This isn't actually necessary to determine which attribute has a higher information gain, unless they are equal and we are trying to determine if the gain is $0$.] 
 \begin{itemize}
@@ -208,12 +208,12 @@ All examples have the same value for $B$ and $D$, so clearly $B$ and $D$ offer n
 
 
 \begin{figure}[!h]
-\includegraphics[scale=.4]{pruneperformancenorandom.png}
+\includegraphics[scale=.4]{hw1/pruneperformancenorandom.png}
 \caption{Without randomization}
 \end{figure}
 
 \begin{figure}[!h]
-\includegraphics[scale=.4]{pruneperformance.png}
+\includegraphics[scale=.4]{hw1/pruneperformance.png}
 \caption{With randomization}
 \end{figure}
 
@@ -256,6 +256,14 @@ H_w(X \mid Y) = \sum_y Pr_w(y) \sum_{\omega \in \Omega} Pr_w(\omega \mid y) I_w(
 \]
 As mentioned above, this is the ordinary entropy obtained by viewing each $x_i$ as representing a proportion $w(x_i)$ of the data, which is a reasonable interpretation of weighting (but how well this works obviously depends on how the weighting is constructed). 
 
+
+In particular, for data in which in which $w(x_1)=\frac{1}{2}$, $w(x_i)=\frac{1/2}{N-1}$ for $i\ne 1$, the label of $x_1$ is $1$ and all other labels are zero, we have
+\begin{align*}
+Pr_w(1) =& \frac{1}{2}\\
+Pr_w(0) =& \frac{1/2}{N-1}\cdot(N-1)=\frac{1}{2}\\
+H(X) = &\frac{1}{2}\log(2)+\frac{1}{2}\log(2) = \log(2)\\
+\end{align*}
+
 \textbf{A.} 
 \[
 \begin{tabular}{|l|l|l|l|}
@@ -271,7 +279,7 @@ Intriguingly, the depth $2$ trees perform \emph{worse} when boosted than depth $
 
 \textbf{B.} See the graph below. 
 
-\includegraphics[scale=.4]{boostingscores.png}
+\includegraphics[scale=.4]{hw1/boostingscores.png}
 
 We can see that boosting improves for a few rounds and then sort of levels off. We know that boosting should enhance performance for a while, and it is not surprising that the benefits eventually have diminishing returns. \\
 
@@ -290,9 +298,9 @@ The validation improves with the training. This suggests that boosting is not ov
 
 \noindent \textbf{Problem 4.} We picked the best-performing tree from our ID3 algorithm without pruning. It is depicted in the attached prob4.pdf. The most important attributes are the ones that were branched on. They are, in order:
 \begin{enumerate}
-\item 3. Uniformity of cell cize. 
-\item 1. Clump thickness. 
-\item 5. Marginal adhesion.
+\item 3. Uniformity of cell shape. 
+\item 1. Uniformity of cell size
+\item 5. Single Epithelial cell size
 \end{enumerate}
 These all sound fairly important, but we are not medical experts. 
 \end{document}
