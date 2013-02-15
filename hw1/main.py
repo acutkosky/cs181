@@ -112,6 +112,8 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
 #        else:
 #            examples = training_data
         train = learn(dataset, valSetSize,maxDepth)#, examples)
+#        print train.dt
+#        exit()
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
         learnscore = check_examples(train, learndata,targetval)
