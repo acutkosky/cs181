@@ -338,12 +338,14 @@ class DecisionTreeLearner(Learner):
 
     def decision_tree_learning(self, examples, attrs, depth, default=None):
         if len(examples) == 0:
+  #          if(depth >2):
+ #             print "depth: ",depth
             return DecisionTree(DecisionTree.LEAF, classification=default)
         elif self.all_same_class(examples):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
         elif  len(attrs) == 0 or depth == self.depth:
-            #print "here: ",len(attrs)
+#            print "here: ",len(attrs)
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
@@ -450,15 +452,20 @@ class BoostingLearner(Learner):
         self.hypotheses.append(hypothesis)
 
         hypoweight = get_hypothesis_weight(hypothesis,self.dataset)
+        if(hypoweight == -1):
+          self.hypoweights.append(infinity)
+          return 1
         self.hypoweights.append(hypoweight)
 
         update_example_weights(hypothesis,hypoweight,self.dataset)
+        return 0
 
     def train(self,dataset):
         self.dataset = dataset
         self.dataset.setuniformweight(1.0/len(dataset.examples))
         for r in range(self.rounds):
-            self.round()
+            if(self.round()):
+              return
 
     def predict(self,example):
         predictions = [hypothesis.predict(example) for hypothesis in self.hypotheses]
@@ -478,8 +485,11 @@ class BoostingLearner(Learner):
 
 def get_hypothesis_weight(hypothesis,dataset):
     er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
-
-    return 0.5*log( (1-er)/er )
+    try:
+      ret = 0.5*log( (1-er)/er )
+    except ZeroDivisionError:
+      return -1
+      
 
 
 def update_example_weights(hypothesis,hypoweight,dataset):
@@ -490,8 +500,9 @@ def update_example_weights(hypothesis,hypoweight,dataset):
             factor = exp(hypoweight)
         example.weight = example.weight*factor
     
-
-    total = reduce(lambda x,ex:x+ex.weight,dataset.examples,0)
+    print len(dataset.examples)
+    total = reduce(lambda x,ex:x+ex.weight,dataset.examples,0.0)
+    print total
     for example in dataset.examples:
         example.weight /= total
 
