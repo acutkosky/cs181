@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  14 FEB 2013 23:29
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  14 FEB 2013 23:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -475,32 +475,41 @@ File: pruneperformance.png Graphic file (type png)
 <use pruneperformance.png>
 Package pdftex.def Info: pruneperformance.png used on input line 216.
 (pdftex.def)             Requested size: 462.5198pt x 267.97241pt.
- [4 <./pruneperformancenorandom.png> <./pruneperformance.png>] [5] [6] [7] (./H
-W1.aux) ) 
+ [4 <./pruneperformancenorandom.png> <./pruneperformance.png>] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 271--272
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 275--276
+
+ []
+
+[6] [7] (./HW1.aux) ) 
 Here is how much of TeX's memory you used:
- 6697 strings out of 493633
- 84155 string characters out of 3143378
+ 6698 strings out of 493633
+ 84161 string characters out of 3143378
  213789 words of memory out of 3000000
- 9700 multiletter control sequences out of 15000+200000
+ 9701 multiletter control sequences out of 15000+200000
  13652 words of font info for 59 fonts, out of 3000000 for 9000
  992 hyphenation exceptions out of 8191
  38i,12n,35p,3235b,421s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
-x12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmcs
-c10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex
-10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-2.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.
-pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pf
-b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr
-/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/lo
-cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
-al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
-/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/
-texlive/2011/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr/local/texli
-ve/2011/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
-Output written on HW1.pdf (7 pages, 379869 bytes).
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmcsc10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmex10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi6.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/xypic/xyatip10.pfb></usr
+/local/texlive/2011/texmf-dist/fonts/type1/public/xypic/xybtip10.pfb>
+Output written on HW1.pdf (7 pages, 380820 bytes).
 PDF statistics:
  93 PDF objects out of 1000 (max. 8388607)
  64 compressed objects within 1 object stream
