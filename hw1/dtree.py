@@ -3,7 +3,7 @@
 from utils import *
 from copy import deepcopy
 import random, operator
-
+from math import log,exp
 #______________________________________________________________________________
 
 class Example:
@@ -316,6 +316,7 @@ class DecisionTreeLearner(Learner):
     def __init__(self,pruningsize = 0, depth=-1):
         self.depth = depth
         self.pruningsize = pruningsize
+        #print "depth: ",self.depth
 
     def predict(self, example):
         return self.dt.predict(example)
@@ -342,14 +343,14 @@ class DecisionTreeLearner(Learner):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
         elif  len(attrs) == 0 or depth == self.depth:
-#            print "here: ",len(attrs)
+            #print "here: ",len(attrs)
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
             tree = DecisionTree(DecisionTree.NODE, attr=best, attrname=self.attrnames[best])
             for (v, examples_i) in self.split_by(best, examples):
                 subtree = self.decision_tree_learning(examples_i,
-                  removeall(best, attrs),depth,self.majority_value(examples))
+                  removeall(best, attrs),depth+1,self.majority_value(examples))
                 tree.add(v, subtree)
             return tree
     
@@ -439,13 +440,12 @@ class BoostingLearner(Learner):
     def __init__(self,rounds,depth,hypotheses = [], hypoweights = []):
         self.hypotheses = hypotheses
         self.hypoweights = hypoweights
-        Assert(len(hypotheses)==len(hypoweights))
+        assert (len(hypotheses)==len(hypoweights))
         self.rounds = rounds
         self.depth = depth
-
         
     def round(self):
-        hypothesis = DecisionTreeLearner(depth)
+        hypothesis = DecisionTreeLearner(depth = self.depth)
         hypothesis.train(self.dataset)
         self.hypotheses.append(hypothesis)
 
@@ -454,13 +454,13 @@ class BoostingLearner(Learner):
 
         update_example_weights(hypothesis,hypoweight,self.dataset)
 
-    def train(dataset):
-        self.dataset = datset
-        self.dataset.setuniformweights(1.0/len(dataset.examples))
-        for r in range(rounds):
+    def train(self,dataset):
+        self.dataset = dataset
+        self.dataset.setuniformweight(1.0/len(dataset.examples))
+        for r in range(self.rounds):
             self.round()
 
-    def predict(example):
+    def predict(self,example):
         predictions = [hypothesis.predict(example) for hypothesis in self.hypotheses]
         uniques = list(set(predictions))
         zipped = zip(predictions,self.hypoweights)
@@ -477,13 +477,14 @@ class BoostingLearner(Learner):
 
 
 def get_hypothesis_weight(hypothesis,dataset):
-    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)==ex.attrs[dataset.target]),dataset.examples,0)
+    er = reduce(lambda accum, ex:accum+ex.weight*(hypothesis.predict(ex)!=ex.attrs[dataset.target]),dataset.examples,float(0))
+
     return 0.5*log( (1-er)/er )
 
 
-def upate_example_weights(hypothesis,hypoweight,dataset):
+def update_example_weights(hypothesis,hypoweight,dataset):
     for example in dataset.examples:
-        if(hypotheis.predict(example) == example.attrs[dataset.target]):
+        if(hypothesis.predict(example) == example.attrs[dataset.target]):
             factor = exp(-hypoweight)
         else:
             factor = exp(hypoweight)

@@ -18,18 +18,22 @@ class Globals:
 ##Classify
 #---------
 
-def classify(decisionTree, example):
-    return decisionTree.predict(example)
+def classify(learner, example):
+    return learner.predict(example)
 
 ##Learn
 #-------
-def learn(dataset, prune):#, examples):
-    learner = DecisionTreeLearner(pruningsize = prune)
+def learn(dataset, prune,maxdepth):#, examples):
+    if (not dataset.use_boosting):
+        learner = DecisionTreeLearner(pruningsize = prune)
+    else:
+        learner = BoostingLearner(dataset.num_rounds,maxdepth)
     learner.train( dataset)
+
 #    dtree = learner.dt
 #    if pruneFlag:
 #        prune(learner, dtree, examples)
-    return learner.dt
+    return learner
 
 # main
 # ----
@@ -80,7 +84,7 @@ def check_examples(dtree, examples,targetval):
             score += 1.0
     return score/len(examples)
 
-def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
+def crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth):
     targetval = dataset.target
     valcumulativescore = 0.0
     learncumulativescore = 0.0
@@ -107,7 +111,7 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
 #            examples = pruning_data
 #        else:
 #            examples = training_data
-        train = learn(dataset, valSetSize)#, examples)
+        train = learn(dataset, valSetSize,maxDepth)#, examples)
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
         learnscore = check_examples(train, learndata,targetval)
@@ -148,9 +152,9 @@ def main(n, p, v):
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
     print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
-    noisyFlag = n
-    pruneFlag = p
-    valSetSize = v
+    #noisyFlag = n
+    #pruneFlag = p
+    #valSetSize = v
     # Read in the data file
     
     if noisyFlag:
@@ -173,7 +177,7 @@ def main(n, p, v):
       dataset.use_boosting = True
       dataset.num_rounds = boostRounds
       
-    valscore,learnscore = crossvalidation(dataset,numexamples, pruneFlag, valSetSize)
+    valscore,learnscore = crossvalidation(dataset,numexamples, pruneFlag, valSetSize,maxDepth)
     #print "validation score: ",valscore," learningset score: ",learnscore
     return (valscore, learnscore)
     
@@ -181,39 +185,39 @@ def main(n, p, v):
 # ====================================
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
+print main(False,False,0)
 
-xs = range(1, 81)
-valscores_noiseless = []
-learnscores_noiseless = []
-for x in xs:
-    a,b = main(False, True, x)
-    valscores_noiseless.append(a)
-    learnscores_noiseless.append(b)
+#xs = range(1, 81)
+#valscores_noiseless = []
+#learnscores_noiseless = []
+#for x in xs:
+#    a,b = main(False, True, x)
+#    valscores_noiseless.append(a)
+#    learnscores_noiseless.append(b)
+#print valscores_noiseless
+#print learnscores_noiseless
 
-print valscores_noiseless
-print learnscores_noiseless
+#valscores_noise = []
+#learnscores_noise = []
+#for x in xs:
+#    a,b = main(True, True, x)
+#    valscores_noise.append(a)
+#    learnscores_noise.append(b)
 
-valscores_noise = []
-learnscores_noise = []
-for x in xs:
-    a,b = main(True, True, x)
-    valscores_noise.append(a)
-    learnscores_noise.append(b)
-
-print valscores_noise
-print learnscores_noise
+#print valscores_noise
+#print learnscores_noise
 
 
-ax=plt.subplot(111)
-ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
-ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scores, noiseless")
-ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
-ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
-ax.legend()
-ax.set_xlabel("Pruning validation set size", fontsize = 16)
-ax.set_ylabel("Score", fontsize = 16) 
-ax.set_title("Validation Set Size and Performance", fontsize = 20)
-plt.show()
+#ax=plt.subplot(111)
+#ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
+#ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scores, noiseless")
+#ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
+#ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
+#ax.legend()
+#ax.set_xlabel("Pruning validation set size", fontsize = 16)
+#ax.set_ylabel("Score", fontsize = 16) 
+#ax.set_title("Validation Set Size and Performance", fontsize = 20)
+#plt.show()
     
 
 
