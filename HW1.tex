@@ -267,15 +267,22 @@ Depth 2 & 0.94 &  0.87\\
 \hline
 \end{tabular}
 \]
+Intriguingly, the depth $2$ trees perform \emph{worse} when boosted than depth $1$ trees! This can be explained by noting that depth $2$ trees are quite large, since each attribute has ten values, so that they are comparatively strong learners that are susceptible to overfitting. Boosting works well in combining the weak depth $1$ learners, but overfits if its constitutents overfit. \\
+
+\textbf{B.} See the graph below. 
+
+\includegraphics[scale=.4]{boostingscores.png}
+
+We can see that boosting improves for a few rounds and then sort of levels off. We know that boosting should enhance performance for a while, and it is not surprising that the benefits eventually have diminishing returns. \\
 
 \textbf{C.} Boosting appears to beat the ID3 algorithm, both with and without pruning, by a significant margin. \\
 
-\textbf{D.} The performance on validation and training data are, respectively:
+\textbf{D.} The performance on validation and training data are, respectively:\\
 
 \paragraph{Validation.}  [0.88, 0.87, 0.9, 0.9, 0.92, 0.91, 0.93, 0.92, 0.94, 0.93, 0.92, 0.93, 0.93, 0.93, 0.93]\\
  
 
-\paragraph{Training.} [0.953, 0.931, 0.989, 0.992, 0.997, 0.999, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+\paragraph{Training.} [0.953, 0.931, 0.989, 0.992, 0.997, 0.999, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] \\
 
 The validation improves with the training. This suggests that boosting is not overfitting (in contrast to our argument for overfitting in Problem 2). 
 
