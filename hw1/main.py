@@ -145,11 +145,11 @@ def main(n, p, v, d, br):
     arguments = validateInput(sys.argv)
     noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds = arguments
     print noisyFlag, pruneFlag, valSetSize, maxDepth, boostRounds
-    noisyFlag = n
-    pruneFlag = p
-    valSetSize = v
-    maxDepth = d
-    boostRounds = br
+    #noisyFlag = n
+    #pruneFlag = p
+    #valSetSize = v
+    #maxDepth = d
+    #boostRounds = br
     # Read in the data file
     
     if noisyFlag:
@@ -180,7 +180,9 @@ def main(n, p, v, d, br):
 # WRITE CODE FOR YOUR EXPERIMENTS HERE
 # ====================================
 
-#print main(False,False,0, 2, 30)
+valscore,learnscore =  main(False,False,0, 2, 30)
+print "valscore: ",valscore," learnescore: ",learnscore
+
 
 """
 xs = range(1, 16)
@@ -194,7 +196,7 @@ print valscores_noiseless
 print learnscores_noiseless
 
 
-"""
+
 xs = range(1, 31)
 valscores_noiseless = []
 learnscores_noiseless = []
@@ -224,7 +226,7 @@ ax.set_xlabel("Boosting set size", fontsize = 16)
 ax.set_ylabel("Score", fontsize = 16) 
 ax.set_title("Boosting Set Size and Performance", fontsize = 20)
 plt.show()
-
+"""
 
 """
 valscore,learnscore = main(False,False,0)
