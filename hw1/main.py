@@ -23,8 +23,9 @@ def classify(decisionTree, example):
 def learn(dataset, pruneFlag, examples):
     learner = DecisionTreeLearner()
     learner.train( dataset)
+    dtree = learner.dt
     if pruneFlag:
-        prune(learner, examples)
+        prune(learner, dtree, examples)
     return learner.dt
 
 # main
@@ -96,9 +97,9 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
         dataset.examples = training_data
         #build the tree
         if pruneFlag:
-            examples = DataSet(examples = pruning_data)
+            examples = pruning_data
         else:
-            examples = DataSet(examples = training_data)
+            examples = training_data
         train = learn(dataset, pruneFlag, examples)
         #score the tree on the validation data
         valscore = check_examples(train, validationdata,targetval)
@@ -110,24 +111,31 @@ def crossvalidation(dataset,numexamples, pruneFlag, valSetSize):
     learncumulativescore /= 10
     return valcumulativescore, learncumulativescore
 
-def prune(z, examples):
-    # if it's a lea, leave it alone
-    try:
+def prune(learner, z, examples):
+    #if it's a leaf, leave it alone
+    if z.nodetype == DecisionTree.NODE:
         #get branches
         branches = z.branches
+        #get the attribute
         attr = z.attr
-        for (v, examples_i) in z.split_by(attr, examples):
-            prune(z.branches[v], examples_i)
+        for (v, examples_i) in learner.split_by(attr, examples):
+            #if there aren't any such examples, ignore that branch
+            if len(examples_i)>0:
+                prune(learner, branches[v], examples_i)
         #yz = majority class
-        yz = z.majority_value(examples)
-        num_yz = count(yz, z, examples)
+        yz = learner.majority_value(examples)
+        num_yz = learner.count(learner.dataset.target, yz, examples)
         tot = len(examples)
         t0_score = float(num_yz)/tot
-        z_score = check_examples(z, examples)
+        z_score = check_examples(z, examples, learner.dataset.target)
+        #print z_score, t0_score
+        #if the majority rule performs better, cut off the rest of the tree
         if z_score <= t0_score:
             z = DecisionTree(DecisionTree.LEAF, classification = yz)
-    except:
-        return 
+  #          print "I pruned something!"
+#        else:
+ #           print "I didn't prune!"
+
 
 def main():
     arguments = validateInput(sys.argv)
@@ -168,4 +176,4 @@ def main():
 main()
 
 
-    
+
