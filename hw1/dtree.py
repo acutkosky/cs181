@@ -328,7 +328,7 @@ class DecisionTreeLearner(Learner):
         self.training = deepcopy(dataset)
         self.validation.examples = validationdata
         self.training.examples = trainingdata
-        print "lens: ",len(self.validation.examples),len(self.training.examples)
+#        print "lens: ",len(self.validation.examples),len(self.training.examples)
         self.attrnames = dataset.attrnames
         self.dt = self.decision_tree_learning(self.training.examples, dataset.inputs,0)
         if(self.pruningsize>0):
@@ -342,7 +342,7 @@ class DecisionTreeLearner(Learner):
             return DecisionTree(DecisionTree.LEAF,
                                 classification=examples[0].attrs[self.dataset.target])
         elif  len(attrs) == 0 or depth == self.depth:
-            print "here: ",len(attrs)
+#            print "here: ",len(attrs)
             return DecisionTree(DecisionTree.LEAF, classification=self.majority_value(examples))
         else:
             best = self.choose_attribute(attrs, examples)
