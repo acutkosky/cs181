@@ -2,8 +2,8 @@
 # -------
 # Ashok Cutkosky and Tony Feng
 
-#import matplotlib.pyplot as plt
-#from pylab import *
+import matplotlib.pyplot as plt
+from pylab import *
 import random
 from dtree import *
 import sys
@@ -192,7 +192,7 @@ print learnscores_noiseless
 
 
 """
-xs = range(10, 15)
+xs = range(10, 31)
 valscores_noiseless = []
 learnscores_noiseless = []
 for x in xs:
@@ -217,9 +217,9 @@ ax=plt.subplot(111)
 ax.plot(xs, valscores_noiseless, 'b-', linewidth = 2.5, label = "Validation scores, noiseless")
 ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
 ax.legend()
-ax.set_xlabel("Pruning validation set size", fontsize = 16)
+ax.set_xlabel("Boosting set size", fontsize = 16)
 ax.set_ylabel("Score", fontsize = 16) 
-ax.set_title("Validation Set Size and Performance", fontsize = 20)
+ax.set_title("Boosting Set Size and Performance", fontsize = 20)
 plt.show()
 
 
@@ -254,11 +254,11 @@ ax.plot(xs, learnscores_noiseless, 'r-', linewidth = 2.5, label = "Learning scor
 ax.plot(xs, valscores_noise, 'g-', linewidth = 2.5, label = "Validation scores, noisy")
 ax.plot(xs, learnscores_noise, 'm-', linewidth = 2.5, label = "Learning scores, noisy")
 ax.legend()
-ax.set_xlabel("Pruning validation set size", fontsize = 16)
+ax.set_xlabel("boosting rounds", fontsize = 16)
 ax.set_ylabel("Score", fontsize = 16) 
-ax.set_title("Validation Set Size and Performance", fontsize = 20)
+ax.set_title("Boosting Rounds and Performance", fontsize = 20)
 plt.show()
     
+
+
 """
-
-
