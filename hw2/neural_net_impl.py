@@ -406,19 +406,58 @@ class HiddenNetwork(EncodedNetworkFramework):
 #<--- Problem 3, Question 8 ---> 
 
 class CustomNetwork(EncodedNetworkFramework):
-  def __init__(self):
+  def __init__(self,number_layer1,number_layer2):
     """
     Arguments:
     ---------
-    Your pick.
+    number_layer1 - the number of hidden nodes in the first layer
+    number_layer2 - the number of hidden nodes in the second hidden lyaer
 
     Returns:
     --------
-    Your pick
+
+    none
 
     Description:
     -----------
-    Surprise me!
+    Makes a network with two hidden layers.
     """
     super(CustomNetwork, self).__init__() # <Don't remove this line>
+
+    # 1) Adds an input node for each pixel
+
+
+    for i in range(196):
+      self.network.AddNode(Node(),NeuralNetwork.INPUT)
+
+    
+    # 2) Adds the hidden layer
+    hidlayer1 = []
+    for i in range(number_of_hidden_nodes):
+      anode = Node()
+      for node in self.network.inputs:
+        anode.AddInput(node,0,self.network)
+      self.network.AddNode(anode,NeuralNetwork.HIDDEN)
+      hidlayer1.append(anode)
+
+        
+    # 3) Adds Another hidden layer
+    hidlayer2 = []
+    for i in range(number_of_hidden_nodes):
+      anode = Node()
+      for node in hidlayer1:
+        anode.AddInput(node,0,self.network)
+      self.network.AddNode(anode,NeuralNetwork.HIDDEN)
+      hidlayer2.append(anode)
+
+
+    # 4) Add an output node for each possible digit label.
+    for i in range(10):
+      anode = Node()
+      for node in hidlayer2:
+        anode.AddInput(node,0,self.network)
+      self.network.AddNode(anode,NeuralNetwork.OUTPUT)
+
+    self.InitializeWeights()
+
     pass
