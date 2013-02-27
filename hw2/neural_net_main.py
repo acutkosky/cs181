@@ -1,6 +1,7 @@
 from data_reader import *
 from neural_net import *
 from neural_net_impl import *
+from matplotlib import pyplot
 import sys
 import random
 
@@ -35,8 +36,11 @@ def main():
   epochs = int(args_map['-e'])
   rate = float(args_map['-r'])
   networkType = args_map['-t']
-
-
+  show_plot = '-d' in args_map
+  if('-s' in args_map):
+    savename = args_map['-s']
+  else:
+    savename = False
   # Load in the training data.
   images = DataReader.GetImages('training-9k.txt', -1)
   for image in images:
@@ -73,9 +77,29 @@ def main():
   print ('Input Nodes: %d, Hidden Nodes: %d, Output Nodes: %d' %
          (len(network.network.inputs), len(network.network.hidden_nodes),
           len(network.network.outputs)))
+  if(show_plot):
+    if(savename != False):
+      print 'Will display plot, saving to %s' % (savename)
+    else:
+      print 'Will display plot without saving'
+  else:
+    if(savename!=False):
+      print 'Will save plot to %s without displaying' %(savename)
   print '* * * * * * * * *'
   # Train the network.
   log = network.Train(images, validation, rate, epochs)
+  epochs = range(0,epochs+1)
+  trainingerrors = [1.0-x[0] for x in log]
+  validationerrors = [1.0-x[1] for x in log]
+  
+  pyplot.plot(epochs,trainingerrors,label="training error")
+  pyplot.plot(epochs,validationerrors,label="validation error")
+  pyplot.title("Training and Validation Error for "+networkType+" network")
+  pyplot.legend()
+  if(savename != False):
+    pyplot.savefig(savename)
+  if(show_plot):
+    pyplot.show()
 
 
 if __name__ == "__main__":
