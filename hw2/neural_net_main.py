@@ -2,6 +2,7 @@ from data_reader import *
 from neural_net import *
 from neural_net_impl import *
 from matplotlib import pyplot
+from pickle import dump,load
 import sys
 import random
 
@@ -88,9 +89,9 @@ def main():
   print '* * * * * * * * *'
   # Train the network.
   log = network.Train(images, validation, rate, epochs)
-  epochs = range(0,epochs+1)
-  trainingerrors = [1.0-x[0] for x in log]
-  validationerrors = [1.0-x[1] for x in log]
+  epochs = range(1,epochs+1)
+  trainingerrors = [1.0-x[0] for x in log[1:]]
+  validationerrors = [1.0-x[1] for x in log[1:]]
   
   pyplot.plot(epochs,trainingerrors,label="training error")
   pyplot.plot(epochs,validationerrors,label="validation error")
@@ -100,6 +101,11 @@ def main():
     pyplot.savefig(savename)
   if(show_plot):
     pyplot.show()
+  
+  if('-l' in args_map):
+    dump(log,args_map['-l'])
+
+  
 
 
 if __name__ == "__main__":

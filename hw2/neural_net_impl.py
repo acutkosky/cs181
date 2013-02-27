@@ -45,7 +45,7 @@ def FeedForward(network, input):
   # 1) Assign input values to input nodes
   for i in range(len(input.values)):
     network.inputs[i].raw_value = input.values[i]
-    network.inputs[i].transformed_value = NeuralNetwork.Sigmoid(network.inputs[i].raw_value)
+    network.inputs[i].transformed_value = input.values[i]
 
 
   # 2) Propagates to hidden layer
@@ -123,6 +123,8 @@ def Backprop(network, input, target, learning_rate):
     for j in range(len(network.inputs[i].forward_weights)):
       er += network.inputs[i].forward_weights[j].value*network.inputs[i].forward_neighbors[j].delta
     network.inputs[i].delta = NeuralNetwork.SigmoidPrime(network.inputs[i].raw_value)*er
+
+
 
 
   for node in network.outputs:
