@@ -2,6 +2,10 @@ from pickle import load
 from sys import argv
 from matplotlib import pyplot
 
+if(len(argv)<2):
+    print "python makegraph.py datafile (title)"
+    exit()
+
 f = open(argv[1],"r")
 data = load(f)
 f.close()
