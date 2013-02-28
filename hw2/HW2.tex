@@ -57,6 +57,7 @@
 \newcommand{\A}{\mathbb{A}}
 \newcommand{\ti}{\times}
 \newcommand{\Hbb}{\mathbb{H}}
+\newcommand{\mbf}[1]{\mathbf{#1}}
 %\newcommand{\leg}[2]{\left(\frac{ \# 1}{\# 2} \right)}
 
 \DeclareMathOperator{\GL}{GL}
@@ -107,7 +108,45 @@
 \begin{document}
 \maketitle
 
-\noindent \textbf{Problem 1.}
+\noindent \textbf{Problem 1.} It will be useful to note the following property of perceptrons, which will aid us in proving that certain problems are not linearly separable. By including a ``dummy feature'' $x_0$ which always has value $1$, we may assume that hypothesis function is given by 
+\[
+h_{\mbf{w}}(\mbf{x}) = g(\mbf{x}^T \mbf{w})
+\]
+Then if $\mbf{x}$ and $\mbf{y}$ are both classified positively, we have $h_{\mbf{w}}(\mbf{x}) >0 $ and $h_{\mbf{w}}(mbf{y}) > 0$ so $h_{\mbf{w}}(\mbf{x}+\mbf{y}) > 0$ by linearity. 
+
+If problems $\mbf{x}'$ and $\mbf{y}'$ that are both classified negatively, similar logic implies that $h_{\mbf{w}}(\mbf{x}'+\mbf{y}') \leq 0$. We have proved the following: 
+
+\begin{lemma}\label{no_perceptron}
+If there exist feature vectors $\mbf{x}, \mbf{y}$ that are classified positively and $\mbf{x}', \mbf{y}'$ that are classified negatively such that $\mbf{x} + \mbf{y} = \mbf{x}' + \mbf{y}'$, then the problem does not admit a solution by a perceptron. 
+\end{lemma}
+
+\begin{enumerate}
+\item No perceptron can solve this. Indeed, take 
+\[
+\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ -1 & -1 & -1 \end{pmatrix} 
+\]
+ and  
+\[
+\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
+\]
+which fulfill the hypotheses of Lemma \ref{no_perceptron}.
+
+\item We claim that the perceptron with weights indicated by the matrix
+\[
+\begin{pmatrix} w_{11} = 1 & w_{12} = 1 & w_{13} = 1 \\ w_{21} = \frac{1}{2} & w_{22} = \frac{1}{2} &  w_{23} = \frac{1}{2}  \\ w_{31} = \frac{1}{2} & w_{32} = \frac{1}{2} & w_{33} = \frac{1}{2}  \end{pmatrix}
+\]
+classifies this problem. Indeed, suppose that there are $a$ ``on'' pixels in the top row and $b$ ``on'' pixes in the bottom two rows. Then $\mbf{w}^T  x = a - (3-a) + \frac{1}{2} (b - (3-b)) = 2a-3  - (b-3) = 2a - b$, which is positive if and only if $2a > b$. On the other hand, the fraction of ``on'' pixels in the top row is $\frac{a}{3}$ and the fraction of ``on'' pixels in the bottom two rows is $\frac{b}{6}$, so the former is larger than the latter if and only if $2a > b$, as desired. 
+
+\item No perceptron can solve this. Indeed, take 
+\[
+\mbf{x} = \begin{pmatrix} 1 & -1 & 1 \\ -1 & 1 & -1 \\ 1 & -1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & 1 & -1 \\ 1 & -1 & 1 \\ -1 & 1 & -1 \end{pmatrix} 
+\]
+ and  
+\[
+\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
+\]
+which fulfill the hypotheses of Lemma \ref{no_perceptron}.
+\end{enumerate}
 
 
 
@@ -142,9 +181,9 @@
 $C$ is attempting to address the complexity of the network - it is implementing regularization. A network in which many weights are actually zero represents a graph in which some nodes in one layer are actually not connected to nodes in the next layer, which is a simpler scenario than the fully-connected network. The additional summation in $C$ penalizes higher weights so that the network will limit its complexity.
 
 \item[2.]
-If our learning rate is $\alpha$, then we want the update rule to be 
+If our learning rate is $\alpha$, then according to gradient descent, we want the update rule to be 
 \[
-{w_{{mj}}}^{r+1}\from {w_{mj}}^r + \alpha \frac{\del C}{\del w_{mj}}
+w_{mj}^{(r+1)} \leftarrow w_{mj}^{(r)} + \alpha \frac{\partial C}{\partial w_{mj}^{(r)}}
 \]
 Now we have
 \[
@@ -153,12 +192,17 @@ C=\mathcal{L}+\lambda \sum {w_{mj}}^2
 Where the second sum runs over all the weights in the network.
 Thus
 \[
-\frac{\del C}{\del w_{mj}} = \frac{\del \mathcal{L}}{\del w_{mj}}+2\lambda w_{mj}
+\frac{\partial C}{\ w_{mj}} = \frac{\partial \mathcal{L}}{\partial w_{mj}}+2\lambda w_{mj}
 \]
-We already know $\frac{\del \mathcal{L}}{\del w_i}$ from the original backprogagation rule. Thus our update rule is
+and 
 \[
-{w_{mj}}^{r+1}\from {w_{mj}^{r}+\alpha a_{m}\delta_j-2\alpha\lambda w_{mj}
+\frac{\partial C}{\ w_{km}} = \frac{\partial \mathcal{L}}{\partial w_{km}}+2\lambda w_{km}
 \]
+We already know $\frac{\partial \mathcal{L}}{\partial w_i}$ from the original backprogagation rule. Thus our update rule is
+\[
+w_{mj}^{(r+1)} \leftarrow w_{mj}^{(r)}+\alpha a_{m}\delta_j-2\alpha\lambda w_{mj}
+\]
+and analogous for $w_{km}$, just replacing the indices. 
 \end{itemize}
 
 
