@@ -112,7 +112,7 @@
 \[
 h_{\mbf{w}}(\mbf{x}) = g(\mbf{x}^T \mbf{w})
 \]
-Then if $\mbf{x}$ and $\mbf{y}$ are both classified positively, we have $h_{\mbf{w}}(\mbf{x}) >0 $ and $h_{\mbf{w}}(mbf{y}) > 0$ so $h_{\mbf{w}}(\mbf{x}+\mbf{y}) > 0$ by linearity. 
+Then if $\mbf{x}$ and $\mbf{y}$ are both classified positively, we have $h_{\mbf{w}}(\mbf{x}) >0 $ and $h_{\mbf{w}}(\mbf{y}) > 0$ so $h_{\mbf{w}}(\mbf{x}+\mbf{y}) > 0$ by linearity. 
 
 If problems $\mbf{x}'$ and $\mbf{y}'$ that are both classified negatively, similar logic implies that $h_{\mbf{w}}(\mbf{x}'+\mbf{y}') \leq 0$. We have proved the following: 
 
@@ -123,11 +123,11 @@ If there exist feature vectors $\mbf{x}, \mbf{y}$ that are classified positively
 \begin{enumerate}
 \item No perceptron can solve this. Indeed, take 
 \[
-\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ -1 & -1 & -1 \end{pmatrix} 
+\mbf{x} \leftrightarrow \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ 1 & 1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} \leftrightarrow \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ -1 & -1 & -1 \end{pmatrix} 
 \]
  and  
 \[
-\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
+\mbf{x} \leftrightarrow \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} \leftrightarrow \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
 \]
 which fulfill the hypotheses of Lemma \ref{no_perceptron}.
 
@@ -139,18 +139,35 @@ classifies this problem. Indeed, suppose that there are $a$ ``on'' pixels in the
 
 \item No perceptron can solve this. Indeed, take 
 \[
-\mbf{x} = \begin{pmatrix} 1 & -1 & 1 \\ -1 & 1 & -1 \\ 1 & -1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & 1 & -1 \\ 1 & -1 & 1 \\ -1 & 1 & -1 \end{pmatrix} 
+\mbf{x} \leftrightarrow \begin{pmatrix} 1 & -1 & 1 \\ -1 & 1 & -1 \\ 1 & -1 & 1 \end{pmatrix} \hspace{1cm} \mbf{y} \leftrightarrow \begin{pmatrix} -1 & 1 & -1 \\ 1 & -1 & 1 \\ -1 & 1 & -1 \end{pmatrix} 
 \]
  and  
 \[
-\mbf{x} = \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} = \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
+\mbf{x} \leftrightarrow \begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 1 \\ -1 & -1 & -1 \end{pmatrix} \hspace{1cm} \mbf{y} \leftrightarrow \begin{pmatrix} -1 & -1 & -1 \\ -1 & -1 & -1 \\ 1 & 1 & 1 \end{pmatrix} ,
 \]
 which fulfill the hypotheses of Lemma \ref{no_perceptron}.
 \end{enumerate}
 
 
 
-\noindent \textbf{Problem 2.}
+\noindent \textbf{Problem 2.} 
+\begin{enumerate}
+\item \emph{Decision Trees} are effective when there are a few inputs of great significance. They can represent interesting interactions between inputs, which is useful in identifying idiosyncratic features of certain digits, such as contiguous segments.
+
+However, decision trees are not effective at judging the input holistically, being required to focus on one feature at a time. This seems like a severe problem in digit recognition, where it is the general shape of the figure, rather than the particular input pixels that it occupies, which is important for identification. 
+
+\item \emph{Boosted decision stumps} have the advantage of tending not to overfit, which seems like a real pitfall in the digit classification problem. Digit classification is qualitatively similar to polynomial fitting of data points, so it is conceivable that a learner would be susceptible to overfitting the specific features of the training data. 
+
+However, boosting is essentially a hodgepodge of weak methods, and its effectiveness does depend on the efficacy of these weak learners. We have seen that naive learners struggle to identify features such as connectivity, which is certainly important in digit recognition. 
+
+\item \emph{Perceptrons.} Perceptrons are useful for identifying linear decision boundaries, and can depend on all of the input data. In this way, they are better for holistically judging the input than are decision trees. 
+
+However, they suffer from not being able to identify interesting interactions between the inputs, and such interactions are important in handwriting recognition for the purpose of identifying contiguous segments and loops. 
+
+\item \emph{Multi-layer feed forward Neural Networks} possess much more flexibility and range than perceptrons. They can represent virtually any function of the input, given sufficiently many layers. 
+
+However, the range of expression also makes neural networks vulnerable to overfitting. Regularization, pruning, and other methods should be used to ensure that this does not happen. 
+\end{enumerate}
 
 \noindent \textbf{Problem 3.}
 
