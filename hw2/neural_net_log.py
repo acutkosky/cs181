@@ -37,7 +37,7 @@ def main():
   rate = float(args_map['-r'])
   networkType = args_map['-t']
   show_plot = '-d' in args_map
-  trainandperformace = '-p' in args_map
+  performance = '-p' in args_map
   if('-s' in args_map):
     savename = args_map['-s']
   else:
