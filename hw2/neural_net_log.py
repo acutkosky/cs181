@@ -37,6 +37,7 @@ def main():
   rate = float(args_map['-r'])
   networkType = args_map['-t']
   show_plot = '-d' in args_map
+  trainandperformace = '-p' in args_map
   if('-s' in args_map):
     savename = args_map['-s']
   else:
@@ -88,6 +89,23 @@ def main():
   print '* * * * * * * * *'
   # Train the network.
   log = network.Train(images, validation, rate, epochs)
+
+
+  if(performance):
+    # Load in the test data.
+    test = DataReader.GetImages('test-1k.txt', -1)
+    for image in test:
+      assert len(image.pixels) == 14
+      assert len(image.pixels[0]) == 14
+    testperf = network.Performance(test)
+    valperf = network.Performance(validation)
+    trainperf = network.Performance(images)
+    print "Test Performance: ",testperf
+    print "Validation Performance: ",valperf
+    print "Training Performance: ",trainperf
+
+
+
   if('-l' in args_map):
     f = open(args_map['-l'],"w")
     dump(log,f)
