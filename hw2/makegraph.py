@@ -14,10 +14,10 @@ epochs = range(1,len(data))
 training = [1-x[0] for x in data[1:]]
 validation = [1-x[1] for x in data[1:]]
 pyplot.plot(epochs,training,label = "training data")
-pyplot.plot(epochs,validation,label = "validataion data")
+pyplot.plot(epochs,validation,label = "validation data")
 pyplot.legend()
 
 if(len(argv)>2):
-    pyplot.title(argv[2])
+    pyplot.title(reduce(lambda x,y:x+" "+y,argv[2:],""))
 
 pyplot.show()
