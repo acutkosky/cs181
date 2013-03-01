@@ -178,26 +178,87 @@ However, the range of expression also makes neural networks vulnerable to overfi
 Technically normalization is not absolutely necessary - the same algorithm will work, and there is a clear correspondence between normalized and non-normalized neural networks given by scaling the weights on edges coming out of the inputs on a non-normalized network by $256$ to get an equivalent normalized network. However normalization causes smaller changes in the weights to have larger effects on the outputs since the inputs are small and this may cause the network to learn somewhat faster.
 \item[6.]
 \begin{itemize}
-\item[a.] Learning rate 0.05
-\item[b.] 
+\item[a.] Here are some plots of error for 10 epochs with various learning rates
+\[
+\begin{array}{cc}
+\includegraphics[height=1.5in]{test_1}&\includegraphics[height=1.5in]{test_05}\\
+\text{learning rate = 1.0}&\text{learning rate = 0.5}\\
 
-\includegraphics[height =2in]{simple100_005}
+\includegraphics[height=1.5in]{test_01}&\includegraphics[height=1.5in]{test_005}\\
+\text{learning rate = 0.1}&\text{learning rate = 0.05}\\
+\includegraphics[height=1.5in]{test_001}&\includegraphics[height=1.5in]{test_0001}\\
+\text{learning rate = 0.01}&\text{learning rate = 0.001}
+\end{array}
+\]
+We chose learning rate $0.05$
+\item[b.] 
+Here is a plot of error versus epochs
+
+\includegraphics[height =2.5in]{simple100_005}
 
 60 is a good number of epochs to train for, since validation set error stops decreasing at that point. It is important to use the validation set to tune the number of epochs because the validation set will measure how well our learning on the test set generalizes to other examples, so that we avoid overfitting.
 
-\item[c.] At 60 epochs the training set performance was 0.863 and the validation set performance was 0.858.
+\item[c.] At 60 epochs the training set performance was 0.863 and the validation set performance was 0.858 and the test performance was 0.916
 \end{itemize}
-
 
 \item[7.]
 \begin{itemize}
-\item[a.] The learning rate for 15 nodes was 0.5. The learning rate for 30 nodes was 0.25.
+\item[a.] Here are some plots for various learning rates for 15 nodes:
+\[
+\begin{array}{cc}
+\includegraphics[height=1.5in]{hidden15test_1}&\includegraphics[height=1.5in]{hidden15test_075}\\
+\text{learning rate = 1.0}&\text{learning rate = 0.75}\\
+\includegraphics[height=1.5in]{hidden15test_05}&\includegraphics[height=1.5in]{hidden15test_125}\\
+\text{learning rate = 0.5}&\text{learning rate = 1.25}\\
+&\includegraphics[height=1.5in]{hidden15test_01}\\
+&\text{learning rate = 0.1}
+\end{array}
+\]
+The learning rate for 15 nodes was $0.5$.
+
+Here are similar plots for 30 hidden nodes:
+\[
+\begin{array}{cc}
+\includegraphics[height=1.5in]{hidden30test_1}&\includegraphics[height=1.5in]{hidden30test_075}\\
+\text{learning rate = 1.0}&\text{learning rate = 0.75}\\
+\includegraphics[height=1.5in]{hidden30test_05}&\includegraphics[height=1.5in]{hidden30test_125}\\
+\text{learning rate = 0.5}&\text{learning rate = 1.25}\\
+\end{array}
+\]
+The learning rate for 30 nodes we chose was $0.25$.
+
+%stopped after 26 for 30.
+%Test Performance:  0.946
+%Validation Performance:  0.885
+%Training Performance:  0.927444444444
+
+
+%stopped after 20 for 15
+%Test Performance:  0.933
+%Validation Performance:  0.884
+%Training Performance:  0.929666666667
+
+
 
 \item[b.] We want to stop learning when the validation set performance levels off, since at this point we are starting to overfit the training set.
 A rough proxy for this is to check whether the validation set performance at epoch $n$ is smaller  than the validation set performance at epoch $n-10$.
 We can stop when this occurs.
-\item[c.]
 
+\item[c.]
+Training stopped after 20 epochs for 15 hidden nodes, and after 26 for 30 hidden nodes.
+The plot for 15 hidden nodes is;
+
+\includegraphics[height=2.5in]{hidden15_perf}
+
+The plot for 30 hidden nodes is:
+
+\includegraphics[height=2.5in]{hidden30_perf}
+
+We choose 30 hidden nodes since it has the best validation performance.
+
+\item[d.] The test performance of 30 hidden nodes was $0.946$, which is somewhat better than the simple perceptron test performance.
+
+\end{itemize}
 
 \item[8.] Our custom network features two hidden layers. The first hidden layer consists of nodes connected 
 to connected $3 \times 3$ squares of the image, jumping by intervals of $3$ (so that the squares are 
