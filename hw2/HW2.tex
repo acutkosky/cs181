@@ -186,10 +186,21 @@ However, the range of expression also makes neural networks vulnerable to overfi
 60 is a good number of epochs to train for, since validation set error stops decreasing at that point. It is important to use the validation set to tune the number of epochs because the validation set will measure how well our learning on the test set generalizes to other examples, so that we avoid overfitting.
 
 \item[c.] At 60 epochs the training set performance was 0.863 and the validation set performance was 0.858.
+\end{itemize}
+
+\item[8.] Our custom network features two hidden layers. The first hidden layer consists of nodes connected 
+to connected $3 \times 3$ squares of the image, jumping by intervals of $3$ (so that the squares are 
+disconnected). This idea exploits the locality of images - that is, the fact that we should focus on important 
+\emph{groups} of pixels rather than individual pixels. It is one of the two important tools from the Le Cun et 
+al. paper. The point is that we believe generalizable models should operate at a lower level of resolution.
+
+The second hidden layer is the same as in the simple neural network. We observed that performance peaked 
+at about $0.75$, so it was actually worse than the simple neural network. Perhaps our hypothesis about 
+locality was wrong. 
 
 \end{itemize}
 
-\end{itemize}
+
 \noindent \textbf{Problem 4.}
 
 \begin{itemize}

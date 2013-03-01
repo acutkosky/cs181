@@ -408,7 +408,7 @@ class HiddenNetwork(EncodedNetworkFramework):
 #<--- Problem 3, Question 8 ---> 
 
 class CustomNetwork(EncodedNetworkFramework):
-  def __init__(self,number_layer1,number_layer2):
+  def __init__(self, number_layer2 = 30):
     """
     Arguments:
     ---------
@@ -434,18 +434,25 @@ class CustomNetwork(EncodedNetworkFramework):
 
     
     # 2) Adds the hidden layer
+      # this layer is FORCED to be local, i.e. depend only one localized groups
+      # of nodes 
     hidlayer1 = []
-    for i in range(number_of_hidden_nodes):
-      anode = Node()
-      for node in self.network.inputs:
-        anode.AddInput(node,0,self.network)
-      self.network.AddNode(anode,NeuralNetwork.HIDDEN)
-      hidlayer1.append(anode)
+    for i in range(1, 14,3):
+        for j in range(1, 14,3):
+            anode = Node()
+            inputs = self.network.inputs
+            for row in range(i-1, i+1):
+                for column in range(j-1, j+1):
+                    anode.AddInput(inputs[14*(row)+(column)], 0, self.network)
+                #                       for node in self.network.inputs:
+                        #anode.AddInput(node,0,self.network)
+            self.network.AddNode(anode,NeuralNetwork.HIDDEN)
+            hidlayer1.append(anode)
 
         
     # 3) Adds Another hidden layer
     hidlayer2 = []
-    for i in range(number_of_hidden_nodes):
+    for i in range(number_layer2):
       anode = Node()
       for node in hidlayer1:
         anode.AddInput(node,0,self.network)
