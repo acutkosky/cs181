@@ -91,7 +91,7 @@ def main():
     print 'Saving logdata to %s\n' % (args_map['-l'])
   print '* * * * * * * * *'
   # Train the network.
-  log = network.Train(images, validation, rate, epochs)
+  log = network.Train(images, validation, rate, epochs,performance)
   epochs = range(1,epochs+1)
   trainingerrors = [1.0-x[0] for x in log[1:]]
   validationerrors = [1.0-x[1] for x in log[1:]]
@@ -101,18 +101,16 @@ def main():
   pyplot.title("Training and Validation Error for "+networkType+" network")
   pyplot.legend()
 
-  if(performance):
-    # Load in the test data.
-    test = DataReader.GetImages('test-1k.txt', -1)
-    for image in test:
-      assert len(image.pixels) == 14
-      assert len(image.pixels[0]) == 14
-    testperf = network.Performance(test)
-    valperf = network.Performance(validation)
-    trainperf = network.Performance(images)
-    print "Test Performance: ",testperf
-    print "Validation Performance: ",valperf
-    print "Training Performance: ",trainperf
+  test = DataReader.GetImages('test-1k.txt', -1)
+  for image in test:
+    assert len(image.pixels) == 14
+    assert len(image.pixels[0]) == 14
+  testperf = network.Performance(test)
+  valperf = network.Performance(validation)
+  trainperf = network.Performance(images)
+  print "Test Performance: ",testperf
+  print "Validation Performance: ",valperf
+  print "Training Performance: ",trainperf
 
 
   if(savename != False):

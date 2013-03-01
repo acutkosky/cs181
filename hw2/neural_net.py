@@ -193,7 +193,7 @@ class NetworkFramework(object):
         correct += 1
     return correct * 1.0 / len(images)
 
-  def Train(self, images, validation_images, learning_rate, epochs):
+  def Train(self, images, validation_images, learning_rate, epochs,halt=False):
 
     # Convert the images and labels into a format the network can understand.
     inputs = []
@@ -220,6 +220,9 @@ class NetworkFramework(object):
 
       # updates log
       performance_log.append((perf_train, perf_validate))
+      if(i>9 and halt):
+        if(performance_log[i][1]<performance_log[i-10][1]):
+          return performance_log
     return performance_log
 
   def RegisterFeedForwardFunction(self, fn):

@@ -175,7 +175,7 @@ However, the range of expression also makes neural networks vulnerable to overfi
 \item[1.-4.] See source code.
 
 \item[5.]
-
+Technically normalization is not absolutely necessary - the same algorithm will work, and there is a clear correspondence between normalized and non-normalized neural networks given by scaling the weights on edges coming out of the inputs on a non-normalized network by $256$ to get an equivalent normalized network. However normalization causes smaller changes in the weights to have larger effects on the outputs since the inputs are small and this may cause the network to learn somewhat faster.
 \item[6.]
 \begin{itemize}
 \item[a.] Learning rate 0.05
@@ -187,6 +187,17 @@ However, the range of expression also makes neural networks vulnerable to overfi
 
 \item[c.] At 60 epochs the training set performance was 0.863 and the validation set performance was 0.858.
 \end{itemize}
+
+
+\item[7.]
+\begin{itemize}
+\item[a.] The learning rate for 15 nodes was 0.5. The learning rate for 30 nodes was 0.25.
+
+\item[b.] We want to stop learning when the validation set performance levels off, since at this point we are starting to overfit the training set.
+A rough proxy for this is to check whether the validation set performance at epoch $n$ is smaller  than the validation set performance at epoch $n-10$.
+We can stop when this occurs.
+\item[c.]
+
 
 \item[8.] Our custom network features two hidden layers. The first hidden layer consists of nodes connected 
 to connected $3 \times 3$ squares of the image, jumping by intervals of $3$ (so that the squares are 

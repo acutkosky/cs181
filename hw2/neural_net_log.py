@@ -88,21 +88,21 @@ def main():
       print 'Will save plot to %s without displaying' %(savename)
   print '* * * * * * * * *'
   # Train the network.
-  log = network.Train(images, validation, rate, epochs)
+  log = network.Train(images, validation, rate, epochs,performance)
 
 
-  if(performance):
-    # Load in the test data.
-    test = DataReader.GetImages('test-1k.txt', -1)
-    for image in test:
-      assert len(image.pixels) == 14
-      assert len(image.pixels[0]) == 14
-    testperf = network.Performance(test)
-    valperf = network.Performance(validation)
-    trainperf = network.Performance(images)
-    print "Test Performance: ",testperf
-    print "Validation Performance: ",valperf
-    print "Training Performance: ",trainperf
+
+  # Load in the test data.
+  test = DataReader.GetImages('test-1k.txt', -1)
+  for image in test:
+    assert len(image.pixels) == 14
+    assert len(image.pixels[0]) == 14
+  testperf = network.Performance(test)
+  valperf = network.Performance(validation)
+  trainperf = network.Performance(images)
+  print "Test Performance: ",testperf
+  print "Validation Performance: ",valperf
+  print "Training Performance: ",trainperf
 
 
 
