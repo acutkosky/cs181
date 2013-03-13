@@ -264,12 +264,29 @@ We choose 30 hidden nodes since it has the best validation performance.
 to connected $3 \times 3$ squares of the image, jumping by intervals of $3$ (so that the squares are 
 disconnected). This idea exploits the locality of images - that is, the fact that we should focus on important 
 \emph{groups} of pixels rather than individual pixels. It is one of the two important tools from the Le Cun et 
-al. paper. The point is that we believe generalizable models should operate at a lower level of resolution.
+al. paper. The point is that we believe generalizable models should operate at a lower level of resolution. W
 
-The second hidden layer is the same as in the simple neural network. We observed that performance peaked 
+The second hidden layer is the same as in the simple neural network. e tried tuning parameters, such as the number of $3 \times 3$ squares examind and the number of hidden nodes in the second network. We observed that performance peaked 
 at about $0.75$, so it was actually worse than the simple neural network. Perhaps our hypothesis about 
-locality was wrong. 
+locality was wrong, or requires additional finessing to be effective. 
 
+
+\begin{tabular}{|lll|}
+\hline
+Epoch & Performance (Training) & Performance (Validation) \\
+\hline
+1 & 0.10177778 & 0.114 \\
+2 & 0.59233333 & 0.571 \\
+3 & 0.70577778 & 0.679 \\
+4 & 0.74166667 & 0.733 \\
+5 & 0.73555556 & 0.750 \\
+6 &  0.77600000 & 0.777 \\
+7 & 0.73277778 & 0.722 \\
+8 & 0.77411111 & 0.757 \\
+9 & 0.76500000 & 0.748 \\
+10 & 0.78688889 & 0.774 \\
+\hline 
+\end{tabular}
 \end{itemize}
 
 
