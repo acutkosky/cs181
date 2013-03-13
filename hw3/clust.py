@@ -6,6 +6,7 @@ import sys
 import random
 import utils
 import numpy
+import math
 
 DATAFILE = "adults.txt"
 
@@ -140,44 +141,58 @@ def main():
         except: #nothing in this cluster, go to random point
             return random.sample(xs, 1)
     
+    def k_means(xs, numExamples, rlist, numClusters):
+        converged = False
+        while not(converged):
+            converged = True
+            #we change this if any means get updated
+            for n in range(numExamples):
+                #find the index of the old mean
+                k_old = numpy.argmax(rlist[n])
+                rlist[n] = zero_list(numClusters)
+                #find the best cluster, i.e. that minimizes the L_2 norm
+                k = utils.argmin_index(means, lambda y : utils.squareDistance(data[n],y))
+                rlist[n][k]=1
+                #as long as one datapoint changes clusters, we have failed to converge
+                if not(k_old == k):
+                    condition = False
+            #unit test
+            assert checkMembership(rlist)
+            for k in range(numClusters):
+                means[k] = avg(rlist, xs, numExamples, k)
 
-    converged = False
-    while not(converged):
-        converged = True
-        #we change this if any means get updated
-        for n in range(numExamples):
-            #find the index of the old mean
-            k_old = numpy.argmax(rlist[n])
-            rlist[n] = zero_list(numClusters)
-            #find the best cluster, i.e. that minimizes the L_2 norm
-            k = utils.argmin_index(means, lambda y : utils.squareDistance(data[n],y))
-            rlist[n][k]=1
-            #as long as one datapoint changes clusters, we have failed to converge
-            if not(k_old == k):
-                condition = False
-        #unit test
-        assert checkMembership(rlist)
-        for k in range(numClusters):
-            means[k] = avg(rlist, xs, numExamples, k)
+        print "---------"
+         
+        for i in range(numClusters):
+            print "mean of cluster ",i, " is ", means[i]
 
-    print "---------"
-     
-    for i in range(numClusters):
-        print "mean of cluster ",i, " is ", means[i]
+        #computes mean-squared distance from points to clusters
+        #rs = r values, xs = x values (see notes)
+        def mean_squared(means, rlist, xs):
+            tot = 0
+            for n in range(len(xs)):
+                for k in range(len(means)):
+                    tot += rlist[n][k]*utils.squareDistance(xs[n], means[k])
+            return tot
 
-    #computes mean-squared distance from points to clusters
-    #rs = r values, xs = x values (see notes)
-    def mean_squared(means, rlist, xs):
-        tot = 0
-        for n in range(len(xs)):
-            for k in range(len(means)):
-                tot += rlist[n][k]*utils.squareDistance(xs[n], means[k])
-        return tot
+        print "mean_squared is ", mean_squared(means, rlist, xs)
 
-    print "mean_squared is ", mean_squared(means, rlist, xs)
+    #HIERARCHICAL AGGLOMERATIVE CLUSTERING
+    #d = 0: use min metric
+    #d = 1: use max metric
+    #d = 2: use mean metric
+    #d = 3: use cent method
+    def HAC(xs, numClusters, d=0):
+        #the minimum distance metric
+            
+        clusters = []
+        for x in xs:
+            clusters.append([x])
+        while len(clusters)<numClusters:
+            
+        
 
-
-
+        
 
 
 
