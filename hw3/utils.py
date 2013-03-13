@@ -12,6 +12,18 @@ def argmin(seq, fn):
             best, best_score = x, x_score
     return best
 
+def argmin_index(seq, fn):
+    """Return the index of an element with lowest fn(seq[i]) score; tie goes to first one.
+    >>> argmin(['one', 'to', 'three'], len)
+    1
+    """
+    best = seq[0]; best_score = fn(best); best_index = 0
+    for i in range(len(seq)):
+        x = seq[i]
+        x_score = fn(x)
+        if x_score < best_score:
+            best, best_score, best_index = x, x_score, i
+    return best_index
 
 def squareDistance(xs, ys):
     """ Computes the square distance of two vectors in n dimensions
