@@ -167,8 +167,8 @@ def mean_metric(A,B):
     return total/float(len(A)*len(B))
 
 def cent_metric(A,B):
-    Asum = reduce(sumvecs,A)
-    Bsum = reduce(sumvecs,B)
+    Asum = reduce(sum_vecs,A)
+    Bsum = reduce(sum_vecs,B)
     return [a/float(len(A)) - b/float(len(B)) for a,b in zip(Asum,Bsum)]
 
 
@@ -201,13 +201,14 @@ def HAC(xs, numClusters, d=0):
         jbest = 1
         mindist = metric(clusters[0],clusters[1])
         for i in range(len(clusters)):
-            for j in range(i,len(clusters)):
+            for j in range(i+1,len(clusters)):
                 distance = metric(clusters[i],clusters[j])
                 if(distance<mindist):
                     ibest = i
                     jbest = j
                     mindist = distance
         #remove clusters at index j, append to cluster at index i
+        assert(ibest<jbest)
         jclust = clusters.pop(jbest)
         clusters[ibest] += jclust
 
