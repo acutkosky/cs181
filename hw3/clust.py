@@ -120,7 +120,7 @@ def k_means(xs, numExamples,numClusters):
         #find the index of the old mean
         rlist.append(zero_list(numClusters))
         #find the best cluster, i.e. that minimizes the L_2 norm
-        k = utils.argmin_index(means, lambda y : utils.squareDistance(data[n],y))
+        k = utils.argmin_index(means, lambda y : utils.squareDistance(xs[n],y))
         rlist[n][k]=1        
 
 
@@ -133,7 +133,7 @@ def k_means(xs, numExamples,numClusters):
             k_old = numpy.argmax(rlist[n])
             rlist[n] = zero_list(numClusters)
             #find the best cluster, i.e. that minimizes the L_2 norm
-            k = utils.argmin_index(means, lambda y : utils.squareDistance(data[n],y))
+            k = utils.argmin_index(means, lambda y : utils.squareDistance(xs[n],y))
             rlist[n][k]=1
             #as long as one datapoint changes clusters, we have failed to converge
             if not(k_old == k):
@@ -162,7 +162,7 @@ def max_metric(A,B):
     return max([Distance(a,b) for a in A for b in B])
 
 def mean_metric(A,B):
-    dists = [Distance(a,b) for a in A for b in B])
+    dists = [Distance(a,b) for a in A for b in B]
     total = reduce(lambda x,y:x+y,dists)
     return total/float(len(A)*len(B))
 
@@ -194,15 +194,15 @@ def HAC(xs, numClusters, d=0):
     if(d==3):
         metric = cent_metric
 
-    while len(clusters)<numClusters:
+    while len(clusters)>numClusters:
         #iterate through the pairs of clusters to find the pair
         #with indices ibest,jbest that are closest to each other
         ibest = 0
         jbest = 1
-        mindist = distance(clusters[0],clusters[1])
-        for i in range(len(cluster)):
-            for j in range(i,len(cluster)):
-                distance = metric(cluster[i],clusters[j])
+        mindist = metric(clusters[0],clusters[1])
+        for i in range(len(clusters)):
+            for j in range(i,len(clusters)):
+                distance = metric(clusters[i],clusters[j])
                 if(distance<mindist):
                     ibest = i
                     jbest = j
@@ -254,7 +254,7 @@ def main():
     
     
     dataset.close()
-    printOutput(data,numExamples)
+    #printOutput(data,numExamples)
 
     # ==================== #
     # WRITE YOUR CODE HERE #
