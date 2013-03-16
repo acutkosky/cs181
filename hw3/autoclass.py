@@ -1,5 +1,5 @@
-from random import random
-from math import exp.pi,sqrt
+from random import random,choice
+from math import exp,pi,sqrt
 
 #
 # Have two classes, one for probability distributions over a binary set a
@@ -11,10 +11,10 @@ from math import exp.pi,sqrt
 
 
 class BinaryFeature:
-    def __init__():
+    def __init__(self):
         self.theta = random()
         
-    def update(featurelist,probabilities):
+    def update(self,featurelist,probabilities):
         #expected size of this cluster
         Esize = reduce(lambda x,y:x+y,probabilities) 
 
@@ -25,29 +25,40 @@ class BinaryFeature:
         self.theta = Efeature/Esize
 
     #the probability that x occurs 
-    def prob(x):
+    def prob(self,x):
         if(x>0):
             return self.theta
         return 1-self.theta
 
 class ContinuousFeature:
-    def __init__():
+    def __init__(self,mu=None):
         #initialize stuff somehow. probably should be done better later.
         self.mu = 2*random()-1.0
         self.sigma = 2*random()
+        if(mu == None):
+            self.mu = 2*random()-1.0
+        else:
+            self.mu = mu
+        self.sigma = 10*random()+0.01
 
-    def update(featurelist,probabilities):
+    def update(self,featurelist,probabilities):
         #expected size of this cluster
         Esize = reduce(lambda x,y:x+y,probabilities) 
-
+        if(Esize == 0.0):
+            self.mu = choice(featurelist)
+            self.sigma = 10*random()
+        else:
         #expected mu
-        self.mu = (1/float(Esize))*reduce(lambda x,i:x+probabilities[i]*featurelist[i],range(len(probabilities)))
+            self.mu = (1/float(Esize))*reduce(lambda x,i:x+probabilities[i]*featurelist[i],range(len(probabilities)))
 
         #expected sigma
-        self.sigma = sqrt((1/float(Esize))*reduce(lambda x,i:x+probabilities[i]*(featurelist[i]-self.mu)**2,range(len(probabilities))))
+            self.sigma = sqrt((1/float(Esize))*reduce(lambda x,i:x+probabilities[i]*(featurelist[i]-self.mu)**2,range(len(probabilities))))
 
-    def prob(x):
-        return 1/float(self.sigma*sqrt(2)*pi) *exp(-(x-self.mu))**2/float(2*self.sigma**2)
+        if(self.sigma<0.01):
+            self.sigma = 0.01
+    def prob(self,x):
+        assert self.sigma>=0.01
+        return 1/float(self.sigma*sqrt(2)*pi) *exp(-(x-self.mu)**2/float(2*self.sigma**2))
 
 class AutoClass:
 
@@ -71,7 +82,7 @@ class AutoClass:
         
 
 
-    def __init__(xs,numClusters):
+    def __init__(self,xs,numClusters):
         
         self.numExamples = len(xs)
         self.numClusters = numClusters
@@ -80,20 +91,32 @@ class AutoClass:
 
         #pi[k] should be the probability that a random element is in cluster k
         self.pi = [random() for x in range(numClusters)]
+        tot = reduce(lambda x,y:x+y,self.pi)
+        self.pi = [x/tot for x in self.pi]
+ 
 
         #For d attributes and k clusters we have dk distributions
-        self.featureDists = [[]]*self.numFeatures
+        self.featureDists = []
+        for d in range(self.numFeatures):
+            self.featureDists.append([])
+        self.gamma = []
+        for i in range(len(xs)):
+            self.gamma.append([float('inf')]*self.numClusters)
+
         for d in range(self.numFeatures):
             #ideally the type of probability distribution we use here
             #would be specified by the feature number
             #this can be done later; probably the continuous version
             #works ok for discrete things too.
             for k in range(self.numClusters):
-                featureDists[d].append(ContinuousFeature())
+                achoice = choice(xs)
+                val = achoice[d]
+                feature = ContinuousFeature(val)
+                self.featureDists[d].append(feature)
 
 
 
-    def Pxgiveny(xval,k):
+    def Pxgiveny(self,xval,k):
         assert len(xval)==self.numFeatures
         #probability of an example xval in cluster k
         return reduce(lambda p,i: p*self.featureDists[i][k].prob(xval[i]),range(len(xval)))
@@ -121,13 +144,13 @@ class AutoClass:
     #   if xs[n][d] == 1:
     #       eN_d1[d][k] += cond
     #       eN_d0[d][k] += 1- cond
-    def Estep(threshold = 0.1):
+    def Estep(self,threshold = 0.1):
         """ does the E-step. If none of the gamma values canges by more than threshold, then we have converged"""
         converged = True
         for n in range(self.numExamples):
             #compute probability that a given example occurs
             denominator = reduce(lambda x,y:x+y,[self.pi[k]*self.Pxgiveny(self.xs[n],k) for k in range(self.numClusters)])
-            for k in range(numClusters):
+            for k in range(self.numClusters):
                 gamma_nk = self.pi[k]*self.Pxgiveny(self.xs[n],k)/float(denominator)
                 if(abs(gamma_nk-self.gamma[n][k])>threshold):
                     converged = False
@@ -135,13 +158,13 @@ class AutoClass:
 
         return converged
 
-    def updateFeatureDist(d,k):
+    def updateFeatureDist(self,d,k):
         featurelist = [xi[d] for xi in self.xs]
-        probabilities = [self.gamma[n][k] for n in range self.numExamples]
-        self.featureDists[i][k].update(featurelist,probabilities)
+        probabilities = [self.gamma[n][k] for n in range(self.numExamples)]
+        self.featureDists[d][k].update(featurelist,probabilities)
 
     #M step
-    def Mstep():
+    def Mstep(self,):
         #update the pi values
         for k in range(self.numClusters):
             self.pi[k] = reduce(lambda x,n:x+self.gamma[n][k],range(self.numExamples),0)/float(self.numExamples)
@@ -151,7 +174,7 @@ class AutoClass:
             for k in range(self.numClusters):
                 self.updateFeatureDist(d,k)
 
-    def Cluster(maxsteps = 1000,threshold = 0.1):
+    def Cluster(self,maxsteps = 1000,threshold = 0.1):
         """returns a list of cluster lists. That is, if there are k clusters, this function returns a list of k lists with the jth list containing element ranfomly relevant between players."""
         converged = False
         step = 0
@@ -161,7 +184,9 @@ class AutoClass:
             step += 1
         self.Estep()
 
-        cluster = [[]]*self.numClusters
+        cluster = []
+        for n in range(self.numExamples):
+            cluster.append([])
         for n in range(self.numExamples):
             cluster[self.gamma[n].index(max(self.gamma[n]))].append(self.x[n])
 

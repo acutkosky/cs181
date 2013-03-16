@@ -7,7 +7,9 @@ import random
 import utils
 import numpy
 import math
-
+from autoclass_back import AutoClass
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 #DATAFILE = "adults.txt"
 DATAFILE = "adults-small.txt"
 
@@ -239,6 +241,21 @@ def HAC(xs, numClusters, d=0):
 
 
 
+#3dscatter
+#---
+#plots clusters in different colors in 3d!
+def 3dscatter(clusters):
+    colors = ['b','r','g','y']
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    for i in range(len(clusters)):
+        cluster = clusters[i]
+        xs = [x[0] for x in cluster]
+        ys = [y[1] for y in cluster]
+        zs = [z[2] for z in cluster]
+        ax.scatter(xs,ys,zs,colors[i])
+    plt.show()
+
 
 # main
 # ----
@@ -291,8 +308,12 @@ def main():
         print "using metric", i
         HAC(xs,numClusters,i)
     
-        
+#    autoclass = AutoClass(xs,numClusters)
+#    clusters = autoclass.Cluster(10,0.01)
+#    for i in range(numClusters):
+#        print "%d: %d" %(i,len(clusters[i]))
 
+    
 
 
 
