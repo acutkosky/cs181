@@ -51,12 +51,31 @@ class ContinuousFeature:
 
 class AutoClass:
 
+    #we need the following fields for each cluster k  = 1 ... numClusters:
+    # -------
+    # for the continuous variables:
+    # - a list mu_k representing the mean of the continuous variables 
+    # - a (diagonal) "matrix" cov_k with one entry (the variance) [so it's really a list]
+    #   for each continuous variable
+    # - a conditional probability gamma[n][k] = P(cluster = k | data x_n, params)
+    # -------
+    # for the discrete variables:
+    # - eN_1[k] = expected number of 1's in the cluster)
+    # - eN_d1[d][k] = expected number of 1's for feature d in the cluster)
+    # - eN_d0[d][k] = expected number of 0's for feature d in the cluster)
+    # - theta_c[k] = probability of 1 for the cluster
+    # - theta_d1[d][k] = conditional probability of feature d given outcome 1
+                         #i.e. expected number of 1's for feature d / expected number of 1's
+    # - theta_d0[d][k] = conditional probability of feature d given outcome 0
+                         #i.e. expected number of 0's for feature d / expected number of 0's
+        
+
 
     def __init__(xs,numClusters):
         
         self.numExamples = len(xs)
         self.numClusters = numClusters
-        self.xs = xs
+        self.xs = xs #examples
         self.numFeatures = len(xs[0])
 
         #pi[k] should be the probability that a random element is in cluster k
@@ -72,23 +91,6 @@ class AutoClass:
             for k in range(self.numClusters):
                 featureDists[d].append(ContinuousFeature())
 
-    #computes the covariance of random variables x and y over data
-    #mu_x, mu_y are their means
-    def cov(x, y):
-        mu_x = sum(x)/float(len(x))
-        mu_y = sum(y)/float(len(y))
-        return 1.0/(len(x)*len(y)) * sum([(a-mu_x)*(b-mu_y) for \
-                                          a in x and b in y])
-        
-        
-
-    #computes the ``total covariance matrix'' of the data
-    def covariance(xs):
-        xs_attrs[i] = [x[i] for x in xs]
-        cov_mat = []
-        for i in range(attr):
-            for j in range(attr):
-                cov_mat[i][j] = cov(xs_attrs[i], xs_attrs[j])
 
 
     def Pxgiveny(xval,k):
@@ -98,6 +100,27 @@ class AutoClass:
 
 
     #E step
+    #for all clusters k:
+    
+    #for continuous variables
+    #-------------
+    #gamma[n][k] = P(Y_n = k | x_n, theta) computed using Bayes rule:
+    #            = P(X_n | Y_n = k) P(Y_n = k) / sum P(X_n | Y_n = k') p(Y_n = k')
+
+    #for discrete variables
+    #-------------
+    # eN_1[k] = 0
+    # eN_d1[d][k] = 0 for all attributes d
+    # eN_d0[d][k] = 0 for all attributes [d]
+    # for all examples n:
+    # p_1 = theta_c[k] * prod_{attributes d} theta_d1[d][k]^{xs[n][d]} * (1-theta_d1[n][k])^{xs[n][d]}
+    # p_0 = (1-theta_c[k]) * prod_{attributes d} theta_d0[d][k]^{xs[n][d]} (1-theta_d0[d][k])^{xs[n][d]}
+    # cond = p_1/ (p_0+p_1)
+    # eN_1[k] += cond
+    # for all attributes d:
+    #   if xs[n][d] == 1:
+    #       eN_d1[d][k] += cond
+    #       eN_d0[d][k] += 1- cond
     def Estep(threshold = 0.1):
         """ does the E-step. If none of the gamma values canges by more than threshold, then we have converged"""
         converged = True
