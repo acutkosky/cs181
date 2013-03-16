@@ -8,7 +8,8 @@ import utils
 import numpy
 import math
 
-DATAFILE = "adults.txt"
+#DATAFILE = "adults.txt"
+DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -84,7 +85,7 @@ def mean_squared(means, rlist, xs):
     for n in range(len(xs)):
         for k in range(len(means)):
             tot += rlist[n][k]*utils.squareDistance(xs[n], means[k])
-    return tot
+    return tot/len(xs)
 
 
 #calculating the mean of a number of vectors
@@ -145,10 +146,10 @@ def k_means(xs, numExamples,numClusters):
 
     print "---------"
         
-    for i in range(numClusters):
-        print "mean of cluster ",i, " is ", means[i]
+   # for i in range(numClusters):
+      #  print "mean of cluster ",i, " is ", means[i]
 
-        print "mean_squared is ", mean_squared(means, rlist, xs)
+    print "mean_squared is ", mean_squared(means, rlist, xs)
 
 
 #metrics for HAC:
@@ -172,6 +173,17 @@ def cent_metric(A,B):
     return [a/float(len(A)) - b/float(len(B)) for a,b in zip(Asum,Bsum)]
 
 
+def mean_of_cluster(clust):
+    agg = reduce(sum_vecs, clust)
+    return scale(1.0/len(clust), clust)
+                 
+def mean_squared_by_cluster(clusters):
+    tot = 0
+    for clust in clusters:
+        clust_mean = mean_of_cluster(clust)
+        for x in clust:
+            tot += utils.squareDistance(x, clust_mean)
+    return 1.0/len(cluster)*tot
 
 #HIERARCHICAL AGGLOMERATIVE CLUSTERING
 #d = 0: use min metric
@@ -217,6 +229,9 @@ def HAC(xs, numClusters, d=0):
     print "sizes of clusters"
     for i in range(numClusters):
         print "%d: %d" % (i,len(clusters[i]))
+    #print mean_squared_by_cluster(clusters)
+
+    
 
     #need to lookup how to do this scatterplot thing
     #maketable(clusters)
@@ -267,10 +282,15 @@ def main():
     #initializing the data, just so we don't have to carry around everything
     #might want to randomize...
     
-
-    k_means(xs,numExamples,numClusters)
+    #print "k-means results ... "
+    #for numClusters in range(1, 11):
+     #   k_means(xs,numExamples,numClusters)
+    print "HAC results"
+    print "number of clusters is ", numClusters
     for i in range(4):
+        print "using metric", i
         HAC(xs,numClusters,i)
+    
         
 
 

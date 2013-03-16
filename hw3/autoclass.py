@@ -2,8 +2,10 @@ from random import random
 from math import exp.pi,sqrt
 
 #
-# Have two classes, one for probability distributions over a binary set and another for a single-variate Gaussian.
-# We're just considering each attribute to be independent for a given cluster so we only need worry about single-variable Guassians I believe.
+# Have two classes, one for probability distributions over a binary set a
+# nd another for a single-variate Gaussian.
+# We're just considering each attribute to be independent for a
+# given cluster so we only need worry about single-variable Guassians I believe.
 #
 
 
@@ -11,6 +13,7 @@ from math import exp.pi,sqrt
 class BinaryFeature:
     def __init__():
         self.theta = random()
+        
     def update(featurelist,probabilities):
         #expected size of this cluster
         Esize = reduce(lambda x,y:x+y,probabilities) 
@@ -21,7 +24,7 @@ class BinaryFeature:
         #theta is the probability of having this attribute given that one is in this cluster
         self.theta = Efeature/Esize
 
-
+    #the probability that x occurs 
     def prob(x):
         if(x>0):
             return self.theta
@@ -62,23 +65,12 @@ class AutoClass:
         #For d attributes and k clusters we have dk distributions
         self.featureDists = [[]]*self.numFeatures
         for d in range(self.numFeatures):
-            #ideally the type of probability distribution we use here would be specified by the feature number
-            #this can be done later; probably the continuous version works ok for discrete things too.
+            #ideally the type of probability distribution we use here
+            #would be specified by the feature number
+            #this can be done later; probably the continuous version
+            #works ok for discrete things too.
             for k in range(self.numClusters):
                 featureDists[d].append(ContinuousFeature())
-
-    #fields
-    #numExamples
-    #numClusters
-    #attr #number of attributes 
-    
-    #the examples
-    #xs
-
-    
-
-    #initialize Gaussian mixture variables
-    #means = random.sample(xs, numClusters)
 
     #computes the covariance of random variables x and y over data
     #mu_x, mu_y are their means
@@ -97,17 +89,6 @@ class AutoClass:
         for i in range(attr):
             for j in range(attr):
                 cov_mat[i][j] = cov(xs_attrs[i], xs_attrs[j])
-
-
-    #cov_mat = covariance(xs)
-
-    #convergence theshold: when the thetas stop changing by at least
-    #threshold, the algorithm ``convergences''
-    #threshold = 0.1
-
-    #set this to be true during M step if we have converged
-    #converged = False
-
 
 
     def Pxgiveny(xval,k):
