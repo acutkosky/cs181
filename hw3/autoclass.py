@@ -10,6 +10,8 @@ from math import exp,pi,sqrt
 
 
 
+
+
 class BinaryFeature:
     def __init__(self):
         self.theta = random()
@@ -163,6 +165,7 @@ class AutoClass:
         probabilities = [self.gamma[n][k] for n in range(self.numExamples)]
         self.featureDists[d][k].update(featurelist,probabilities)
 
+
     #M step
     def Mstep(self,):
         #update the pi values
@@ -182,6 +185,7 @@ class AutoClass:
             converged = self.Estep(threshold)
             self.Mstep()
             step += 1
+            print "step: ",step
         self.Estep()
 
         cluster = []

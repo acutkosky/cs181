@@ -10,8 +10,8 @@ import math
 from autoclass_back import AutoClass
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
-#DATAFILE = "adults.txt"
-DATAFILE = "adults-small.txt"
+DATAFILE = "adults.txt"
+#DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -227,7 +227,7 @@ def HAC(xs, numClusters, d=0):
         clusters[ibest] += jclust
 
     #not sure what the means of the final clusters are...
-    
+    return clusters
     print "sizes of clusters"
     for i in range(numClusters):
         print "%d: %d" % (i,len(clusters[i]))
@@ -244,7 +244,7 @@ def HAC(xs, numClusters, d=0):
 #3dscatter
 #---
 #plots clusters in different colors in 3d!
-def 3dscatter(clusters):
+def scatter3d(clusters):
     colors = ['b','r','g','y']
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
@@ -253,7 +253,7 @@ def 3dscatter(clusters):
         xs = [x[0] for x in cluster]
         ys = [y[1] for y in cluster]
         zs = [z[2] for z in cluster]
-        ax.scatter(xs,ys,zs,colors[i])
+        ax.scatter(xs,ys,zs,c=colors[i])
     plt.show()
 
 
@@ -306,7 +306,11 @@ def main():
     print "number of clusters is ", numClusters
     for i in range(4):
         print "using metric", i
-        HAC(xs,numClusters,i)
+        clusters = HAC(xs,numClusters,i)
+        for j in range(numClusters):
+            print "%d: %d" %(j,len(clusters[j]))
+        scatter3d(clusters)
+        
     
 #    autoclass = AutoClass(xs,numClusters)
 #    clusters = autoclass.Cluster(10,0.01)
