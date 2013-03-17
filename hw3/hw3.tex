@@ -133,8 +133,72 @@ k & Mean squared distance \\
 \end{tabular}
 \]
 \item(b) It is difficult to tell, because the mean squared values always seem to be improving as the number of clusters increases (which should be the case). However, the improvements seem to level off somewhat at 8 clusters, so that is about as reasonable a guess as we can make just from the above data. 
-\end{enumerate} 
 \end{enumerate}
+
+
+ \item[b.]
+\begin{enumerate}
+\item[(a)]
+
+Number of instances in each cluster by metric:
+
+ \begin{tabular}{ccc}
+  Cluster Number&Min metric &Max metric\\
+ 0&73&19\\
+ 1&24&23\\
+ 2&1&32\\
+ 3&1&26\\
+ \end{tabular}
+
+Scatterplot of Min metric clusters:
+
+\includegraphics[height=2in]{scatter_metric0.png}
+
+Scatterplot of Max metric clusters:
+
+\includegraphics[height=2in]{scatter_metric1.png}
+
+\item[(b)]
+Number of instances in each cluster by metric:
+
+ \begin{tabular}{ccc}
+  Cluster Number&mean metric &centroid metric\\
+ 0&73&9\\
+ 1&25&89\\
+ 2&1&1\\
+ 3&1&1\\
+ \end{tabular}
+
+Scatterplot of mean metric clusters:
+
+\includegraphics[height=2in]{scatter_metric2.png}
+
+Scatterplot of centroid metric clusters:
+
+\includegraphics[height=2in]{scatter_metric3.png}
+
+\end{enumerate}
+
+\item[c.]
+\begin{enumerate}
+\item[(a)]
+It takes autoclass 18 iterations to converge.
+
+\item[(b)]
+
+\includegraphics[height=2in]{log-likelihood.png}
+
+\item[(c)]
+
+0: 239
+1: 394
+2: 363
+3: 4
+
+\end{enumerate}
+
+\end{enumerate}
+
 \end{document}
 
 

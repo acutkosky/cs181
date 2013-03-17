@@ -7,8 +7,14 @@ import random
 import utils
 import numpy
 import math
+<<<<<<< HEAD
 import autoclassprime
 
+=======
+from autoclass import AutoClass
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+>>>>>>> f5fafa037c4150b217c395990f71b9d8019a54af
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
 
@@ -226,7 +232,7 @@ def HAC(xs, numClusters, d=0):
         clusters[ibest] += jclust
 
     #not sure what the means of the final clusters are...
-    
+    return clusters
     print "sizes of clusters"
     for i in range(numClusters):
         print "%d: %d" % (i,len(clusters[i]))
@@ -240,7 +246,26 @@ def HAC(xs, numClusters, d=0):
 
 
 
+#3dscatter
+#---
+#plots clusters in different colors in 3d!
+def scatter3d(clusters):
+    colors = ['b','r','g','y']
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    for i in range(len(clusters)):
+        cluster = clusters[i]
+        xs = [x[0] for x in cluster]
+        ys = [y[1] for y in cluster]
+        zs = [z[2] for z in cluster]
+        ax.scatter(xs,ys,zs,c=colors[i])
+    plt.show()
 
+
+def printclusters(xs,clusters):
+    for i in range(numClusters):
+        print "%d: %d,  mean %d" %(i,len(clusters[i]))
+    
 # main
 # ----
 # The main program loop
@@ -286,6 +311,7 @@ def main():
     #print "k-means results ... "
     #for numClusters in range(1, 11):
      #   k_means(xs,numExamples,numClusters)
+<<<<<<< HEAD
     #print "HAC results"
     #print "number of clusters is ", numClusters
     #for i in range(4):
@@ -295,8 +321,30 @@ def main():
     autoclass = autoclassprime.AutoClass(xs, 2)
     autoclass.Cluster()
     
+=======
+#    print "HAC results"
+#    print "number of clusters is ", numClusters
+#    for i in range(4):
+#        print "using metric", i
+#        clusters = HAC(xs,numClusters,i)
+#        for j in range(numClusters):
+#            print "%d: %d" %(j,len(clusters[j]))
+#        scatter3d(clusters)
+        
+    
+    autoclass = AutoClass(xs,numClusters)
+    clusters,loglikely = autoclass.Cluster(100,0.01)
+#    clusters = stuff[0]
+#    loglikely = stuff[1]
+ #   print loglikely
+    for i in range(numClusters):
+        print "%d: %d" %(i,len(clusters[i]))
+>>>>>>> f5fafa037c4150b217c395990f71b9d8019a54af
 
-
+#    plt.plot(loglikely)
+#    plt.ylabel("log likelihood")
+#    plt.xlabel("iterations")
+#    plt.show()
 
 
 if __name__ == "__main__":
