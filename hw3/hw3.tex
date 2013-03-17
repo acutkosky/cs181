@@ -136,7 +136,7 @@ The volume of the intersection of the ball of radius $\epsilon$ and the box is m
 \item[e.]
 Note that $\log(1-\epsilon^M/M!)$ approaches 0 very rapidly as $M$ increases so that the lower bound on $N$ increases very rapidly. Intuitively, this says that points become very far apart very quickly as the dimension increases and so HAC, which relies on distances between points, might become less effective as all these distances become very large.
 
-
+\end{enumerate}
 \noindent \textbf{Problem 2.}
 
 \begin{enumerate}
@@ -177,8 +177,10 @@ Now we use the FB model, again with the $\beta(5,3)$ prior. Then we have
 \[
 \argmax_{\theta}P(\theta|D) = \int_{0}^1 \theta p(\theta|D) d\theta=\frac{5+9-1}{3+5+10-2}=\frac{13}{16}
 \]
-so that the probability of winning the next game is $\fac{13}{17}$.
+so that the probability of winning the next game is $\frac{13}{17}$.
+\end{enumerate}
 \noindent \textbf{Problem 5.}
+\begin{enumerate}
 \item[a.]
 The loss function for vectors $x_1,\cdots,x_N$ with prototypes $y_1,\cdots,y_K$ and responsibilities $r_{ij}$ is
 \[
@@ -188,6 +190,8 @@ Suppose we are in $M$-dimensional space, with $x_n=(x_{n,1},\cdots,x_{n,m})$ and
 \[
 \frac{\partial \mathcal{L}}{\partial y_{k,m}}=\sum_{n=1}^N r_{nk}\frac{2(y_{k,m}-x_{n,m})}{2|x_n-y_k|}
 \]
+
+\end{enumerate}
 \noindent \textbf{Problem 4.}
 \begin{enumerate}
 \item[a.] 
