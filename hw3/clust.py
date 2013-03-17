@@ -7,14 +7,12 @@ import random
 import utils
 import numpy
 import math
-<<<<<<< HEAD
 import autoclassprime
 
-=======
-from autoclass import AutoClass
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
->>>>>>> f5fafa037c4150b217c395990f71b9d8019a54af
+#from autoclass import AutoClass
+#from mpl_toolkits.mplot3d import Axes3D
+#import matplotlib.pyplot as plt
+
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
 
@@ -311,7 +309,7 @@ def main():
     #print "k-means results ... "
     #for numClusters in range(1, 11):
      #   k_means(xs,numExamples,numClusters)
-<<<<<<< HEAD
+
     #print "HAC results"
     #print "number of clusters is ", numClusters
     #for i in range(4):
@@ -320,8 +318,7 @@ def main():
     
     autoclass = autoclassprime.AutoClass(xs, 2)
     autoclass.Cluster()
-    
-=======
+
 #    print "HAC results"
 #    print "number of clusters is ", numClusters
 #    for i in range(4):
@@ -339,7 +336,7 @@ def main():
  #   print loglikely
     for i in range(numClusters):
         print "%d: %d" %(i,len(clusters[i]))
->>>>>>> f5fafa037c4150b217c395990f71b9d8019a54af
+
 
 #    plt.plot(loglikely)
 #    plt.ylabel("log likelihood")
