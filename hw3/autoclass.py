@@ -1,5 +1,5 @@
 from random import random,choice
-from math import exp,pi,sqrt
+from math import exp,pi,sqrt,log
 
 #
 # Have two classes, one for probability distributions over a binary set a
@@ -60,6 +60,7 @@ class ContinuousFeature:
             self.sigma = 0.01
     def prob(self,x):
         assert self.sigma>=0.01
+
         return 1/float(self.sigma*sqrt(2)*pi) *exp(-(x-self.mu)**2/float(2*self.sigma**2))
 
 class AutoClass:
@@ -121,7 +122,7 @@ class AutoClass:
     def Pxgiveny(self,xval,k):
         assert len(xval)==self.numFeatures
         #probability of an example xval in cluster k
-        return reduce(lambda p,i: p*self.featureDists[i][k].prob(xval[i]),range(len(xval)))
+        return reduce(lambda p,i: p*self.featureDists[i][k].prob(xval[i]),range(len(xval)),1)
 
 
     #E step
@@ -165,7 +166,19 @@ class AutoClass:
         probabilities = [self.gamma[n][k] for n in range(self.numExamples)]
         self.featureDists[d][k].update(featurelist,probabilities)
 
+    def log_likelihood(self,clusters):
+        accum = 0
+        for k in range(self.numClusters):
+            accum += len(clusters[k])*log(self.pi[k])
 
+
+        for k in range(self.numClusters):
+            for x in clusters[k]:
+                d = self.Pxgiveny(x,k)
+                accum += log(d)
+
+
+        return accum
     #M step
     def Mstep(self,):
         #update the pi values
@@ -177,22 +190,36 @@ class AutoClass:
             for k in range(self.numClusters):
                 self.updateFeatureDist(d,k)
 
+    def getcluster(self):
+        cluster = []
+        for n in range(self.numExamples):
+            cluster.append([])
+        for n in range(self.numExamples):
+            cluster[self.gamma[n].index(max(self.gamma[n]))].append(self.xs[n])
+
+        return cluster
+        
+
     def Cluster(self,maxsteps = 1000,threshold = 0.1):
         """returns a list of cluster lists. That is, if there are k clusters, this function returns a list of k lists with the jth list containing element ranfomly relevant between players."""
         converged = False
         step = 0
+        loglikely = []
         while(not converged and step<maxsteps): 
             converged = self.Estep(threshold)
+            if(converged):
+                print "converged!"
             self.Mstep()
             step += 1
             print "step: ",step
+            clusters = self.getcluster()
+            loglikely.append(self.log_likelihood(clusters))
         self.Estep()
 
         cluster = []
         for n in range(self.numExamples):
             cluster.append([])
         for n in range(self.numExamples):
-            cluster[self.gamma[n].index(max(self.gamma[n]))].append(self.x[n])
-
-        return cluster
+            cluster[self.gamma[n].index(max(self.gamma[n]))].append(self.xs[n])
+        return cluster,loglikely
 

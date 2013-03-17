@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.21)  16 MAR 2013 19:27
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.21)  16 MAR 2013 20:31
 entering extended mode
  %&-line parsing enabled.
 **hw3.tex
@@ -383,33 +383,41 @@ File: scatter_metric0.png Graphic file (type png)
 <use scatter_metric0.png> <scatter_metric1.png, id=3, 586.8324pt x 442.2924pt>
 File: scatter_metric1.png Graphic file (type png)
 
-<use scatter_metric1.png> <scatter_metric2.png, id=4, 586.8324pt x 442.2924pt>
+<use scatter_metric1.png>
+Underfull \vbox (badness 4595) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./scatter_metric0.png>]
+
+<scatter_metric2.png, id=13, 586.8324pt x 442.2924pt>
 File: scatter_metric2.png Graphic file (type png)
 
 <use scatter_metric2.png>
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./scatter_metric0.png> 
-<./scatter_metric1.png>] <scatter_metric3.png, id=15, 586.8324pt x 442.2924pt>
+<scatter_metric3.png, id=14, 586.8324pt x 442.2924pt>
 File: scatter_metric3.png Graphic file (type png)
 
-<use scatter_metric3.png> [2 <./scatter_metric2.png> <./scatter_metric3.png>]
-(./hw3.aux) ) 
+<use scatter_metric3.png> <log-likelihood.png, id=15, 586.8324pt x 442.2924pt>
+File: log-likelihood.png Graphic file (type png)
+
+<use log-likelihood.png>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <./scatter_metric1.png> <./scatter_metric2.png> <./scatter_metric3.png>] [3
+ <./log-likelihood.png>] (./hw3.aux) ) 
 Here is how much of TeX's memory you used:
- 5554 strings out of 495061
- 66249 string characters out of 1182621
- 164619 words of memory out of 3000000
- 8490 multiletter control sequences out of 15000+50000
+ 5559 strings out of 495061
+ 66358 string characters out of 1182621
+ 166619 words of memory out of 3000000
+ 8494 multiletter control sequences out of 15000+50000
  12722 words of font info for 55 fonts, out of 3000000 for 9000
  189 hyphenation exceptions out of 8191
- 34i,6n,35p,327b,313s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/shar
-e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on hw3.pdf (2 pages, 286219 bytes).
+ 34i,6n,35p,327b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr9.pfb>
+Output written on hw3.pdf (3 pages, 308456 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
+ 39 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
