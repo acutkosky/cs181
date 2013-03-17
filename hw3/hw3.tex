@@ -173,7 +173,11 @@ Now we calculate using the MAP model. Let's adopt the $\beta(5,3)$ prior. Then f
 \]
 so that the probability of winning the next game is $\frac{13}{17}$.
 
-Now we use the FB model. 
+Now we use the FB model, again with the $\beta(5,3)$ prior. Then we have
+\[
+\argmax_{\theta}P(\theta|D) = \int_{0}^1 \theta p(\theta|D) d\theta=\frac{5+9-1}{3+5+10-2}=\frac{13}{16}
+\]
+so that the probability of winning the next game is $\fac{13}{17}$.
 \noindent \textbf{Problem 5.}
 \item[a.]
 The loss function for vectors $x_1,\cdots,x_N$ with prototypes $y_1,\cdots,y_K$ and responsibilities $r_{ij}$ is
@@ -218,9 +222,10 @@ k & Mean squared distance \\
 Number of instances in each cluster by metric:
 
  \begin{tabular}{ccc}
+
   Cluster Number&Min metric &Max metric\\
  0&73&19\\
- 1&24&23\\
+ 1&25&23\\
  2&1&32\\
  3&1&26\\
  \end{tabular}
@@ -238,9 +243,9 @@ Number of instances in each cluster by metric:
 
  \begin{tabular}{ccc}
   Cluster Number&mean metric &centroid metric\\
- 0&73&9\\
- 1&25&89\\
- 2&1&1\\
+ 0&152&147\\
+ 1&46&47\\
+ 2&1&5\\
  3&1&1\\
  \end{tabular}
 
@@ -266,10 +271,7 @@ The cluster sizes were 239,394,363 and 4.
 
 \item[(c)]
 
-0: 239
-1: 394
-2: 363
-3: 4
+Autoclass takes about a minute to classify 1000 instances. K-means takes about a second. Thus K-means has a significantly better run-time than Autoclass.
 
 \end{enumerate}
 

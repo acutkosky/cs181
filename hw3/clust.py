@@ -7,11 +7,11 @@ import random
 import utils
 import numpy
 import math
-import autoclassprime
+import autoclass
 
 #from autoclass import AutoClass
-#from mpl_toolkits.mplot3d import Axes3D
-#import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 
 DATAFILE = "adults.txt"
 #DATAFILE = "adults-small.txt"
@@ -166,7 +166,7 @@ def k_means(xs, numExamples,numClusters):
       #  print "mean of cluster ",i, " is ", means[i]
 
     print "mean_squared is ", mean_squared(means, rlist, xs)
-
+    
 
 #metrics for HAC:
 def Distance(xs,ys):
@@ -184,9 +184,10 @@ def mean_metric(A,B):
     return total/float(len(A)*len(B))
 
 def cent_metric(A,B):
-    Asum = reduce(sum_vecs,A)
-    Bsum = reduce(sum_vecs,B)
-    return [a/float(len(A)) - b/float(len(B)) for a,b in zip(Asum,Bsum)]
+    Asum = [x/float(len(A)) for x in reduce(sum_vecs,A)]
+    Bsum = [x/float(len(B)) for x in reduce(sum_vecs,B)]
+    
+    return Distance(Asum,Bsum)#[a/float(len(A)) - b/float(len(B)) for a,b in zip(Asum,Bsum)]
 
 
 def mean_of_cluster(clust):
@@ -319,7 +320,7 @@ def main():
 
     #initializing the data, just so we don't have to carry around everything
     #might want to randomize...
-    
+    k_means(xs,numExamples,numClusters)
     #print "k-means results ... "
     #for numClusters in range(1, 11):
      #   k_means(xs,numExamples,numClusters)
@@ -330,12 +331,12 @@ def main():
     #    print "using metric", i
     #    HAC(xs,numClusters,i)
     
-    autoclass = autoclassprime.AutoClass(xs, 2)
-    autoclass.Cluster()
+#    autoclass = autoclassprime.AutoClass(xs, 2)
+#    autoclass.Cluster()
 
-#    print "HAC results"
-#    print "number of clusters is ", numClusters
-#    for i in range(4):
+    print "HAC results"
+    print "number of clusters is ", numClusters
+#    for i in range(1):
 #        print "using metric", i
 #        clusters = HAC(xs,numClusters,i)
 #        for j in range(numClusters):
@@ -343,13 +344,13 @@ def main():
 #        scatter3d(clusters)
         
     
-    autoclass = AutoClass(xs,numClusters)
-    clusters,loglikely = autoclass.Cluster(100,0.01)
+#    autoclass = AutoClass(xs,numClusters)
+#    clusters,loglikely = autoclass.Cluster(100,0.01)
 #    clusters = stuff[0]
 #    loglikely = stuff[1]
  #   print loglikely
-    for i in range(numClusters):
-        print "%d: %d" %(i,len(clusters[i]))
+#    for i in range(numClusters):
+#        print "%d: %d" %(i,len(clusters[i]))
 
 
 #    plt.plot(loglikely)
