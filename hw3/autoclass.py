@@ -54,10 +54,10 @@ class AutoClass:
     #we need the following fields for each cluster k  = 1 ... numClusters:
     # -------
     # for the continuous variables:
-    # - a list mu_k representing the mean of the continuous variables 
-    # - a (diagonal) "matrix" cov_k with one entry (the variance) [so it's really a list]
-    #   for each continuous variable
-    # - a conditional probability gamma[n][k] = P(cluster = k | data x_n, params)
+    # - pi[k] = a list representing the probability of cluster k
+    # - mu[k] = a list representing the mean of the continuous attributes 
+    # - var[k] = a list representing the variances for all the attributes
+    # - gamma[n][k] = the conditional probability P(cluster = k | data x_n, params)
     # -------
     # for the discrete variables:
     # - eN_1[k] = expected number of 1's in the cluster)
@@ -122,7 +122,7 @@ class AutoClass:
     #       eN_d1[d][k] += cond
     #       eN_d0[d][k] += 1- cond
     def Estep(threshold = 0.1):
-        """ does the E-step. If none of the gamma values canges by more than threshold, then we have converged"""
+        """ does the E-step. If none of the gamma values changes by more than threshold, then we have converged"""
         converged = True
         for n in range(self.numExamples):
             #compute probability that a given example occurs
@@ -141,6 +141,20 @@ class AutoClass:
         self.featureDists[i][k].update(featurelist,probabilities)
 
     #M step
+    #for all clusters k
+    #for continuous variables
+    #---------------
+    # N[k] = sum_{n=1}^{numExamples} gamma[n][k]
+    # pi[k] = N[k]/N
+    # mu[k] = 1/N[k] * sum_{n=1}^{numExamples} gamma[n][k] xs[n]
+    # vars[k][d] = 1/N[k] * sum_n gamma[n][k] (xs[n][d] - mu[k][d])^2
+    
+    #for discrete variables
+    #----------------
+    #theta_c[k] = eN_1[k]/N
+    #theta_d1[d][k] = eN_d1[d][k]/eN_1
+    #theta_d0[d][k] = eN_d1[d][k]/(N- eN_1)
+    
     def Mstep():
         #update the pi values
         for k in range(self.numClusters):

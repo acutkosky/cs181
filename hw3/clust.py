@@ -7,9 +7,10 @@ import random
 import utils
 import numpy
 import math
+import autoclassprime
 
-#DATAFILE = "adults.txt"
-DATAFILE = "adults-small.txt"
+DATAFILE = "adults.txt"
+#DATAFILE = "adults-small.txt"
 
 #validateInput()
 
@@ -285,13 +286,15 @@ def main():
     #print "k-means results ... "
     #for numClusters in range(1, 11):
      #   k_means(xs,numExamples,numClusters)
-    print "HAC results"
-    print "number of clusters is ", numClusters
-    for i in range(4):
-        print "using metric", i
-        HAC(xs,numClusters,i)
+    #print "HAC results"
+    #print "number of clusters is ", numClusters
+    #for i in range(4):
+    #    print "using metric", i
+    #    HAC(xs,numClusters,i)
     
-        
+    autoclass = autoclassprime.AutoClass(xs, 2)
+    autoclass.Cluster()
+    
 
 
 
