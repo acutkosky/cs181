@@ -109,6 +109,17 @@ def avg(rlist, xs, numExamples, k):
     except: #nothing in this cluster, go to random point
         return random.sample(xs, 1)
     
+
+#caluculates the mean of some vectors
+def mean(xs):
+    aggregate = zero_list(len(xs[0]))
+    for n in range(numExamples):
+        aggregate = sum_vecs(aggregate, scale(rlist[n][k],xs[n]))
+    try:
+        return scale(1.0/len(xs), aggregate)
+    except: #nothing in this cluster, go to random point
+        return random.choice(xs)
+
 def k_means(xs, numExamples,numClusters):
     #initializing of the means as randomly chosen members of the input
     means = random.sample(xs, numClusters)
@@ -263,7 +274,10 @@ def scatter3d(clusters):
 def printclusters(xs,clusters):
     for i in range(numClusters):
         print "%d: %d,  mean %d" %(i,len(clusters[i]))
-    
+
+def printmeans(clusters):
+    for i in range(numClusters):
+        print mean(clusters[i])
 # main
 # ----
 # The main program loop

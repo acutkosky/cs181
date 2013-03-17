@@ -109,6 +109,65 @@
 \begin{document}
 \maketitle
 
+\noindent \textbf{Problem 1.}
+\begin{enumerate}
+
+\item[a.]
+
+This is the probability that $y$ lies in a box of sidelength $2\epsilon$ centered at $x$. This is just the ratio of the area of this box to the are of the whole box: $p=8\epsilon^3$.
+
+
+\item[b.]
+This probability is the ratio of the volume of the intersection of a box of sidelength $2\epsilon$ centered at $x$ with the box of sidelength 1 with the volume of the box of sidelength 1. The volume of this intersection is at most the volume of the box of sidength $2\epsilon$, so the ratio is at most $8\epsilon^3=p$.
+
+\item[c.]
+\[
+||x-y||=\sqrt{\sum (x_i-y_i)^2}\ge \sqrt{\max (x_i-y_i)^2}=\max |x_i-y_i|
+\]
+so that $||x-y||\ge \max |x_i-y_i|$. The probability of being within distance $\epsilon$ of $x$ is the volume of the ball of radius $\epsilon$ about $x$. Since distance under this euclidean metric is at most distance under the previous metric, this ball has volume at most the volume of the ball under the previous metric, which is at most $p$.
+
+\item[d.]
+
+
+\noindent \textbf{Problem 2.}
+
+\begin{enumerate}
+\item[a.]
+Let $\theta_{ML} = \argmax_{\theta}(Pr(D|\theta))$, $\theta_{MAP}=\argmax_{\theta}(Pr(D|\theta)Pr(\theta))$. Also, assign
+\[
+Pr(\theta|D) = \frac{Pr(D|\theta)Pr(\theta)}{\int_{\Theta} Pr(D\theta)Pr(\theta)d\theta}
+\]
+Then
+\begin{align*}
+Pr_{ML}(x|D) =& Pr(x|\theta_{ML}\\
+Pr_{MAP}(x|D) = & Pr(x|\theta_{MAP})\\
+Pr_{FB}(x|D) = & \int_{\Theta} Pr(x|\theta)Pr(\theta|D) d\theta
+\end{align*}
+
+
+\item[b.]
+The MAP method can be considered more basian because it makes more use of priors.
+
+\item[c.]
+MAP enjoys the advantage of incorporating more knowledge about the world than the ML approach so that it is more resistant to overfitting. MAP enjoys the advantage of being computationally more tractable than the FB approach.
+
+\item[d.]
+
+\item[e.]
+The Beta distributio is useful because it is a conjugate distribution - $p(\theta)$ has the same functional form as $p(\theta|x)$. This causes $p(\theta|x)$ to have a very simple form.
+
+\item[f.]
+
+\noindent \textbf{Problem 5.}
+\item[a.]
+The loss function for vectors $x_1,\cdots,x_N$ with prototypes $y_1,\cdots,y_K$ and responsibilities $r_{ij}$ is
+\[
+\mathcal{L} = \sum_{n=1}^N \sum_{k=1}^K r_{nk}|x_n-y_k|
+\]
+Suppose we are in $M$-dimensional space, with $x_n=(x_{n,1},\cdots,x_{n,m})$ and $y_k=(y_{k,1},\cdots,y_{k,m})$. Then we have
+\[
+\frac{\partial \mathcal{L}}{\partial y_{k,m}}=\sum_{n=1}^N r_{nk}\frac{2(y_{k,m}-x_{n,m})}{2|x_n-y_k|}
+\]
 \noindent \textbf{Problem 4.}
 \begin{enumerate}
 \item[a.] 
@@ -183,6 +242,7 @@ Scatterplot of centroid metric clusters:
 \begin{enumerate}
 \item[(a)]
 It takes autoclass 18 iterations to converge.
+The cluster sizes were 239,394,363 and 4.
 
 \item[(b)]
 
