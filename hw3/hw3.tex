@@ -129,6 +129,8 @@ so that $||x-y||\ge \max |x_i-y_i|$. The probability of being within distance $\
 \item[d.]
 Let $p$ be the probability that for a given point $x$, a randomly drawn point $y$ will be within $\epsilon$ of $x$. Then the probability that for a given point $x$ a set of $N$ independently randomly drawn points $y$ will all NOT be within $\epsilon$ of $x$ is $(1-p)^N$. Thus the probability that the nearest neighbor of $x$ is within $\epsilon$ of $x$ is $1-(1-p)^N$.
 
+We seek a lower bound on $N$ such that $1-(1-p)^N \geq 1-\delta$, i.e. $(1-p)^N \leq \delta$. An upper bound for $p$ is not useful for this purpose, so we aren't sure how to use (c), but what follows is a different, valid argument. 
+
 Now $p$ is just the intersection of the ball of radius $\epsilon$ about $x$ and the box of sidelength $1$. The ball of radius $\epsilon$ about $x$ contains all the points of distance $\epsilon$ from $x$ along each of the $m$ principle axes, and so also contains the polyhedron given by the convex closure of these points. An $M$-dimensional pyramid with base area $A$ and height $h$ has volume $Ah/M$. Thus if $A_M$ is the volume of this polyhedron in $M$-dimensions, we have $A_M=2\epsilon A_{M-1}/M$, with $A_1=2\epsilon$. Thus $A_M=2^M\epsilon^M/M!$.
 
 The volume of the intersection of the ball of radius $\epsilon$ and the box is minimized when $x$ is in a corner of the box, in which case the volume is given by the volume of the ball of radius $\epsilon$ divided by $2^M$. Thus $p \ge \epsilon^M/M!$. Thus the probability that a nearest neighbor of $x$ is witnih $\epsilon$ of $x$ is $1-(1-p)^N\ge 1-(1-\epsilon^M/M!)^N$ and so $N\ge \log \delta/\log(1-\epsilon^M/M!)$.
@@ -140,45 +142,50 @@ Note that $\log(1-\epsilon^M/M!)$ approaches 0 very rapidly as $M$ increases so 
 \noindent \textbf{Problem 2.}
 
 \begin{enumerate}
-\item[a.]
-Let $\theta_{ML} = \argmax_{\theta}(Pr(D|\theta))$, $\theta_{MAP}=\argmax_{\theta}(Pr(D|\theta)Pr(\theta))$. Also, assign
+\item[a.] ML chooses parameters
 \[
-Pr(\theta|D) = \frac{Pr(D|\theta)Pr(\theta)}{\int_{\Theta} Pr(D\theta)Pr(\theta)d\theta}
+\theta_{ML} = \argmax_{\theta} p(\cal{D} \mid \theta)
+\] On the other hand, MP chooses 
+\[
+\theta_{MAP} = \argmax_{\theta} p(\theta \mid \cal{D}) = \argmax_{\theta} p(\cal{D} \mid \theta) p(\theta).
+\]
+Also, assign
+\[
+Pr(\theta|D) = \frac{Pr(D, \theta)}{Pr(\theta)} = \frac{Pr(D|\theta)Pr(\theta)}{\int_{\Theta} Pr(D \mid \theta)Pr(\theta)d\theta}
 \]
 Then
 \begin{align*}
-Pr_{ML}(x|D) =& Pr(x|\theta_{ML}\\
+Pr_{ML}(x|D) =& Pr(x|\theta_{ML})\\
 Pr_{MAP}(x|D) = & Pr(x|\theta_{MAP})\\
 Pr_{FB}(x|D) = & \int_{\Theta} Pr(x|\theta)Pr(\theta|D) d\theta
 \end{align*}
 
 
 \item[b.]
-The MAP method can be considered more basian because it makes more use of priors.
+The MAP method can be considered more Bayesian because it places greater emphasis on prior hypotheses, and updates these depending on the data, rather than basing itself completely on the data as ML does.
 
 \item[c.]
 MAP enjoys the advantage of incorporating more knowledge about the world than the ML approach so that it is more resistant to overfitting. MAP enjoys the advantage of being computationally more tractable than the FB approach.
 
-\item[d.]
-
-\item[e.]
-The Beta distributio is useful because it is a conjugate distribution - $p(\theta)$ has the same functional form as $p(\theta|x)$. This causes $p(\theta|x)$ to have a very simple form.
+\item[e.] The Beta distribution is conjugate to the Bernoulli distribution, meaning that $P(\Theta \mid X)$ and $P(\Theta)$ have the same functional form. This property makes it very convenient to work with, since in the MAP formalism we deal with the expression $P(\Theta \mid \cal{D})$. If this takes a simple form, then it is easier to compute $\argmax_{\theta}$, for instance. 
 
 \item[f.]
 In Fall 2011, the Harvad football team won 9 games and lost once. Using the the ML model, the probability of the team winning any particular game is then just $\frac{9}{10}$, and so the probability of winning the next game is also $\frac{9}{10}$.
 
 Now we calculate using the MAP model. Let's adopt the $\beta(5,3)$ prior. Then following the lecture notes, 
 \[
-\argmax_{\theta}P(\theta|D) = \frac{5+9-1}{3+5+10-1}=\frac{13}{17}
+\argmax_{\theta}P(\theta|D) = \frac{5+9-1}{8+10-2}=\frac{13}{16}
 \]
-so that the probability of winning the next game is $\frac{13}{17}$.
+so that the probability of winning the next game is $\frac{13}{16}$.
 
 Now we use the FB model, again with the $\beta(5,3)$ prior. Then we have
 \[
-\argmax_{\theta}P(\theta|D) = \int_{0}^1 \theta p(\theta|D) d\theta=\frac{5+9-1}{3+5+10-2}=\frac{13}{16}
+\argmax_{\theta}P(\theta|D) = \int_{0}^1 \theta p(\theta|D) d\theta=\frac{5+9}{8+10}=\frac{14}{18}
 \]
-so that the probability of winning the next game is $\frac{13}{17}$.
+so that the probability of winning the next game is $\frac{14}{18}$.
 \end{enumerate}
+
+
 \noindent \textbf{Problem 5.}
 \begin{enumerate}
 \item[a.]
