@@ -167,6 +167,18 @@ The MAP method can be considered more Bayesian because it places greater emphasi
 \item[c.]
 MAP enjoys the advantage of incorporating more knowledge about the world than the ML approach so that it is more resistant to overfitting. MAP enjoys the advantage of being computationally more tractable than the FB approach.
 
+\item[d.] In the Bernoulli distribution, the parameter $\theta$ corresponds to the team's propensity to win, which can be thought of as ``skill level.'' The intuition of Beta(1,1) is that each team's propensity to win is drawn from a uniformly random distribution. This is certainly a natural, if somewhat naive, hypothesis, based on the idea that skill is a kind of atomic unit.
+
+ The intuition of Beta(3,3) is that skills are drawn from a bell curve, with most people of similar skill and a few outliers in either direction. This certainly makes sense if one thinks of overall soccerskill resulting from the aggregation of many independent, randomic atomic units, with the end product normally distributed by the central limit theorem. 
+ 
+ The intuition of Beta(2,5) is that skills are mostly drawn from a lower end, with a few high-skill outliers. One way of reasoning for this is that most people who play on the soccer team are likely to be quite good, so among those people represented on soccer teams we see the sort of ``right side'' of the bell curve distribution. 
+
+Displayed below are Beta(1,1), Beta(3,3), and Beta(2,5) in that order. 
+
+\includegraphics[scale=.5]{2d1.pdf}
+\includegraphics[scale=.5]{2d2.pdf}
+\includegraphics[scale=.5]{2d2.pdf}
+
 \item[e.] The Beta distribution is conjugate to the Bernoulli distribution, meaning that $P(\Theta \mid X)$ and $P(\Theta)$ have the same functional form. This property makes it very convenient to work with, since in the MAP formalism we deal with the expression $P(\Theta \mid \cal{D})$. If this takes a simple form, then it is easier to compute $\argmax_{\theta}$, for instance. 
 
 \item[f.]
@@ -186,17 +198,35 @@ so that the probability of winning the next game is $\frac{14}{18}$.
 \end{enumerate}
 
 
-\noindent \textbf{Problem 5.}
+\noindent \textbf{Problem 3.}
 \begin{enumerate}
 \item[a.]
-The loss function for vectors $x_1,\cdots,x_N$ with prototypes $y_1,\cdots,y_K$ and responsibilities $r_{ij}$ is
+The loss function for vectors $x_1,\cdots,x_N$ with prototypes $\mu_1,\cdots,\mu_K$ and responsibilities $r_{ij}$ is
+\begin{equation}\label{3loss1}
+\mathcal{L} = \sum_{n=1}^N \sum_{k=1}^K r_{nk}|x_n-\mu_k|^2
+\end{equation}
+
+The $K$-means updates are a kind of expectation-minimization for this quantity. The hypothesis requires $r_{nk} = 1$ or $0$ for all $n,k$. 
+
+In the update step for the $r_{nk}$, we are simply assigning each datapoint to a cluster (by the binary form of the $r_{nk}$). The contribution of $x_n$ to \eqref{3loss1} is just the squared distance to its chosen cluster, so tautologically \eqref{3loss1} is minimized when that cluster is chosen to have the least square distance. 
+
+Now conside the update steps for the $\mu_k$. Let $\mu_{k,d}$ be the $d$th component of $\mu_k$. Then taking $\pderiv{}{mu_{k,d}}$ in \eqref{3loss1} gives the equation 
 \[
-\mathcal{L} = \sum_{n=1}^N \sum_{k=1}^K r_{nk}|x_n-y_k|
+-2 \sum_{r_{nk} = 1} (x_{n,d} - \mu_{k,d}) = 0  \implies \mu_{k,d} = \frac{1}{N_k} \sum_{r_{nk}=1} x_{n,d}
 \]
-Suppose we are in $M$-dimensional space, with $x_n=(x_{n,1},\cdots,x_{n,m})$ and $y_k=(y_{k,1},\cdots,y_{k,m})$. Then we have
-\[
-\frac{\partial \mathcal{L}}{\partial y_{k,m}}=\sum_{n=1}^N r_{nk}\frac{2(y_{k,m}-x_{n,m})}{2|x_n-y_k|}
-\]
+where $N_k  = \# \{n \colon r_{nk}=1\}$, and this is precisely the average of the $d$th coordinates of the points in cluster $k$. 
+
+\item[b.] These methods are related in that they both seek to present a \emph{approximaton} of the data, which we can think of as a way of compressing or summarizing the data. K-means does so by replacing clusters of points by their means, and PCA does so by finding a projection. 
+
+To see how PCA might fail to give a good summary where $K$-means succeeds, consider a figure of the form below, where the big dots represent a large cluster of data.
+
+\includegraphics[scale=.2]{pca_fail.png}
+
+PCA would project onto the vertical line indicated, which fails to capture the important structural information that the data is split into two sides! On the other hand, $K$-means would probably (it's random, so we can't say for sure) be able to identify these clusters. 
+
+PCA is good for eliminating useless dimensions. Imagine trying to classify data as in problem 4, but we have features with some completely random binary components. PCA will tend to choose a line for which all these useless components all project onto the same point, which is good, because it eliminates useless features while preserving meaningful ones. However  K-means clustering will tend to cluster within hyperplanes defined by the different discrete values of these useless random components, especially if those hyperplanes are separated by large distances. 
+
+In general, PCA fails to distinguish capture essentially convex ball-shaped clusters, while K-means fails to identify clusters that are not essentially ball-shaped convex regions. 
 
 \end{enumerate}
 \noindent \textbf{Problem 4.}
@@ -222,7 +252,7 @@ k & Mean squared distance \\
 \hline
 \end{tabular}
 \]
-\item(b) It is difficult to tell, because the mean squared values always seem to be improving as the number of clusters increases (which should be the case). However, the improvements seem to level off somewhat at 8 clusters, so that is about as reasonable a guess as we can make just from the above data. 
+\item[(b)] It is difficult to tell, because the mean squared values always seem to be improving as the number of clusters increases (which should be the case). However, the improvements seem to level off somewhat at 8 clusters, so that is about as reasonable a guess as we can make just from the above data. 
 \end{enumerate}
 
 
@@ -249,6 +279,8 @@ Scatterplot of Max metric clusters:
 
 \includegraphics[height=2in]{scatter_metric1.png}
 
+We see two hyperplanes, resulting from the fact that there is one discrete variable. The Min metric tends to separate out the clusters by discrete variables, which makes sense, while the Max metric has attempted to form convexish clusters. Visually, the Min metric looks better, but we should be careful not to be deceived by the nature of the data, as a small number of discrete variables will always look geometrically distinguished; this won't be so good in high dimensions. 
+
 \item[(b)]
 Number of instances in each cluster by metric:
 
@@ -268,7 +300,11 @@ Scatterplot of centroid metric clusters:
 
 \includegraphics[height=2in]{scatter_metric3.png}
 
+These metrics behaved very similarly. The differences seem negligible. That's reasonable, considering the similarity of mean and centroid; both are middle ground between mean and max. These metrics distinguished hyperplanes of discrete variables even more starkly than did min.
+
 \end{enumerate}
+
+
 
 \item[c.]
 \begin{enumerate}
@@ -276,7 +312,7 @@ Scatterplot of centroid metric clusters:
 It takes autoclass 18 iterations to converge.
 The cluster sizes were 239,394,363 and 4.
 
-\item[(b)]
+\item[(b)] 
 
 \includegraphics[height=2in]{log-likelihood.png}
 
