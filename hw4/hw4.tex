@@ -171,7 +171,31 @@ The things to change are $P(VRM \mid MAI , VP), P(VRN \mid NAI, VP)$, and $P(VRA
 
 Whether or not this is beneficial to the modeling process depends on our specific goals and situation. It is conceivable that this extra complexity could lead us towards overfitting. Note also that it could already be captured by the parameters of the simpler model, so one could argue that there is not, strictly speaking, more information in this second model. 
 
-\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are 
+\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are $F,C$.\\
+
+\noindent (b) For graph (a), $P(A,B,C,D,E,F,G,H,I)$ is 
+\[
+P(G) P(H) P(I \mid G,H) P(D \mid G) P(E \mid G) P(F \mid H) P(B \mid D) P(C \mid E,F) P(A \mid B,C).
+\]
+For graph (b), $P(A,B,C,D,E,F,G,H,I)$ is
+\[
+P(B) P(C) P(A) P(D \mid B) P(E \mid B) P(F \mid C) P(G \mid A,D) P(H \mid D,E) P(I \mid E,F) P(J \mid G).
+\]
+
+\subsection*{Problem 3} (a) 
+\[
+\includegraphics[scale=1]{4_3_1.png}
+\]
+(b) We draw in two steps. 
+\begin{enumerate}
+\item First draw randomly from the discrete distribution to determine from which Gaussian to draw: with probability $0.2$ we draw from the first, with probability $0.3$ we draw from the second, and with probability $0.5$ we draw from the third. 
+\item Second draw from the Gaussian distribution determined in Step 1. 
+\end{enumerate}
+Using this algorithm, we produced the following histogram. 
+\[
+\includegraphics[scale=1]{4_3_2.png}
+\]
+
 \end{document}
 
 
