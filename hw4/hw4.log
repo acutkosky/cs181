@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  10 APR 2013 14:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  10 APR 2013 15:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -485,111 +485,129 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
-[2 <./4_1_2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 185--186
+[2 <./4_1_2.png>] <4_2_1.png, id=19, 2059.695pt x 1397.22pt>
+File: 4_2_1.png Graphic file (type png)
+ <use 4_2_1.png>
+Package pdftex.def Info: 4_2_1.png used on input line 187.
+(pdftex.def)             Requested size: 352.31625pt x 238.99533pt.
+
+<4_2_2.png, id=20, 2445.135pt x 1140.26pt>
+File: 4_2_2.png Graphic file (type png)
+ <use 4_2_2.png>
+Package pdftex.def Info: 4_2_2.png used on input line 191.
+(pdftex.def)             Requested size: 469.75502pt x 219.0527pt.
+ [3 <./4_2_1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 192--194
 
  []
 
+<4_2_3.png, id=26, 1393.205pt x 1180.41pt>
+File: 4_2_3.png Graphic file (type png)
+ <use 4_2_3.png>
+Package pdftex.def Info: 4_2_3.png used on input line 197.
+(pdftex.def)             Requested size: 328.82707pt x 278.60316pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 187--188
-
- []
-
-<4_3_1.png, id=19, 361.35pt x 232.87pt>
+<4_2_4.png, id=27, 1935.23pt x 999.735pt>
+File: 4_2_4.png Graphic file (type png)
+ <use 4_2_4.png>
+Package pdftex.def Info: 4_2_4.png used on input line 201.
+(pdftex.def)             Requested size: 352.31625pt x 182.00392pt.
+ [4 <./4_2_2.png> <./4_2_3.png>] <4_3_1.png, id=33, 361.35pt x 232.87pt>
 File: 4_3_1.png Graphic file (type png)
  <use 4_3_1.png>
-Package pdftex.def Info: 4_3_1.png used on input line 191.
+Package pdftex.def Info: 4_3_1.png used on input line 205.
 (pdftex.def)             Requested size: 361.34912pt x 232.86942pt.
 
-<4_3_2.png, id=20, 361.35pt x 228.855pt>
+<4_3_2.png, id=34, 361.35pt x 228.855pt>
 File: 4_3_2.png Graphic file (type png)
  <use 4_3_2.png>
-Package pdftex.def Info: 4_3_2.png used on input line 200.
+Package pdftex.def Info: 4_3_2.png used on input line 214.
 (pdftex.def)             Requested size: 361.34912pt x 228.85443pt.
- [3 <./4_3_1.png (PNG copy)>] <4_3_3.png, id=24, 361.35pt x 232.87pt>
+ [5 <./4_2_4.png> <./4_3_1.png (PNG copy)>] <4_3_3.png, id=39, 361.35pt x 232.8
+7pt>
 File: 4_3_3.png Graphic file (type png)
  <use 4_3_3.png>
-Package pdftex.def Info: 4_3_3.png used on input line 204.
+Package pdftex.def Info: 4_3_3.png used on input line 218.
 (pdftex.def)             Requested size: 361.34912pt x 232.86942pt.
 
-<4_3_4.png, id=25, 361.35pt x 234.8775pt>
+<4_3_4.png, id=40, 361.35pt x 234.8775pt>
 File: 4_3_4.png Graphic file (type png)
  <use 4_3_4.png>
-Package pdftex.def Info: 4_3_4.png used on input line 212.
+Package pdftex.def Info: 4_3_4.png used on input line 226.
 (pdftex.def)             Requested size: 361.34912pt x 234.87692pt.
- [4 <./4_3_2.png (PNG copy)> <./4_3_3.png (PNG copy)>] <4_3_5.png, id=32, 361.3
+ [6 <./4_3_2.png (PNG copy)> <./4_3_3.png (PNG copy)>] <4_3_5.png, id=47, 361.3
 5pt x 204.765pt>
 File: 4_3_5.png Graphic file (type png)
 
 <use 4_3_5.png>
-Package pdftex.def Info: 4_3_5.png used on input line 234.
+Package pdftex.def Info: 4_3_5.png used on input line 248.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
- <4_3_6.png, id=33, 361.35pt x 204.765pt>
+ <4_3_6.png, id=48, 361.35pt x 204.765pt>
 File: 4_3_6.png Graphic file (type png)
  <use 4_3_6.png>
-Package pdftex.def Info: 4_3_6.png used on input line 235.
+Package pdftex.def Info: 4_3_6.png used on input line 249.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-<4_3_7.png, id=34, 361.35pt x 204.765pt>
+<4_3_7.png, id=49, 361.35pt x 204.765pt>
 File: 4_3_7.png Graphic file (type png)
  <use 4_3_7.png>
-Package pdftex.def Info: 4_3_7.png used on input line 236.
+Package pdftex.def Info: 4_3_7.png used on input line 250.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-<4_3_8.png, id=35, 361.35pt x 204.765pt>
+<4_3_8.png, id=50, 361.35pt x 204.765pt>
 File: 4_3_8.png Graphic file (type png)
  <use 4_3_8.png>
-Package pdftex.def Info: 4_3_8.png used on input line 237.
+Package pdftex.def Info: 4_3_8.png used on input line 251.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 File: 4_3_8.png Graphic file (type png)
  <use 4_3_8.png>
-Package pdftex.def Info: 4_3_8.png used on input line 238.
+Package pdftex.def Info: 4_3_8.png used on input line 252.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-<4_3_10.png, id=36, 361.35pt x 204.765pt>
+<4_3_10.png, id=51, 361.35pt x 204.765pt>
 File: 4_3_10.png Graphic file (type png)
  <use 4_3_10.png>
-Package pdftex.def Info: 4_3_10.png used on input line 239.
+Package pdftex.def Info: 4_3_10.png used on input line 253.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-<4_3_11.png, id=37, 361.35pt x 204.765pt>
+<4_3_11.png, id=52, 361.35pt x 204.765pt>
 File: 4_3_11.png Graphic file (type png)
  <use 4_3_11.png>
-Package pdftex.def Info: 4_3_11.png used on input line 240.
+Package pdftex.def Info: 4_3_11.png used on input line 254.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-<4_3_12.png, id=38, 361.35pt x 204.765pt>
+<4_3_12.png, id=53, 361.35pt x 204.765pt>
 File: 4_3_12.png Graphic file (type png)
  <use 4_3_12.png>
-Package pdftex.def Info: 4_3_12.png used on input line 241.
+Package pdftex.def Info: 4_3_12.png used on input line 255.
 (pdftex.def)             Requested size: 216.81168pt x 122.85992pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--243
+Underfull \hbox (badness 10000) in paragraph at lines 248--257
 [][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--243
+Underfull \hbox (badness 10000) in paragraph at lines 248--257
 [] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 234--243
+Underfull \hbox (badness 10000) in paragraph at lines 248--257
 [] []
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5 <./4_3_4.png (PNG copy)>] [6 <./4_3_5.png (PNG copy)> <./4_3_6.png (PNG copy
+[7 <./4_3_4.png (PNG copy)>] [8 <./4_3_5.png (PNG copy)> <./4_3_6.png (PNG copy
 )> <./4_3_7.png (PNG copy)> <./4_3_8.png (PNG copy)> <./4_3_10.png (PNG copy)> 
 <./4_3_11.png (PNG copy)> <./4_3_12.png (PNG copy)>] (./hw4.aux) ) 
 Here is how much of TeX's memory you used:
- 6312 strings out of 493633
- 80729 string characters out of 3143378
+ 6334 strings out of 493633
+ 81006 string characters out of 3143378
  197269 words of memory out of 3000000
- 9461 multiletter control sequences out of 15000+200000
- 13905 words of font info for 60 fonts, out of 3000000 for 9000
+ 9478 multiletter control sequences out of 15000+200000
+ 14252 words of font info for 61 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  38i,8n,35p,3235b,229s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/t
@@ -600,11 +618,12 @@ ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive
 /2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2
 011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2011
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on hw4.pdf (6 pages, 171681 bytes).
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on hw4.pdf (8 pages, 633290 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 39 compressed objects within 1 object stream
+ 91 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

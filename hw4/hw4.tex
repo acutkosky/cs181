@@ -171,7 +171,7 @@ The things to change are $P(VRM \mid MAI , VP), P(VRN \mid NAI, VP)$, and $P(VRA
 
 Whether or not this is beneficial to the modeling process depends on our specific goals and situation. It is conceivable that this extra complexity could lead us towards overfitting. Note also that it could already be captured by the parameters of the simpler model, so one could argue that there is not, strictly speaking, more information in this second model. 
 
-\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are $F,C$.\\
+\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are $F,C$. This was determined using the algorithm for detecting $d$-separation on page $75$ of Koller and Friedman, \textit{Probabilistic Graphical Models.} \\
 
 \noindent (b) For graph (a), $P(A,B,C,D,E,F,G,H,I)$ is 
 \[
@@ -182,10 +182,24 @@ For graph (b), $P(A,B,C,D,E,F,G,H,I)$ is
 P(B) P(C) P(A) P(D \mid B) P(E \mid B) P(F \mid C) P(G \mid A,D) P(H \mid D,E) P(I \mid E,F) P(J \mid G).
 \]
 
-\noindent (c) See the image. We have labeled the functions at each square to give the right probability distribution. \\
+\noindent (c) See the image. We have labeled the functions at each square to give the right probability distribution. For graph (a),
+\[
+\includegraphics[width=.75\textwidth]{4_2_1.png}
+\]
+For graph (b),
+\[
+\includegraphics[width=\textwidth]{4_2_2.png}
+\]
+\\
 
-\noindent (d) See the image. Since the Undirected Graphical Models embed fully faithfully into the Factor Graphs, we do not need to label the functions again (they are the same). \\
-
+\noindent (d) See the image. Since the Undirected Graphical Models embed fully faithfully into the Factor Graphs, we do not need to label the functions again (they are the same). For graph (a),
+\[
+\includegraphics[width=.7\textwidth]{4_2_3.png}
+\]
+For graph (b),
+\[
+\includegraphics[width=.75\textwidth]{4_2_4.png}
+\]
 \subsection*{Problem 3} (a) 
 \[
 \includegraphics[scale=1]{4_3_1.png}
