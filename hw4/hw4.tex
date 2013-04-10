@@ -211,6 +211,47 @@ Note that our envelop has volume $2.25$, so we expect a success rate of $1/2.25$
 \[
 \includegraphics[scale=1]{4_3_4.png}
 \]
+(b) See below for the acceptance rates for various standard deviations.
+\[
+\begin{tabular}{|l|l|}
+\hline
+$\sigma$ & Number accepted \\
+\hline
+$0.25$  & 484 \\
+$0.50$ & 446 \\
+$0.75$ & 470 \\
+$1.00$  & 439 \\
+$1.25$ & 426 \\
+$1.50$ & 408 \\
+$1.75$ & 388 \\
+$2.00$ & 402 \\
+$2.25$ & 353 \\
+\hline
+\end{tabular}
+\]
+We have depicted, below, the histogram for Gaussians with variance $\sigma = 0.25, 0.5, \ldots, 2.0$. 
+\begin{figure}[!h]
+\includegraphics[scale=0.6]{4_3_5.png}
+\includegraphics[scale=0.6]{4_3_6.png} 
+\includegraphics[scale=0.6]{4_3_7.png}
+\includegraphics[scale=0.6]{4_3_8.png}
+\includegraphics[scale=0.6]{4_3_8.png}
+\includegraphics[scale=0.6]{4_3_10.png}
+\includegraphics[scale=0.6]{4_3_11.png}
+\includegraphics[scale=0.6]{4_3_12.png}
+%\includegraphics[scale=1]{4_3_13.png}
+
+
+%\includegraphics[scale=1]{4_3_14.png}\\
+%\includegraphics[scale=1]{4_3_15.png}\\
+
+\end{figure}
+
+For small of $\sigma$, the algorithm doesn't appear to have converged well to the desired distribution. The ``exploration rate'' is too low, and the Markov chain tends to move in small steps. The steps are concentrated in high density areas, so the rejection rate is lower. 
+
+As $\sigma$ increases, we see better convergence to the distribution, and a slightly higher rejection rate. 
+
+When $\sigma$ is too large, however, the resolution of the Markov process is wrong again and we expect to see excessively high rejection rates and clumping. 
 \end{document}
 
 
