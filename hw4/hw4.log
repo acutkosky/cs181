@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  9 APR 2013 13:24
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  9 APR 2013 21:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -485,36 +485,61 @@ Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
-[2 <./4_1_2.png>] <4_3_1.png, id=19, 361.35pt x 232.87pt>
+[2 <./4_1_2.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 185--186
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
+
+ []
+
+<4_3_1.png, id=19, 361.35pt x 232.87pt>
 File: 4_3_1.png Graphic file (type png)
  <use 4_3_1.png>
-Package pdftex.def Info: 4_3_1.png used on input line 187.
+Package pdftex.def Info: 4_3_1.png used on input line 191.
 (pdftex.def)             Requested size: 361.34912pt x 232.86942pt.
 
 <4_3_2.png, id=20, 361.35pt x 228.855pt>
 File: 4_3_2.png Graphic file (type png)
  <use 4_3_2.png>
-Package pdftex.def Info: 4_3_2.png used on input line 196.
+Package pdftex.def Info: 4_3_2.png used on input line 200.
 (pdftex.def)             Requested size: 361.34912pt x 228.85443pt.
- [3 <./4_3_1.png (PNG copy)>] [4 <./4_3_2.png (PNG copy)>] (./hw4.aux) ) 
+ [3 <./4_3_1.png (PNG copy)>] <4_3_3.png, id=24, 361.35pt x 232.87pt>
+File: 4_3_3.png Graphic file (type png)
+ <use 4_3_3.png>
+Package pdftex.def Info: 4_3_3.png used on input line 204.
+(pdftex.def)             Requested size: 361.34912pt x 232.86942pt.
+
+<4_3_4.png, id=25, 361.35pt x 234.8775pt>
+File: 4_3_4.png Graphic file (type png)
+ <use 4_3_4.png>
+Package pdftex.def Info: 4_3_4.png used on input line 212.
+(pdftex.def)             Requested size: 361.34912pt x 234.87692pt.
+ [4 <./4_3_2.png (PNG copy)> <./4_3_3.png (PNG copy)>] [5 <./4_3_4.png (PNG cop
+y)>] (./hw4.aux) ) 
 Here is how much of TeX's memory you used:
- 6267 strings out of 493633
- 80138 string characters out of 3143378
+ 6277 strings out of 493633
+ 80266 string characters out of 3143378
  197269 words of memory out of 3000000
- 9425 multiletter control sequences out of 15000+200000
+ 9433 multiletter control sequences out of 15000+200000
  13905 words of font info for 60 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  38i,6n,35p,3235b,195s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/l
-ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/lo
-cal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/loc
-al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
-/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
-exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on hw4.pdf (4 pages, 89906 bytes).
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr17.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r6.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb>
+Output written on hw4.pdf (5 pages, 133147 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
- 26 compressed objects within 1 object stream
+ 61 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -182,6 +182,10 @@ For graph (b), $P(A,B,C,D,E,F,G,H,I)$ is
 P(B) P(C) P(A) P(D \mid B) P(E \mid B) P(F \mid C) P(G \mid A,D) P(H \mid D,E) P(I \mid E,F) P(J \mid G).
 \]
 
+\noindent (c) See the image. We have labeled the functions at each square to give the right probability distribution. \\
+
+\noindent (d) See the image. Since the Undirected Graphical Models embed fully faithfully into the Factor Graphs, we do not need to label the functions again (they are the same). \\
+
 \subsection*{Problem 3} (a) 
 \[
 \includegraphics[scale=1]{4_3_1.png}
@@ -195,7 +199,18 @@ Using this algorithm, we produced the following histogram.
 \[
 \includegraphics[scale=1]{4_3_2.png}
 \]
+(c) We chose to use the envelope function $g(x) = 2\mathcal{N}(\mu = 0, \sigma = 5.1)$, depicted below. 
+\[
+\includegraphics[scale=1]{4_3_3.png}
+\]
+For let us discuss why it actually fits the condition $g(x)> f(x)$ for all $x$. A challenge with Gaussian distributions is to bound the tail. Our examples has a greater variance than any of the constituent Gaussians in $f$, so its tail will dominate their tails for large $x$ (consider the term $e^{-x^2/\sigma^2}$, where $\sigma$ controls the rate of exponential decay). 
 
+We wanted something with small tails to mold the small tails of $f$ closely, and another Gaussian was the natural choice. From there, it was a matter of tweaking the parameters. 
+
+Note that our envelop has volume $2.25$, so we expect a success rate of $1/2.25$. Indeed, we need $1143$ trials for $500$ samples, and for comparison $1143/2.25 = 508$. Here is the histogram. 
+\[
+\includegraphics[scale=1]{4_3_4.png}
+\]
 \end{document}
 
 
