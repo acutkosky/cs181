@@ -171,7 +171,7 @@ The things to change are $P(VRM \mid MAI , VP), P(VRN \mid NAI, VP)$, and $P(VRA
 
 Whether or not this is beneficial to the modeling process depends on our specific goals and situation. It is conceivable that this extra complexity could lead us towards overfitting. Note also that it could already be captured by the parameters of the simpler model, so one could argue that there is not, strictly speaking, more information in this second model. 
 
-\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are $F,C$. This was determined using the algorithm for detecting $d$-separation on page $75$ of Koller and Friedman, \textit{Probabilistic Graphical Models.} \\
+\subsection*{Problem 2} (a) For graph (a), there are no such variables. For graph (b), the independent variables are $F,C$. This was determined using the algorithm for detecting $d$-separation on page $75$ of Koller and Friedman, \textit{Probabilistic Graphical Models.} For the first graph, $G$ and $D$ were marked, and none of the vertices are blocked. For the second, $G,D,B$ are marked, and $C,F$ are blocked at $I$. \\
 
 \noindent (b) For graph (a), $P(A,B,C,D,E,F,G,H,I)$ is 
 \[
