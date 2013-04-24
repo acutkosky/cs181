@@ -113,6 +113,7 @@ $P(RD), P(MAI), P(NAI \mid MAI), P(VP \mid RD), P(SMOS \mid VP)$, and $P(VRAS \m
 \[
 \includegraphics[scale = 0.75]{4_1_1.png}
 \]
+We parametrize the noise by a uniform random variable $\cal{U}(a,b)$ on interval $(a,b)$. 
 \begin{itemize}
 \item First, we assume that $P(RD) = 0.2, P(MAI) = 0.5$. 
 \item Next, we assume that $P(VP \mid RD)$ is given by the following table
@@ -121,17 +122,19 @@ $P(RD), P(MAI), P(NAI \mid MAI), P(VP \mid RD), P(SMOS \mid VP)$, and $P(VRAS \m
 \hline
 & RD = 1 & RD = 0 \\
 \hline
-P(VP = 1) & 0.9 & 0.0 \\
+P(VP = 1) & $ 0.9 $& 0.0 \\
 \hline
 \end{tabular}
 \]
-and $P(SMOS \mid VP) $ is given by the following table 
+
+
+$P(SMOS \mid VP) $ is given by the following table 
 \[
 \begin{tabular}{|l|l|l|}
 \hline
 & VP = 1 & VP = 0 \\
 \hline
-P(SMOS = 1) & 0.9 & 0.0 \\
+P(SMOS = 1) & $0.9$ & 0.0 \\
 \hline
 \end{tabular}  
 \]
@@ -151,11 +154,12 @@ P(NAI = 1) & 0.1 & 0.9 \\
 \hline
 (VP, MAI, NP)& (0,*,*)& (*, 0, 0) & (1,1,0) or (1,0,1) & (1,1,1) \\
 \hline
-P(VRAS = 1) & 0  & 0 & 0.7  & 0.9\\
+P(VRAS = 1) & 0  & 0 & $ 0.7+ \mathcal{U}(-\alpha_0, \alpha_1) $ & $0.9 + \mathcal{U}(-\beta_0, \beta_1) $\\
 \hline
 \end{tabular}  
 \]
 \end{itemize}
+Observe that the $\alpha_i$ and $\beta_i$ parametrize the probability of the antivirus detecting the virus. \\
 
 \noindent (b) Above, we assumed that SMOS (silly messages on screen) was independent of RD (recent download) conditioned on VP (virus present). However, it could be argued that one could have SMOS, e.g. from the ads that tend to inhabit untrusted sites, without actually having a virus. In this case, we should add an edge from RD to SMOS, since we can imagine that RD indicates browsing of the kind of sites that would pop up such silly messages. 
 
@@ -165,7 +169,7 @@ We chose not to include this edge for the sake of simplicity, since we expect th
 \[
 \includegraphics[scale=0.8]{4_1_2.png}
 \]
-The things to change are $P(VRM \mid MAI , VP), P(VRN \mid NAI, VP)$, and $P(VRAS \mid ...)$. We are modifying our parametrization slightly so that $P(VRM \mid MAI, VP) = 0.7$ and $P(VRN \mid NAI, VP) = 0.75$, and $VRAS = 1$ if either $VRM$ or $VRN = 1$. \\
+The things to change are $P(VRM \mid MAI , VP), P(VRN \mid NAI, VP)$, and $P(VRAS \mid ...)$. We are modifying our parametrization slightly so that $P(VRM \mid MAI, VP) = 0.7 + \mathcal{U}(-\alpha_0, \alpha_1)$ and $P(VRN \mid NAI, VP) = 0.75 + \mathcal{U}(-\beta_0, \beta_1) $, and $VRAS = 1$ if either $VRM$ or $VRN = 1$. \\
 
 \noindent (d) Well, introducing these nodes allows greater flexibility of expression in the modeling process because it allows us to separate the dependencies on the two different antivirus programs. For instance, the graph lets us think about the probability that McAfee detects a virus and the probability that Norton detects a virus separately. 
 
