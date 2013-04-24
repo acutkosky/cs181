@@ -14,6 +14,8 @@ from random import *
 import throw
 import darts
 
+from throw import CENTER, INNER_RING, FIRST_PATCH, MIDDLE_RING, SECOND_PATCH, OUTER_RING, MISS,NUM_WEDGES
+
 # make pi global so computation need only occur once
 PI = {}
 EPSILON = .001
@@ -36,7 +38,54 @@ def get_target(score):
 def T(a, s, s_prime):
   # takes an action a, current state s, and next state s_prime
   # returns the probability of transitioning to s_prime when taking action a in state s
-  return 0
+
+  #so let's iterate over the possible places on the board we will hit and add up the ones that give the right score reduction
+
+  if(s_prime>s):
+    return 0.0
+
+  if(s == 0 and s_prime == 0):
+    return 1.0
+
+  regions = {CENTER:0, INNER_RING:1, FIRST_PATCH:2, MIDDLE_RING:3, SECOND_PATCH:4,OUTER_RING:5,MISS:6}
+
+
+  actions = darts.get_actions()
+
+  score_diff = s-s_prime
+  prob = 0.0
+  for ap in actions:
+    prob_ap = 0.0
+    if(throw.location_to_score(ap) == score_diff):
+      diff = int(a.wedge-ap.wedge)
+
+      diff = diff% NUM_WEDGES
+      if(diff >2):
+        diff = (-diff)%NUM_WEDGES
+
+      if(diff <= 2):
+        diff_r = abs(regions[a.ring]-regions[ap.ring])
+        if(diff_r<=2):
+          if(regions[a.ring]>1):
+            prob_ap = (0.4/ (2.0**diff_r) * 0.4/(2.0**diff))
+          else:
+            if(regions[a.ring] == 0):
+              prob_ap = (0.4/(2.0**diff))*0.4
+              if(diff_r == 2):
+                prob_ap *= 0.5
+            if(regions[a.ring]==1):
+              prob_ap = (0.4/(2.0**diff))
+              if(ap.ring == CENTER):
+                prob_ap*=0.2
+              if(ap.ring == INNER_RING):
+                prob_ap*=0.5
+              if(ap.ring == FIRST_PATCH):
+                prob_ap*=0.2
+              if(ap.ring == MIDDLE_RING):
+                prob_ap*=0.1
+    prob += prob_ap
+
+  return prob
 
 
 def infiniteValueIteration(gamma):
