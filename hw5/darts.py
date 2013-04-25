@@ -41,11 +41,11 @@ def R(s,a):
   # takes a state s and action a
   # returns the reward for completing action a in state s
   if(s == 0):
-    return 100.0
+    return 1.0
   penalty = 0
   if(throw.location_to_score(a)>s):
     penalty = -1
-  return -1+penalty#-((throw.START_SCORE+1-s))+penalty
+  return -1#penalty#-((throw.START_SCORE+1-s))+penalty
 
 
 # Play a single game 
@@ -86,6 +86,10 @@ def play(method):
             
     print "WOOHOO!  It only took", turns, " turns"
     #end_game(turns)
+    for state in mdp.PI:
+      print "state: "+str(state)+": "+str(mdp.PI[state])
+
+
     return turns
 
 # Play n games and return the average score. 
@@ -109,8 +113,8 @@ def main():
 #*************************************************
 
  #Default is to solve MDP and play 1 game
- #   throw.use_simple_thrower()
- #   test(1, "mdp")    
+    throw.use_simple_thrower()
+    test(1, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -123,9 +127,9 @@ def main():
 # multiple calls to main().
 # Then, initialize the throwing model and run
 # the modelbased algorithm.
-    random.seed()
-    throw.init_thrower()
-    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+   # random.seed()
+   # throw.init_thrower()
+   # modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
