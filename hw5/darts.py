@@ -42,7 +42,10 @@ def R(s,a):
   # returns the reward for completing action a in state s
   if(s == 0):
     return 100.0
-  return -(throw.START_SCORE+1-s)
+  penalty = 0
+  if(throw.location_to_score(a)>s):
+    penalty = -1
+  return -1+penalty#-((throw.START_SCORE+1-s))+penalty
 
 
 # Play a single game 
@@ -53,7 +56,7 @@ def play(method):
     if method == "mdp":
         target = mdp.start_game(GAMMA)
     else:
-        target = modelfree.start_game()
+        target = modelfree.start_game(GAMMA)
         
     targets = []
     results = []
@@ -62,6 +65,7 @@ def play(method):
         result = throw.throw(target)
         targets.append(target)
         results.append(result)
+        old_score = score
         raw_score = throw.location_to_score(result)
         print "Target: wedge", target.wedge,", ring", target.ring
         print "Result: wedge", result.wedge,", ring", result.ring
@@ -78,7 +82,7 @@ def play(method):
         if method == "mdp":
             target = mdp.get_target(score)
         else:
-            target = modelfree.get_target(score)
+            target = modelfree.get_target(turns,old_score,target,score)
             
     print "WOOHOO!  It only took", turns, " turns"
     #end_game(turns)
@@ -105,8 +109,8 @@ def main():
 #*************************************************
 
  #Default is to solve MDP and play 1 game
-    throw.use_simple_thrower()
-    test(1, "mdp")    
+ #   throw.use_simple_thrower()
+ #   test(1, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -119,9 +123,9 @@ def main():
 # multiple calls to main().
 # Then, initialize the throwing model and run
 # the modelbased algorithm.
-    #random.seed()
-    #throw.init_thrower()
-    #modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    random.seed()
+    throw.init_thrower()
+    modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
