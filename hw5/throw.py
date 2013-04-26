@@ -12,14 +12,14 @@ from random import *
 ##START_SCORE = 301
 
 # A medium-size dartboard #
-#NUM_WEDGES = 8
-#wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
-#START_SCORE = 100
+NUM_WEDGES = 8
+wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
+START_SCORE = 100
 
 # A much smaller dartboard #
-NUM_WEDGES = 4
-wedges = [ 1, 4, 2, 3 ]
-START_SCORE = 9
+#NUM_WEDGES = 4
+#wedges = [ 1, 4, 2, 3 ]
+#START_SCORE = 9
 
 angles = []
 
@@ -154,6 +154,7 @@ def use_simple_thrower():
 def simple_throwing_model(target):
     e1 = rane()
     e2 = rane()
+
     angle1 = angles[target.wedge]
     angle2 = angle1 + e1
     

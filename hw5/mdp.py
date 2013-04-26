@@ -53,38 +53,18 @@ def T(a, s, s_prime):
   actions = darts.get_actions()
 
   score_diff = s-s_prime
+
   prob = 0.0
-  for ap in actions:
-    prob_ap = 0.0
-    if(throw.location_to_score(ap) == score_diff):
-      diff = int(throw.angles[a.wedge]-throw.angles[ap.wedge])
 
-      diff = diff% NUM_WEDGES
-      if(diff >2):
-        diff = (-diff)%NUM_WEDGES
-
-      if(diff <= 2):
-        diff_r = abs(regions[a.ring]-regions[ap.ring])
-        if(diff_r<=2):
-          if(regions[a.ring]>1):
-            prob_ap = (0.4/ (2.0**diff_r) * 0.4/(2.0**diff))
-          else:
-            if(regions[a.ring] == 0):
-              prob_ap = (0.4/(2.0**diff))*0.4
-              if(diff_r == 2):
-                prob_ap *= 0.5
-            if(regions[a.ring]==1):
-              prob_ap = (0.4/(2.0**diff))
-              if(ap.ring == CENTER):
-                prob_ap*=0.2
-              if(ap.ring == INNER_RING):
-                prob_ap*=0.5
-              if(ap.ring == FIRST_PATCH):
-                prob_ap*=0.2
-              if(ap.ring == MIDDLE_RING):
-                prob_ap*=0.1
-    prob += prob_ap
-
+  wedge = throw.angles[a.wedge]
+  ring = a.ring
+  for wdel in range(-2,3):
+    for rdel in range(-2,3):
+      wedge_p = throw.wedges[(wdel+wedge)%NUM_WEDGES]
+      ring_p = abs(ring+rdel)
+      dscore = throw.location_to_score(throw.location(ring_p,wedge_p))
+      if(dscore == score_diff):
+        prob += 0.4/(2**abs(wdel))*0.4/(2**abs(rdel))
   return prob
 
 
