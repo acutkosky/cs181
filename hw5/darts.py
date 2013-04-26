@@ -1,7 +1,7 @@
 #
 # Darts playing model for CS181.
 #
-
+from matplotlib import pyplot
 import sys
 import time
 import random
@@ -10,7 +10,7 @@ import mdp
 import modelbased
 import modelfree
 
-GAMMA = .5
+GAMMA = .9
 EPOCH_SIZE = 10
 
 
@@ -45,7 +45,7 @@ def R(s,a):
   penalty = 0
   if(throw.location_to_score(a)>s):
     penalty = -1
-  return -1#penalty#-((throw.START_SCORE+1-s))+penalty
+  return 0.0#0+penalty#-((throw.START_SCORE+1-s))+penalty
 
 
 # Play a single game 
@@ -67,15 +67,15 @@ def play(method):
         results.append(result)
         old_score = score
         raw_score = throw.location_to_score(result)
-        print "Target: wedge", target.wedge,", ring", target.ring
-        print "Result: wedge", result.wedge,", ring", result.ring
-        print "Raw Score:", raw_score
-        print "Score:", score
+        #print "Target: wedge", target.wedge,", ring", target.ring
+        #print "Result: wedge", result.wedge,", ring", result.ring
+        #print "Raw Score:", raw_score
+        #print "Score:", score
         if raw_score <= score:
             score = int(score - raw_score)
-        else:
-            print
-            print "TOO HIGH!"
+        #else:
+            #print
+            #print "TOO HIGH!"
         if score == 0:
             break
 
@@ -84,10 +84,9 @@ def play(method):
         else:
             target = modelfree.get_target(turns,old_score,target,score)
             
-    print "WOOHOO!  It only took", turns, " turns"
+    #print "WOOHOO!  It only took", turns, " turns"
     #end_game(turns)
-    for state in mdp.PI:
-      print "state: "+str(state)+": "+str(mdp.PI[state])
+
 
 
     return turns
@@ -97,6 +96,8 @@ def test(n, method):
     score = 0
     for i in range(n):
         score += play(method)
+    for state in mdp.PI:
+      print "state: "+str(state)+": "+str(mdp.PI[state])
         
     print "Average turns = ", float(score)/float(n)
     return score
@@ -104,7 +105,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 1000
+    num_games = 1
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
@@ -113,8 +114,8 @@ def main():
 #*************************************************
 
  #Default is to solve MDP and play 1 game
-    throw.use_simple_thrower()
-    test(1, "mdp")    
+    #throw.use_simple_thrower()
+    #test(1, "mdp")    
 
 #*************************************************#
 # Uncomment the lines below to run the modelbased #
@@ -127,9 +128,19 @@ def main():
 # multiple calls to main().
 # Then, initialize the throwing model and run
 # the modelbased algorithm.
-   # random.seed()
-   # throw.init_thrower()
-   # modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+    random.seed()
+    performance = []
+    epochs = range(10,12)
+    for i in range(len(epochs)):
+      epoch = epochs[i]
+      throw.init_thrower()
+      modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+
+    pyplot.plot(epochs,performance)
+    pyplot.title("Epsilon-greedy exploration")
+    pyplot.xlabel("Epoch size")
+    pyplot.ylabel("performance")
+    pyplot.show()
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #

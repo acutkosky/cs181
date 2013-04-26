@@ -138,7 +138,7 @@ def modelbased(gamma, epoch_size, num_games):
                 T_matrix, pi_star = modelbased_value_iteration(gamma, T_matrix, pi_star)
     
     print "Average turns = ", float(num_iterations)/float(num_games)
-
+    return float(num_iterations)/float(num_games)
 
 # A modified version of infinite horizon value iteration from part 2 */
 def modelbased_value_iteration(gamma, T_matrix, pi_star):
