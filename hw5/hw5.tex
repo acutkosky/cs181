@@ -179,21 +179,32 @@ V(s) = \max_a \left[ R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s') \right].
 \]
 These are precisely the Bellman-Ford equations. So we know that $\pi,V$ give a solution to the Bellman-Ford equations. But we also know that the solution is unique, so this must be it. \\
 
-\noindent (b) By definition of $\pi^{(2)}(s)$ as 
+\noindent (b) This is a bit involved, but please read it through!
+
+By definition of $\pi^{(2)}(s)$ as 
 \[
 \argmax_a Q(s,a) = \argmax_a R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s'),
 \]
+and $V^{\pi^{(1)}}$ as satisfying the equation 
+\[
+V^{\pi^{(1)}} (s) = R(s, \pi^{(1)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(1)} ) V^{\pi^{(1)}}(s')
+\]
 we have the following inequality for each $s$:
-\begin{align}
-V^{\pi^{(1)}} (s) &= R(s, \pi^{(1)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(1)} ) V^{\pi^{(1)}}(s') \\
-&\leq R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(1)}}(s') \label{3eq1}
-\end{align}
+\begin{equation}\label{3eq2}
+V^{\pi^{(1)}} (s) \leq R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(1)}}(s') 
+\end{equation}
+We want to show that 
+\begin{equation}\label{3eq3}
+V^{\pi^{(1)}}(s) \leq V^{\pi^{(2)}}(s) \text{ for each }s.
+\end{equation}
 
 Define the affine transformation $T$ on the vector space of values on the states by 
 \[
 T(V)(s) =  R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V(s).
 \]
-\begin{lemma}
+Then by definition, $V^{\pi^{(2)}}(s)$ is the (unique) fixed vector of $T$. 
+
+\begin{lemma}\label{3lem1}
 If $V(s) \leq V'(s)$ for each $s$, then $T(V)(s) \leq T(V')(s)$ for each $s$. 
 \end{lemma}
 
@@ -206,15 +217,15 @@ because each $V'(s)-V(s) \geq 0$ and $P(s' \mid s, \pi^{(2)}) \geq 0$.
 \end{proof}
 
 We want to show that 
-\begin{equation}\label{3eq2}
+\begin{equation}\label{3eq3}
 V^{\pi^{(1)}}(s)  < V^{\pi^{(2)}} (s)  = R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(2)}}(s'). 
 \end{equation}
 
- Then equation \eqref{3eq1} says that for each $s$, $T(V_1)(s) \leq T(V_2)(s)$. Therefore, 
+Notice that equation \eqref{3eq2} says that for each $s$, $V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s)$. Therefore, applying Lemma \ref{3lem1} repeatedly, we find 
 \[
-V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s) \leq T^2(V^{\pi^{(1)}})(s) \leq T^{\circ 3}(V^{\pi^{(1)}})(s) \ldots \leq T^{\circ n}(V^{\pi^{(1)}})(s) \ldots
+V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s) \leq T^2(V^{\pi^{(1)}})(s) \leq T^{\circ 3}(V^{\pi^{(1)}})(s) \leq \ldots \leq T^{\circ n}(V^{\pi^{(1)}})(s) \leq \ldots
 \]
-We claim that this sequence converges to $V^{\pi^{(2)}}(s)$, which will establish \eqref{3eq2} as desired. Indeed, notice that $V^{\pi^{(2)}}$ is defined to be a fixed point vector of the operator $T$. 
+We claim that this sequence converges to $V^{\pi^{(2)}}(s)$, which will establish \eqref{3eq3} as desired. As mentioned above, $V^{\pi^{(2)}}$ is defined to be a fixed point vector of the operator $T$, so by the contraction mapping theorem, it suffices to show that $T$ is a contraction.
 
 \begin{lemma}
 $T$ is a contraction with factor $\gamma < 1$. 
@@ -222,17 +233,19 @@ $T$ is a contraction with factor $\gamma < 1$.
 
 \begin{proof}
 Indeed, 
-\[
-|(T(V')-T(V))(s)| = |\gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s) - V(s))| \leq |V'(s)-V(s)|.
-\]
-
+\begin{align*}
+|(T(V')-T(V))(s)| & = |\gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s) - V(s))| \\
+&\leq \gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) |V'(s)-V(s)| \\
+&\leq \gamma |V'(s)-V(s)|
+\end{align*}
+because $\sum_{s'} P(s' \mid s, \pi^{(2)}) = 1$. 
 \end{proof}
 
 By the above Lemma, and the Contraction Mapping Theorem, 
 \[
-\lim_{n \rightarrow \infty} T^{\circ n}(V) 
+\lim_{n \rightarrow \infty} T^{\circ n}(V^{\pi^{(1)}}) 
 \]
-is the unique fixed point of $V$, and the value is precisely $V^{\pi^{(2)}}$. \\ 
+is the unique fixed point of $T$, and is equal to $V^{\pi^{(2)}}$. This completes the proof, by the reasoning discussed above. \\ 
 
 \noindent (c) First note that if $V^{\pi^{(1)}}(s) = V^{\pi^{(2)}}(s)$ for each $s$, then the algorithm will converge. Indeed, if $V$ does not change then $\pi$, which is defined in each step as an $\argmax$ with respect to a function depending only on the states, actions, and $V$, will not change either. 
 
