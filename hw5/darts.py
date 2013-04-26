@@ -1,7 +1,7 @@
 #
 # Darts playing model for CS181.
 #
-from matplotlib import pyplot
+import pickle
 import sys
 import time
 import random
@@ -9,8 +9,9 @@ import throw
 import mdp
 import modelbased
 import modelfree
+from sys import exit
 
-GAMMA = .9
+GAMMA = .5
 EPOCH_SIZE = 10
 
 
@@ -41,15 +42,15 @@ def R(s,a):
   # takes a state s and action a
   # returns the reward for completing action a in state s
   if(s == 0):
-    return 1.0
+    return 10.0
   penalty = 0
   if(throw.location_to_score(a)>s):
     penalty = -1
-  return 0.0#0+penalty#-((throw.START_SCORE+1-s))+penalty
+  return penalty#-((throw.START_SCORE+1-s))+penalty
 
 
 # Play a single game 
-def play(method):
+def play(method,num_runs):
     score = throw.START_SCORE
     turns = 0
     
@@ -74,15 +75,15 @@ def play(method):
         if raw_score <= score:
             score = int(score - raw_score)
         #else:
-            #print
-            #print "TOO HIGH!"
+         #   print
+          #  print "TOO HIGH!"
         if score == 0:
             break
 
         if method == "mdp":
             target = mdp.get_target(score)
         else:
-            target = modelfree.get_target(turns,old_score,target,score)
+            target = modelfree.get_target(turns,old_score,target,score,num_runs)
             
     #print "WOOHOO!  It only took", turns, " turns"
     #end_game(turns)
@@ -95,7 +96,7 @@ def play(method):
 def test(n, method):
     score = 0
     for i in range(n):
-        score += play(method)
+        score += play(method,n)
     for state in mdp.PI:
       print "state: "+str(state)+": "+str(mdp.PI[state])
         
@@ -105,7 +106,7 @@ def test(n, method):
 # <CODE HERE>: Feel free to modify the main function to set up your experiments.
 def main():
     throw.init_board()
-    num_games = 1
+    num_games = 10
 
 #************************************************#
 # Uncomment the lines below to run the mdp code, #
@@ -130,17 +131,18 @@ def main():
 # the modelbased algorithm.
     random.seed()
     performance = []
-    epochs = range(10,12)
+    epochs = range(10,21)
+    throw.init_thrower()
     for i in range(len(epochs)):
       epoch = epochs[i]
       throw.init_thrower()
-      modelbased.modelbased(GAMMA, EPOCH_SIZE, num_games)
+      performance.append(modelbased.modelbased(GAMMA, EPOCH_SIZE, 10))
 
-    pyplot.plot(epochs,performance)
-    pyplot.title("Epsilon-greedy exploration")
-    pyplot.xlabel("Epoch size")
-    pyplot.ylabel("performance")
-    pyplot.show()
+    print performance
+    f = open("dumpfile2","w")
+    pickle.dump([epochs,performance],f)
+    f.close()
+
 
 #*************************************************#
 # Uncomment the lines below to run the modelfree  #
@@ -148,11 +150,12 @@ def main():
 #*************************************************#
 
 # Plays 1 game using a default player. No modelfree
-# code is provided. 
+# code is provided.
+
+    
     #random.seed()
     #throw.init_thrower()
-    #test(1, "modelfree")
-
+    #test(1000, "modelfree")
 
 if __name__ =="__main__":
     main()

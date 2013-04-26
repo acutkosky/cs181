@@ -5,7 +5,7 @@ import darts
 
 EPSILON_VI = .001
 
-EPSILON_EXP = 0.05
+EPSILON_EXP = 0.1
 TAU_EXP = 15.0
 
 # NOTE: We did not implement the interface methods start_game and get_target.
@@ -36,10 +36,10 @@ def ex_strategy_one():
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function.
-def ex_strategy_two(g):
+def ex_strategy_two(g,num_games):
   #explore exponentially less often
   
-  if(random.random() < math.exp((-g+1)/TAU_EXP)):
+  if(random.random() < (1.0-float(g)/float(num_games))):#math.exp((-g+1)/TAU_EXP)):
     return 1
   else:
     return 0
@@ -60,7 +60,7 @@ def modelbased(gamma, epoch_size, num_games):
     num_transitions = {}
     T_matrix = {}
     num_iterations = 0
-    
+    V= None    
     
     # Initialize all arrays to 0 except the policy, which should be assigned a random action for each state.
     for s in states:
@@ -82,7 +82,7 @@ def modelbased(gamma, epoch_size, num_games):
 
     # play num_games games, updating policy after every EPOCH_SIZE number of throws
     for g in range(1, num_games + 1):
-    
+        print "game: ",g
     	# run a single game
         s = throw.START_SCORE
         while s > 0:
@@ -93,7 +93,7 @@ def modelbased(gamma, epoch_size, num_games):
             # strategies. Comment out the strategy that you wish not to use.
 			
     	    to_explore = ex_strategy_one()
-    	    #to_explore = ex_strategy_two(g)
+    	    #to_explore = ex_strategy_two(g,num_games)
     		
             if to_explore:
             	# explore
@@ -123,7 +123,7 @@ def modelbased(gamma, epoch_size, num_games):
 
             # Update our learned MDP and optimal policy after every EPOCH_SIZE throws, 
             # using infinite-horizon value iteration. 
-		
+            
             if num_iterations % epoch_size == 0:
 
                 # Update transition probabilities
@@ -135,29 +135,32 @@ def modelbased(gamma, epoch_size, num_games):
 
                 # Update strategy (stored in pi) based on newly updated reward function and transition
                 # probabilities 
-                T_matrix, pi_star = modelbased_value_iteration(gamma, T_matrix, pi_star)
+                T_matrix, pi_star,V = modelbased_value_iteration(gamma, T_matrix, pi_star,V)
     
     print "Average turns = ", float(num_iterations)/float(num_games)
     return float(num_iterations)/float(num_games)
 
 # A modified version of infinite horizon value iteration from part 2 */
-def modelbased_value_iteration(gamma, T_matrix, pi_star):
-  V = {}
-  V[0] = {}
-  V[1] = {}
+def modelbased_value_iteration(gamma, T_matrix, pi_star,V):
+    # Get all possible actions
+  actions = darts.get_actions()
+
+  states = darts.get_states()
+  if(V==None):
+    V = {}
+    V[0] = {}
+    V[1] = {}
+    for s in states:
+      V[0][s] = 0
+      V[1][s] = 0
+
   converging = 0
   num_iterations = 0
   Q = {}
 
-  # Get all possible actions
-  actions = darts.get_actions()
 
-  states = darts.get_states()
 
   # initialize v
-  for s in states:
-    V[0][s] = 0
-    V[1][s] = 0
 
   # iterate until all state values (v[s]) converge 
   while not(converging):
@@ -172,9 +175,9 @@ def modelbased_value_iteration(gamma, T_matrix, pi_star):
           Q[a] += gamma * T_matrix[s][s_prime][a] * V[0][s_prime]
 
           # find the action that maximizes Q and the maximum value of Q
-          if a == 0 or (Q[a] >= V[1][s]):
-            pi_star[s] = a
-            V[1][s] = Q[a]
+        if a == 0 or (Q[a] >= V[1][s]):
+          pi_star[s] = a
+          V[1][s] = Q[a]
 
                   
     # values of v for iteration k become the values of v for iteration k-1
@@ -186,6 +189,6 @@ def modelbased_value_iteration(gamma, T_matrix, pi_star):
 
       V[0][s] = V[1][s]
 
-  return T_matrix, pi_star
+  return T_matrix, pi_star, V
 
   
