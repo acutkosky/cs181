@@ -142,7 +142,7 @@ V(s) = \max_a \left[ R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s') \right].
 \]
 These are precisely the Bellman-Ford equations. So we know that $\pi,V$ give a solution to the Bellman-Ford equations. But we also know that the solution is unique, so this must be it. \\
 
-\noindent (b) This is a bit involved, but please read it!
+\noindent (b) This is a bit involved, but please read it through!
 
 By definition of $\pi^{(2)}(s)$ as 
 \[
@@ -160,8 +160,6 @@ We want to show that
 \begin{equation}\label{3eq3}
 V^{\pi^{(1)}}(s) \leq V^{\pi^{(2)}}(s) \text{ for each }s.
 \end{equation}
-
-
 
 Define the affine transformation $T$ on the vector space of values on the states by 
 \[
@@ -182,13 +180,13 @@ because each $V'(s)-V(s) \geq 0$ and $P(s' \mid s, \pi^{(2)}) \geq 0$.
 \end{proof}
 
 We want to show that 
-\begin{equation}\label{3eq2}
+\begin{equation}\label{3eq3}
 V^{\pi^{(1)}}(s)  < V^{\pi^{(2)}} (s)  = R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(2)}}(s'). 
 \end{equation}
 
 Notice that equation \eqref{3eq2} says that for each $s$, $V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s)$. Therefore, applying Lemma \ref{3lem1} repeatedly, we find 
 \[
-V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s) \leq T^2(V^{\pi^{(1)}})(s) \leq T^{\circ 3}(V^{\pi^{(1)}})(s) \ldots \leq T^{\circ n}(V^{\pi^{(1)}})(s) \ldots
+V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s) \leq T^2(V^{\pi^{(1)}})(s) \leq T^{\circ 3}(V^{\pi^{(1)}})(s) \leq \ldots \leq T^{\circ n}(V^{\pi^{(1)}})(s) \leq \ldots
 \]
 We claim that this sequence converges to $V^{\pi^{(2)}}(s)$, which will establish \eqref{3eq3} as desired. As mentioned above, $V^{\pi^{(2)}}$ is defined to be a fixed point vector of the operator $T$, so by the contraction mapping theorem, it suffices to show that $T$ is a contraction.
 
