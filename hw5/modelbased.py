@@ -1,8 +1,12 @@
+import math
 import random
 import throw
 import darts
 
 EPSILON_VI = .001
+
+EPSILON_EXP = 0.05
+TAU_EXP = 15.0
 
 # NOTE: We did not implement the interface methods start_game and get_target.
 # Functions below are simply the default darts player discussed in modelfree.py.
@@ -23,12 +27,23 @@ def get_target(score):
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function. 
 def ex_strategy_one():
-  return 0
+#epsilon greedy exploration
+
+  if(random.random() < EPSILON_EXP):
+    return 1
+  else:
+    return 0
 
 # Define your first exploration/exploitation strategy here. Return 0 to exploit and 1 to explore. 
 # You may want to pass arguments from the modelbased function.
-def ex_strategy_two():
-  return 1
+def ex_strategy_two(g):
+  #explore exponentially less often
+  
+  if(random.random() < math.exp((-g+1)/TAU_EXP)):
+    return 1
+  else:
+    return 0
+  
 
 # Implement a model-based reinforcement learning algorithm. 
 # Given num_games (the number of games to play), store the
@@ -77,8 +92,8 @@ def modelbased(gamma, epoch_size, num_games):
             # The following two statements implement two exploration-exploitation
             # strategies. Comment out the strategy that you wish not to use.
 			
-    	    #to_explore = ex_strategy_one()
-    	    to_explore = ex_strategy_two()
+    	    to_explore = ex_strategy_one()
+    	    #to_explore = ex_strategy_two(g)
     		
             if to_explore:
             	# explore

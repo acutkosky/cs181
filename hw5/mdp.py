@@ -57,7 +57,7 @@ def T(a, s, s_prime):
   for ap in actions:
     prob_ap = 0.0
     if(throw.location_to_score(ap) == score_diff):
-      diff = int(a.wedge-ap.wedge)
+      diff = int(throw.angles[a.wedge]-throw.angles[ap.wedge])
 
       diff = diff% NUM_WEDGES
       if(diff >2):
@@ -127,14 +127,14 @@ def infiniteValueIteration(gamma):
 
       # given current state, store the action that maximizes V in pi and the corresponding value in V
       PI[s] = actions[0]
+      max_q = None
       for a in actions:
-        if V[s] <= Q[s][a]:
-          V[s] = Q[s][a]
+        if max_q <= Q[s][a]:
+          max_q = Q[s][a]
           PI[s] = a
-
+      V[s] = max_q
     notConverged = False
     for s in states:
       if abs(V[s] - V_prime[s]) > EPSILON:
         notConverged = True
-        
   

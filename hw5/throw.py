@@ -12,9 +12,9 @@ from random import *
 ##START_SCORE = 301
 
 # A medium-size dartboard #
-##NUM_WEDGES = 8
-##wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
-##START_SCORE = 100
+#NUM_WEDGES = 8
+#wedges = [ 4, 6, 2, 7, 1, 8, 3, 5 ]
+#START_SCORE = 100
 
 # A much smaller dartboard #
 NUM_WEDGES = 4
@@ -35,6 +35,9 @@ class location:
     def __init__(self, _ring, _wedge):
         self.ring = _ring
         self.wedge = _wedge
+
+    def __str__(self):
+        return "ring : "+str(self.ring)+"  wedge: "+str(self.wedge)
 
 # Initialize the wedges and angles arrays #/
 
