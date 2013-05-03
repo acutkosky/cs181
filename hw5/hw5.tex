@@ -127,19 +127,21 @@ t^* = \displaystyle\argmax_t \E(t,s) = \argmax_t \sum_r p_t(r) U(r,s).
 
 We expect an agent playing with this utility function to do well at the beginning of the game, and quickly cut down its score. However, as discussed above, this greedy utility function seems like it would tend to perform poorly at the end, when it must account for subtle considerations like the best small score value to land on. To use an analogy, this strategy is like a golfer who puts all his or her emphasis on driving, and none on putting. \\
 
+\subsection*{Problem 2.} (a) The states are the various score values one can obtain, since we expect our policies should depend on nothing other than our current score. Thus the states are the numbers from $0$ to the maximum score value. The actions are the different throws we can attempt to make (i.e. targets to aim for). Thus the actions are the different areas of the dartboard, as marked above.\\
 
+\noindent (b) The reward for state $0$ is $1$ and the reward for any other state is $0$. This tells our dart robot that the ``winning'' state, $0$, is desirable while any other state is not particularly helpful. Thus we'd expect the robot to attempt to reach the winning state via a path that goes through a minimum number of non-winning states - that is, it will attempt to spend as much time in the winning state as possible.
 
-\subsection*{Problem 2.} (a) The states are the various score values one can obtain. Thus the states are the numbers from 0 to the maximum score value. The actions are the different throws we can attempt to make. Thus the actions are the different areas of the dartboard.
+The discount factor modulates the robot's aggressiveness. It tells the robot how important marginal differences in paths to the winning state are as these paths get longer. The net result is that a high discount factor causes the robot to  emphasize the ``best cases,'' because it weights short games more heavily, while a low discount factor causes the robot to emphasize the ``worst case,'' because it suffers comparatively more from extended games. 
 
-(b) The reward for state 0 is 1 and the reward for any other state is $0$. This tells our dart robot that the ``winning'' state, 0, is desirable while any other state is not particularly helpful. Thus we'd expect the robot to attempt to reach the winning state via a path that goes through a minimum number of non-winning states - that is, it will attempt to spend as much time in the winning state as possible.
+For example, let $\gamma_1$ and $\gamma_2$ be two paths to the winning state. Suppose $\gamma_2$ is one step longer than $\gamma_1$. Then with a low discount factor the robot will see very little difference between $\gamma_1$ and $\gamma_2$ if they are both reasonably long. With a high discount factor the robot will prefer $\gamma_1$ much more that $\gamma_2$. \\
 
-The discount factor tells the robot how important marginal differences in paths to the winning state are as these paths get longer. For example, let $\gamma_1$ and $\gamma_2$ be two paths to the winning state. Suppose $\gamma_2$ is one step longer than $\gamma_1$. Then with a low discount factor the robot will see very little difference between $\gamma_1$ and $\gamma_2$ if they are both reasonably long. With a high discount factor the robot will prefer $\gamma_1$ much more that $\gamma_2$.
+\noindent (c) Constructed. \\
 
-(c) Constructed.
+\noindent (d) In the finite horizon case the robot is limited to looking only some constant number of moves ahead. For the darts game the number of moves needed to reach a winning state is not bounded above. We need an infinite horizon to guarantee that the play is coherent for all possible outcomes. 
 
-(d) In the finite horizon case the robot is limited to looking only some constant number of moves ahead. For the darts game the number of moves needed to reach a winning state is not constant. In particular, as we scale the size of the board and the starting score this number increases. If the robot needs $N$ throws to win and has a finite horizon of $M<N$, then the robot is incapable of determining a path from its current state to the winning state. If we have an infinite horizon, on the other hand, the robot will always be able to see such paths and choose an optimal one.
+Another advantage is that this approach is more generalizable. In particular, as we scale the size of the board and the starting score this number increases. If the robot needs $N$ throws to win and has a finite horizon of $M<N$, then the robot is incapable of determining a path from its current state to the winning state. If we have an infinite horizon, on the other hand, the robot will always be able to see such paths and choose an optimal one.\\
 
-(e) An optimal policy is
+\noindent (e) An optimal policy is
 
 \begin{tabular}{c|cc}
 State&Ring&Wedge\\
@@ -156,11 +158,10 @@ State&Ring&Wedge\\
 9&Middle Ring&3
 \end{tabular}
 
-Intuitively, when the score is high the robot attempts to lower the score by a medium amount. The robot generally attempts to lower the score as much as possible in order to reach 0 as soon as possible.
+At high scores, the robot generally attempts to lower the score as much as possible in order to reach $0$ as soon as possible. At low scores, it sometimes deviates from this in order to not get stuck at certain scores. That is more or less the intuition we expected.
 
-(f)
+(f) As the discount factor changes, the robot still attempts to aim for squares that quickly reduce its score. However, for low discount factors the robot tends to go for more conservative moves - ones that are more likely to minimize its worst-case performance, whereas for high discount factors the robot tends to be more aggressive. This makes sense because the the high discount factor makes differences in time-to-win more important.\\
 
-As the discount factor changes, the robot still attempts to aim for squares that quickly reduce its score. However, for low discount factors the robot tends to go for more conservative moves - ones that are more likely to minimize its worst-case performance, whereas for high discount factors the robot tends to be more aggressive. This makes sense because the the high discount factor makes differences in time-to-win more important.
 
 
 
@@ -251,6 +252,19 @@ is the unique fixed point of $T$, and is equal to $V^{\pi^{(2)}}$. This complete
 
 Otherwise, at each step $\sum_s V^{\pi}(s)$ strictly increases. However, there are only finitely many distinct possibilities for $\pi$, since $\pi$ is a function from the finite set of states $S$ to the finite set of actions $A$, and hence only finitely many distinct possibilities for $V^{\pi}$. Therefore, it can only strictly increase finitely many times, so it converges in finitely many steps. By (a), when it converges, it must return an optimal stationary policy. 
 
+\subsection*{Problem 4} (a) We chose two approaches: an $\epsilon$-greedy approach, and an exploration with exponential decay ( Boltzman ``simulated annealing'')  approach. Here are the graphs for the results. 
+
+First, this is the $\epsilon$ greedy algorithm.
+\[
+\includegraphics[scale=.8]{epsilon_greedy_performance_modelbased.png}
+\]
+Second, the simulated annealing algorithm. (Ignore the identical titles. Oops :-))
+\[
+\includegraphics[scale=.8]{simulated_annealing3_performance_modelbased.png}
+\]
+Simulated annealing performed better. This isn't a huge surprise, since $\epsilon$-greedy is a pretty crude algorithm.\\
+
+\noindent (b) See code. We chose the same strategies as above - $\epsilon$ greedy and simulated annealing. 
 \end{document}
 
 
