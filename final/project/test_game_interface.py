@@ -10,6 +10,7 @@ class GameInterfaceTest(unittest.TestCase):
   LIFE_PER_TURN = 3
 
   def testGameInterface(self):
+
     game = game_interface.GameInterface(self.PLANT_BONUS, self.PLANT_PENALTY,
              self.OBSERVATION_COST, self.STARTING_LIFE, self.LIFE_PER_TURN)
     game.StartGame()
@@ -19,7 +20,7 @@ class GameInterfaceTest(unittest.TestCase):
     self.assertEquals(0, view1.GetXPos())
     self.assertEquals(0, view1.GetYPos())
     self.assertEquals(0, view2.GetRound())
-    self.assertEquals(0, view2.GetXPos())
+    self.assertEquals(1, view2.GetXPos())
     self.assertEquals(0, view2.GetYPos())
     for i in xrange(100):
       # Try to observe the plant

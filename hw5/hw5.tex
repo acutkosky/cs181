@@ -127,19 +127,21 @@ t^* = \displaystyle\argmax_t \E(t,s) = \argmax_t \sum_r p_t(r) U(r,s).
 
 We expect an agent playing with this utility function to do well at the beginning of the game, and quickly cut down its score. However, as discussed above, this greedy utility function seems like it would tend to perform poorly at the end, when it must account for subtle considerations like the best small score value to land on. To use an analogy, this strategy is like a golfer who puts all his or her emphasis on driving, and none on putting. \\
 
+\subsection*{Problem 2.} (a) The states are the various score values one can obtain, since we expect our policies should depend on nothing other than our current score. Thus the states are the numbers from $0$ to the maximum score value. The actions are the different throws we can attempt to make (i.e. targets to aim for). Thus the actions are the different areas of the dartboard, as marked above.\\
 
+\noindent (b) The reward for state $0$ is $1$ and the reward for any other state is $0$. This tells our dart robot that the ``winning'' state, $0$, is desirable while any other state is not particularly helpful. Thus we'd expect the robot to attempt to reach the winning state via a path that goes through a minimum number of non-winning states - that is, it will attempt to spend as much time in the winning state as possible.
 
-\subsection*{Problem 2.} (a) The states are the various score values one can obtain. Thus the states are the numbers from 0 to the maximum score value. The actions are the different throws we can attempt to make. Thus the actions are the different areas of the dartboard.
+The discount factor modulates the robot's aggressiveness. It tells the robot how important marginal differences in paths to the winning state are as these paths get longer. The net result is that a high discount factor causes the robot to  emphasize the ``best cases,'' because it weights short games more heavily, while a low discount factor causes the robot to emphasize the ``worst case,'' because it suffers comparatively more from extended games. 
 
-(b) The reward for state 0 is 1 and the reward for any other state is $0$. This tells our dart robot that the ``winning'' state, 0, is desirable while any other state is not particularly helpful. Thus we'd expect the robot to attempt to reach the winning state via a path that goes through a minimum number of non-winning states - that is, it will attempt to spend as much time in the winning state as possible.
+For example, let $\gamma_1$ and $\gamma_2$ be two paths to the winning state. Suppose $\gamma_2$ is one step longer than $\gamma_1$. Then with a low discount factor the robot will see very little difference between $\gamma_1$ and $\gamma_2$ if they are both reasonably long. With a high discount factor the robot will prefer $\gamma_1$ much more that $\gamma_2$. \\
 
-The discount factor tells the robot how important marginal differences in paths to the winning state are as these paths get longer. For example, let $\gamma_1$ and $\gamma_2$ be two paths to the winning state. Suppose $\gamma_2$ is one step longer than $\gamma_1$. Then with a low discount factor the robot will see very little difference between $\gamma_1$ and $\gamma_2$ if they are both reasonably long. With a high discount factor the robot will prefer $\gamma_1$ much more that $\gamma_2$.
+\noindent (c) Constructed. \\
 
-(c) Constructed.
+\noindent (d) In the finite horizon case the robot is limited to looking only some constant number of moves ahead. For the darts game the number of moves needed to reach a winning state is not bounded above. We need an infinite horizon to guarantee that the play is coherent for all possible outcomes. 
 
-(d) In the finite horizon case the robot is limited to looking only some constant number of moves ahead. For the darts game the number of moves needed to reach a winning state is not constant. In particular, as we scale the size of the board and the starting score this number increases. If the robot needs $N$ throws to win and has a finite horizon of $M<N$, then the robot is incapable of determining a path from its current state to the winning state. If we have an infinite horizon, on the other hand, the robot will always be able to see such paths and choose an optimal one.
+Another advantage is that this approach is more generalizable. In particular, as we scale the size of the board and the starting score this number increases. If the robot needs $N$ throws to win and has a finite horizon of $M<N$, then the robot is incapable of determining a path from its current state to the winning state. If we have an infinite horizon, on the other hand, the robot will always be able to see such paths and choose an optimal one.\\
 
-(e) An optimal policy is
+\noindent (e) An optimal policy is
 
 \begin{tabular}{c|cc}
 State&Ring&Wedge\\
@@ -156,100 +158,150 @@ State&Ring&Wedge\\
 9&Middle Ring&3
 \end{tabular}
 
-Intuitively, when the score is high the robot attempts to lower the score by a medium amount. The robot generally attempts to lower the score as much as possible in order to reach 0 as soon as possible.
+At high scores, the robot generally attempts to lower the score as much as possible in order to reach $0$ as soon as possible. At low scores, it sometimes deviates from this in order to not get stuck at certain scores. That is more or less the intuition we expected.
 
-(f)
+(f) As the discount factor changes, the robot still attempts to aim for squares that quickly reduce its score. However, for low discount factors the robot tends to go for more conservative moves - ones that are more likely to minimize its worst-case performance, whereas for high discount factors the robot tends to be more aggressive. This makes sense because the the high discount factor makes differences in time-to-win more important.\\
 
-As the discount factor changes, the robot still attempts to aim for squares that quickly reduce its score. However, for low discount factors the robot tends to go for more conservative moves - ones that are more likely to minimize its worst-case performance, whereas for high discount factors the robot tends to be more aggressive. This makes sense because the the high discount factor makes differences in time-to-win more important.
 
 
 
 \subsection*{Problem 3.}(a) If PolicyIteration converges to $\pi$, then setting $\pi = \pi^{\text{new}} = \pi^{\text{old}}$ in the algorithm (p.6 of Lecture 19), we find
+
 \begin{align*}
 V(s) &= R(s, \pi(s)) + \gamma \sum_{s'} P(s' \mid s, \pi(s)) V(s') \\
 \pi(s) &= \argmax_a R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s').
 \end{align*}
-By the second equation, $\pi(s)$ is the $a$ maximizing the expression 
+
+By the second equation, $\pi(s)$ is the $a$ maximizing the expression
+
 \[
 R(s, a) + \gamma \sum_{s'} P(s' \mid s, a) V(s')
 \]
-so by definition 
+so by definition
 \[
 V(s) = \max_a \left[ R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s') \right].
 \]
 These are precisely the Bellman-Ford equations. So we know that $\pi,V$ give a solution to the Bellman-Ford equations. But we also know that the solution is unique, so this must be it. \\
 
+
 \noindent (b) This is a bit involved, but please read it through!
 
-By definition of $\pi^{(2)}(s)$ as 
+
+By definition of $\pi^{(2)}(s)$ as
+
 \[
 \argmax_a Q(s,a) = \argmax_a R(s,a) + \gamma \sum_{s'} P(s' \mid s,a) V(s'),
 \]
-and $V^{\pi^{(1)}}$ as satisfying the equation 
+and $V^{\pi^{(1)}}$ as satisfying the equation
+
 \[
 V^{\pi^{(1)}} (s) = R(s, \pi^{(1)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(1)} ) V^{\pi^{(1)}}(s')
 \]
 we have the following inequality for each $s$:
+
 \begin{equation}\label{3eq2}
-V^{\pi^{(1)}} (s) \leq R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(1)}}(s') 
+V^{\pi^{(1)}} (s) \leq R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(1)}}(s')
 \end{equation}
-We want to show that 
+
+We want to show that
 \begin{equation}\label{3eq3}
 V^{\pi^{(1)}}(s) \leq V^{\pi^{(2)}}(s) \text{ for each }s.
 \end{equation}
 
-Define the affine transformation $T$ on the vector space of values on the states by 
+
+Define the affine transformation $T$ on the vector space of values on the states by
+
 \[
-T(V)(s) =  R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V(s).
+T(V)(s) = R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V(s').
 \]
-Then by definition, $V^{\pi^{(2)}}(s)$ is the (unique) fixed vector of $T$. 
+Then by definition, $V^{\pi^{(2)}}(s)$ is the (unique) fixed vector of $T$.
+
 
 \begin{lemma}\label{3lem1}
-If $V(s) \leq V'(s)$ for each $s$, then $T(V)(s) \leq T(V')(s)$ for each $s$. 
+If $V(s) \leq V'(s)$ for each $s$, then $T(V)(s) \leq T(V')(s)$ for each $s$.
 \end{lemma}
 
+
 \begin{proof}
-Indeed, 
+
+Indeed,
 \[
-(T(V')-T(V))(s) = \gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s) - V(s)) \geq 0
+(T(V')-T(V))(s) = \gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s') - V(s')) \geq 0
 \]
-because each $V'(s)-V(s) \geq 0$ and $P(s' \mid s, \pi^{(2)}) \geq 0$. 
+because each $V'(s')-V(s') \geq 0$ and $P(s' \mid s, \pi^{(2)}) \geq 0$.
+
 \end{proof}
 
-We want to show that 
+
+We want to show that
 \begin{equation}\label{3eq3}
-V^{\pi^{(1)}}(s)  < V^{\pi^{(2)}} (s)  = R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(2)}}(s'). 
+V^{\pi^{(1)}}(s) < V^{\pi^{(2)}} (s) = R(s, \pi^{(2)}) + \gamma \sum_{s'} P(s' \mid s, \pi^{(2)} ) V^{\pi^{(2)}}(s').
 \end{equation}
 
-Notice that equation \eqref{3eq2} says that for each $s$, $V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s)$. Therefore, applying Lemma \ref{3lem1} repeatedly, we find 
+
+Notice that equation \eqref{3eq2} says that for each $s$, $V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s)$. Therefore, applying Lemma \ref{3lem1} repeatedly, we find
+
 \[
 V^{\pi^{(1)}}(s) \leq T(V^{\pi^{(1)}})(s) \leq T^2(V^{\pi^{(1)}})(s) \leq T^{\circ 3}(V^{\pi^{(1)}})(s) \leq \ldots \leq T^{\circ n}(V^{\pi^{(1)}})(s) \leq \ldots
 \]
-We claim that this sequence converges to $V^{\pi^{(2)}}(s)$, which will establish \eqref{3eq3} as desired. As mentioned above, $V^{\pi^{(2)}}$ is defined to be a fixed point vector of the operator $T$, so by the contraction mapping theorem, it suffices to show that $T$ is a contraction.
+We're almost done! We claim that this sequence converges to $V^{\pi^{(2)}}(s)$, which will establish \eqref{3eq3} as desired. As mentioned above, $V^{\pi^{(2)}}$ is defined to be a fixed point vector of the operator $T$, so by the contraction mapping theorem, it suffices to show that $T$ is a contraction.
+
 
 \begin{lemma}
-$T$ is a contraction with factor $\gamma < 1$. 
+
+$T$ is a contraction with factor $\gamma < 1$.
+
 \end{lemma}
 
+
 \begin{proof}
-Indeed, 
+
+Indeed, for all $s$ we have
+
 \begin{align*}
-|(T(V')-T(V))(s)| & = |\gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s) - V(s))| \\
-&\leq \gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) |V'(s)-V(s)| \\
-&\leq \gamma |V'(s)-V(s)|
+|(T(V')-T(V))(s)| & = |\gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) (V'(s') - V(s'))| \\
+&\leq \gamma \sum_{s'} P(s' \mid s, \pi^{(2)}) |V'(s')-V(s')| \\
+&\leq \gamma ||V'-V||
 \end{align*}
-because $\sum_{s'} P(s' \mid s, \pi^{(2)}) = 1$. 
+
+because $\sum_{s'} P(s' \mid s, \pi^{(2)}) = 1$.
+
 \end{proof}
 
-By the above Lemma, and the Contraction Mapping Theorem, 
-\[
-\lim_{n \rightarrow \infty} T^{\circ n}(V^{\pi^{(1)}}) 
-\]
-is the unique fixed point of $T$, and is equal to $V^{\pi^{(2)}}$. This completes the proof, by the reasoning discussed above. \\ 
 
-\noindent (c) First note that if $V^{\pi^{(1)}}(s) = V^{\pi^{(2)}}(s)$ for each $s$, then the algorithm will converge. Indeed, if $V$ does not change then $\pi$, which is defined in each step as an $\argmax$ with respect to a function depending only on the states, actions, and $V$, will not change either. 
+By the above Lemma, and the Contraction Mapping Theorem,
+
+\[
+\lim_{n \rightarrow \infty} T^{\circ n}(V^{\pi^{(1)}})
+\]
+is the unique fixed point of $T$, and is equal to $V^{\pi^{(2)}}$. This completes the proof, by the reasoning discussed above. \\
+
+
+\noindent (c) First note that if $V^{\pi^{(1)}}(s) = V^{\pi^{(2)}}(s)$ for each $s$, then the algorithm will converge. Indeed, if $V$ does not change then $\pi$, which is defined in each step as an $\argmax$ with respect to a function depending only on the states, actions, and $V$, will not change either.
+
 
 Otherwise, at each step $\sum_s V^{\pi}(s)$ strictly increases. However, there are only finitely many distinct possibilities for $\pi$, since $\pi$ is a function from the finite set of states $S$ to the finite set of actions $A$, and hence only finitely many distinct possibilities for $V^{\pi}$. Therefore, it can only strictly increase finitely many times, so it converges in finitely many steps. By (a), when it converges, it must return an optimal stationary policy. 
+
+
+
+
+\subsection*{Problem 4} (a) We chose two approaches: an $\epsilon$-greedy approach, and an exploration with exponential decay ( Boltzman ``simulated annealing'')  approach. Here are the graphs for the results. 
+
+First, this is the $\epsilon$ greedy algorithm.
+\[
+\includegraphics[scale=.8]{epsilon_greedy_performance_modelbased.png}
+\]
+Second, the simulated annealing algorithm. (Ignore the identical titles. Oops :-))
+\[
+\includegraphics[scale=.8]{simulated_annealing3_performance_modelbased.png}
+\]
+Simulated annealing performed better. This isn't a huge surprise, since $\epsilon$-greedy is a pretty crude algorithm.\\
+
+\noindent (b) See code. We chose the same strategies as above - $\epsilon$ greedy and simulated annealing. This time, however, we implemented simulated annealing in a manner that lowereed temperature over the course of a game rather than over the course of many games. Thus the robot's performance was independent of game number. Specifically, if we are on turn $t$, we explore with probability $e^{-t/\tau}$ for some decay factor $\tau$. With $\tau=1$, we found the this simulated annealing strategy took an average of 32 turns to finish a game, while $\epsilon$-greedy took an average of 29 turns. By increasing $\tau$ we were able to have the simulated annealing strategy also take $29$ turns. Very high $\tau$, however, showed little extra result.\\
+
+\noindent (c) The model-based algorithm performed generally better than the model-free algorithm. This is probably due to the length of the game. Since the game is very short, the model-free algorithm has less time to converge to a good policy. However, the model-based algorithm keeps track of all of the relevant statistics observed over the course of the game and so can make much more efficient use of its experience when converging.
+
+
 
 \end{document}
 
