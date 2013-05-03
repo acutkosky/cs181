@@ -282,9 +282,12 @@ is the unique fixed point of $T$, and is equal to $V^{\pi^{(2)}}$. This complete
 
 Otherwise, at each step $\sum_s V^{\pi}(s)$ strictly increases. However, there are only finitely many distinct possibilities for $\pi$, since $\pi$ is a function from the finite set of states $S$ to the finite set of actions $A$, and hence only finitely many distinct possibilities for $V^{\pi}$. Therefore, it can only strictly increase finitely many times, so it converges in finitely many steps. By (a), when it converges, it must return an optimal stationary policy. 
 
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> e87443fe960024521365580ce75b0224c04d5a0a
 \subsection*{Problem 4} (a) We chose two approaches: an $\epsilon$-greedy approach, and an exploration with exponential decay ( Boltzman ``simulated annealing'')  approach. Here are the graphs for the results. 
 
 First, this is the $\epsilon$ greedy algorithm.
@@ -297,12 +300,16 @@ Second, the simulated annealing algorithm. (Ignore the identical titles. Oops :-
 \]
 Simulated annealing performed better. This isn't a huge surprise, since $\epsilon$-greedy is a pretty crude algorithm.\\
 
+<<<<<<< HEAD
+\noindent (b) See code. We chose the same strategies as above - $\epsilon$ greedy and simulated annealing. 
+=======
 \noindent (b) See code. We chose the same strategies as above - $\epsilon$ greedy and simulated annealing. This time, however, we implemented simulated annealing in a manner that lowereed temperature over the course of a game rather than over the course of many games. Thus the robot's performance was independent of game number. Specifically, if we are on turn $t$, we explore with probability $e^{-t/\tau}$ for some decay factor $\tau$. With $\tau=1$, we found the this simulated annealing strategy took an average of 32 turns to finish a game, while $\epsilon$-greedy took an average of 29 turns. By increasing $\tau$ we were able to have the simulated annealing strategy also take $29$ turns. Very high $\tau$, however, showed little extra result.\\
 
 \noindent (c) The model-based algorithm performed generally better than the model-free algorithm. This is probably due to the length of the game. Since the game is very short, the model-free algorithm has less time to converge to a good policy. However, the model-based algorithm keeps track of all of the relevant statistics observed over the course of the game and so can make much more efficient use of its experience when converging.
 
 
 
+>>>>>>> e87443fe960024521365580ce75b0224c04d5a0a
 \end{document}
 
 
