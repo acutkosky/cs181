@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  25 APR 2013 21:30
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  26 APR 2013 11:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -468,16 +468,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--129
 [1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 142--144
-
- []
-
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 210--212
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
 
  []
 
-[3] (./hw5.aux)
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 247--249
+
+ []
+
+[4] (./hw5.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -502,10 +503,10 @@ exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
 xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texl
 ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on hw5.pdf (3 pages, 122848 bytes).
+Output written on hw5.pdf (4 pages, 127313 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 46 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
