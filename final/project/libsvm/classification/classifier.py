@@ -1,5 +1,5 @@
 from svmutil import *
-from pickle import load
+#from pickle import load
 
 m = svm_load_model('libsvm.model')
 
