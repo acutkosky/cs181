@@ -1,5 +1,6 @@
 from svmutil import *
 #from pickle import load
+#hi ashok
 
 m = svm_load_model('libsvm.model')
 
