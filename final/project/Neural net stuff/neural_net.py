@@ -193,7 +193,7 @@ class NetworkFramework(object):
         correct += 1
     return correct * 1.0 / len(images)
 
-  def Train(self, images, validation_images, learning_rate, epochs,halt=False):
+  def Train(self, images, validation_images, learning_rate, epochs, halt=False):
 
     # Convert the images and labels into a format the network can understand.
     inputs = []

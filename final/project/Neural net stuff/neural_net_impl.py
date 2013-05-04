@@ -251,7 +251,7 @@ class EncodedNetworkFramework(NetworkFramework):
     return ret
 
   def Convert(self, image):
-        """
+    """
             Arguments:
             ---------
             image: an Image instance
@@ -271,8 +271,11 @@ class EncodedNetworkFramework(NetworkFramework):
             value should be 1).
             
             """
-        # Replace line below by content of function
-    return image
+    # Replace line below by content of function
+    values = image.pixels
+    ret = Input()
+    ret.values = values
+    return ret
 
 
   def InitializeWeights(self):
