@@ -63,8 +63,8 @@ def run(options):
     l2 = player2_view.GetLife()
   
     if l1 <= 0 or l2 <= 0:
-      player1.player.writefile()
-      player2.player.writefile()
+      #player1.player.writefile()
+      #player2.player.writefile()
       if options.display:
         winner = 0
         if l1 < l2:

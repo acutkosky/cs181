@@ -3,13 +3,14 @@ import game_interface
 from random import randint
 
 NORTH = 0
-EAST = 1
+WEST = 1
 SOUTH = 2
-WEST = 3
+EAST = 3
 
 class MDP:
   def __init__(self):
     self.V = {}
+    self.Rvals = {}
     self.Visits = {}
     self.gamma = 0.5
     self.epsilon = 0.01
@@ -17,54 +18,54 @@ class MDP:
     self.poison_penalty = 10
     for s in self.get_states():
       self.V[s] = -1
-      self.R[s] = -1.0
+      self.Rvals[s] = -1.0
 
-  def R(s,a):
+  def R(self,s,a):
     if(abs(s[0])>20 or abs(s[1])>20):
       return -10
-    return R[s]
+    return self.Rvals[s]
 
-  def T(a,s,s_prime):
+  def T(self,a,s,s_prime):
     #let's go with 15 70 15 for now
     forward = 0.7
     side = 0.15
 
 
-    if(a = NORTH):
-      if(s_prime[1]-1 == s[1] and s_prime[0] = s[0]):
+    if(a == NORTH):
+      if(s_prime[1]-1 == s[1] and s_prime[0] == s[0]):
         return forward
       if(s_prime[1] == s[1] and abs(s_prime[0]-s[0])==1):
         return side
 
-    if(a = SOUTH):
-      if(s_prime[1]+1 == s[1] and s_prime[0] = s[0]):
+    if(a == SOUTH):
+      if(s_prime[1]+1 == s[1] and s_prime[0] == s[0]):
         return forward
       if(s_prime[1] == s[1] and abs(s_prime[0]-s[0])==1):
         return side
 
-    if(a = EAST):
-      if(s_prime[0]-1 == s[0] and s_prime[1] = s[1]):
+    if(a == EAST):
+      if(s_prime[0]-1 == s[0] and s_prime[1] == s[1]):
         return forward
       if(s_prime[0] == s[0] and abs(s_prime[1]-s[1])==1):
         return side
 
-    if(a = EAST):
-      if(s_prime[0]+1 == s[0] and s_prime[1] = s[1]):
+    if(a == EAST):
+      if(s_prime[0]+1 == s[0] and s_prime[1] == s[1]):
         return forward
       if(s_prime[0] == s[0] and abs(s_prime[1]-s[1])==1):
         return side
 
-    
+    return 0
 
 
-  def Update(view):
+  def Update(self,view):
     s = (view.GetXPos(),view.GetYPos())
-    R[s] -= self.visit_penalty
+    self.Rvals[s] -= self.visit_penalty
 
 
-  def MarkPoison(view):
+  def MarkPoison(self,view):
     s = (view.GetXPos(),view.GetYPos())
-    R[s] -= self.poison_penalty
+    self.Rvals[s] -= self.poison_penalty
 
 
   def valueiteration(self,state):
@@ -100,10 +101,10 @@ class MDP:
             if(max_q <= Q[s][a]):
               max_q = Q[s][a]
               PI[s] = a
-          V[s] = max_q
+          self.V[s] = max_q
       notconverged = False
       for s in states:
-        if abs(V[s]-V_prime[s]) > self.epsilon:
+        if abs(self.V[s]-V_prime[s]) > self.epsilon:
           notconverged = True
       
     return PI
@@ -123,7 +124,11 @@ class MDP:
 
 
 
+mdp = MDP()
 
 def get_move(view):
-  plant_pics.update(view)
-  return plant_pics.get_move(view)
+  global mdp
+  mdp.Update(view)
+  move = mdp.get_move(view)
+  has_plant = view.GetPlantInfo() == game_interface.STATUS_UNKNOWN_PLANT
+  return (move,has_plant)
