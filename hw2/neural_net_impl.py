@@ -279,12 +279,12 @@ class EncodedNetworkFramework(NetworkFramework):
     # Replace line below by content of function
 
     values = []
-    comp = [pixel/256.0 for pixel in sublist in image.pixels]
+      #    comp = [pixel/256.0 for pixel in sublist in image.pixels]
     for row in image.pixels:
       values += map(lambda x:x/256.0,row)
     ret = Input()
     ret.values = values
-    return comp
+    return ret
 
 
   def InitializeWeights(self):

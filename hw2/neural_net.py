@@ -185,7 +185,6 @@ class NetworkFramework(object):
     return self.GetNetworkLabel()
 
   def Performance(self, images):
-
     # Loop over the set of images and count the number correct.
     correct = 0
     for image in images:
@@ -194,7 +193,6 @@ class NetworkFramework(object):
     return correct * 1.0 / len(images)
 
   def Train(self, images, validation_images, learning_rate, epochs,halt=False):
-
     # Convert the images and labels into a format the network can understand.
     inputs = []
     targets = []

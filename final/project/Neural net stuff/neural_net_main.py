@@ -99,7 +99,6 @@ def main():
   print '* * * * * * * * *'
   # Train the network.
   log = network.Train(training, validation, rate, epochs,performance)
-  print "hi"
   epochs = range(1,epochs+1)
   trainingerrors = [1.0-x[0] for x in log[1:]]
   validationerrors = [1.0-x[1] for x in log[1:]]
