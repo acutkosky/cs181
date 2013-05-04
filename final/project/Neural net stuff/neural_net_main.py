@@ -10,7 +10,7 @@ import random
 def parseArgs(args):
   """Parses arguments vector, looking for switches of the form -key {optional value}.
   For example:
-    parseArgs([ 'main.py', '-e', 20, '-r', 0.1, '-m', 'Simple' ]) = { '-e':20, '-r':5, '-t': 'simple' }"""
+    parseArgs([ 'main.py', '-e', 20, '-r', 0.1, '-m', 'hidden' ]) = { '-e':20, '-r':5, '-t': 'simple' }"""
   args_map = {}
   curkey = None
   for i in xrange(1, len(args)):
@@ -46,10 +46,21 @@ def main():
 
 
   # Load in the training data.
-  training = # TO BE FILLED IN
+  good_set = DataReader.GetImages("good_plants", -1, 1)
+  bad_set = DataReader.GetImages("bad_plants",-1,0)
+  print good_set
 
-  # Load the validation set.
-  validation =  #TO BE FILLED IN
+  n = min(len(good_set), len(bad_set))
+  m = int(0.8*n)
+  print "n=", n
+  print "m=", m
+  training = good_set[:m]
+  training += bad_set[:m]
+
+  validation = good_set[m:n-1]
+  validation += bad_set[m:n-1]
+  print len(training)
+  print len(validation)
 
   # Initializing network
 
@@ -88,6 +99,7 @@ def main():
   print '* * * * * * * * *'
   # Train the network.
   log = network.Train(training, validation, rate, epochs,performance)
+  print "hi"
   epochs = range(1,epochs+1)
   trainingerrors = [1.0-x[0] for x in log[1:]]
   validationerrors = [1.0-x[1] for x in log[1:]]
@@ -98,7 +110,7 @@ def main():
 # pyplot.legend()
 
 
-
+"""
 #need to change this
   test = DataReader.GetImages('test-1k.txt', -1)
   for image in test:
@@ -121,7 +133,7 @@ def main():
       #f = open(args_map['-l'],"w")
       #dump(log,f)
 #f.close()
-
+"""
 
 
   
