@@ -1,4 +1,15 @@
 from PyML import *
+from base import *
+from classifiers import *
+from clusterers import *
+from containers import *
+from datagetn import *
+from demo import *
+from evaluators import *
+from feature_selection import *
+from preproc import *
+from utils import *
+
 from pickle import load
 
 data_set = [] 
