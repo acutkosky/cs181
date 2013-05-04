@@ -8,6 +8,18 @@ def classify(instance):
     r =  svm_predict([0], [instance], m, "-q")
     return r[2][0][0]
 
+f = open("good_plants", 'r')
+contents = load(f)
+f.close()
+
+score = 0
+tot = len(contents)
+for x in contents[0:1000]:
+    if classify(list(x))>0:
+        score += 1
+print "percentage correct is " + str(score/float(tot))
+
+
 """
 #test the good plants
 f = open("good_plants_small", 'r')
