@@ -1,45 +1,20 @@
-from pickle import load
+from pickle import load, dump
 
 
-class Image:
-  def __init__(self, label):
-    self.pixels = []
-    self.label = label
+f = open("good_plants", 'r')
+contents = load(f)
+contents = contents[:20000]
+g = open("good_plants_small", 'w')
+dump(contents, g)
+f.close()
+g.close()
 
-class DataReader:
-  @staticmethod
-  def GetImages(filename, limit, target):
-    """Returns a list of image objects
-            filename: The file to read in
-            limit: The maximum number of images to read.  -1 = no limit
-            """
-    images = []
-        
-    f = open(filename, 'r')
-    data = load(f)
-    f.close()
-        
-    image = None
-    for x in data:
-        print x
-        image = Image(target)
-        image.pixels = x
-        images.append(image)
-        
-    return images
 
-  @staticmethod
-  def DumpWeights(weights, filename):
-    """Dump the weights vector to filename"""
-    outfile = open(filename, 'w')
-    for weight in weights:
-      outfile.write('%r\n' % weight)
+f = open("bad_plants", 'r')
+contents = load(f)
+contents = contents[:45000]
+g = open("bad_plants_small", 'w')
+dump(contents, g)
+f.close()
+g.close()
 
-  @staticmethod
-  def ReadWeights(filename):
-    """Returns a weight vector retrieved by reading file filename"""
-    infile = open(filename, 'r')
-    weights = []
-    for line in infile:
-      weight = float(line.strip())
-      weights.append(weight)
