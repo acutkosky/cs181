@@ -63,8 +63,7 @@ def run(options):
     l2 = player2_view.GetLife()
   
     if l1 <= 0 or l2 <= 0:
-      #player1.player.writefile()
-      #player2.player.writefile()
+
       if options.display:
         winner = 0
         if l1 < l2:
@@ -80,7 +79,7 @@ def run(options):
         else:
           print 'Player 1 wins: %d v. %d' % (l1, l2)
       # Wait for input
-      sys.stdin.read(1)
+      #sys.stdin.read(1)
       if options.display:
         game_interface.curses_close()
       break
@@ -102,7 +101,13 @@ def main(argv):
   (options, args) = parser.parse_args()
 
   try:
-    run(options)
+    for i in range(1000):
+      run(options)
+      player1.player.plant_pics.saw_plant = False
+      player2.player.plant_pics.saw_plant = False
+    player1.player.writefile()
+    player2.player.writefile()
+
   except KeyboardInterrupt:
     if options.display:
       game_interface.curses_close()
