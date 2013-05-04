@@ -110,25 +110,33 @@ def Backprop(network, input, target, learning_rate):
   for i in range(len(network.outputs))[::-1]:
     er = target[i] - network.outputs[i].transformed_value
     network.outputs[i].delta = NeuralNetwork.SigmoidPrime(network.outputs[i].raw_value)*er
+        # print "er was", er
+        #print "raw value was", network.outputs[i].raw_value
+    #print "delta was", network.outputs[i].delta
     
   # 3) We now propagate the errors to the hidden layer, and update the weights there too
   for i in range(len(network.hidden_nodes))[::-1]:
+      #print "am I getting here?"
     er = 0
     for j in range(len(network.hidden_nodes[i].forward_weights)):
       er += network.hidden_nodes[i].forward_weights[j].value*network.hidden_nodes[i].forward_neighbors[j].delta
+      # print "error = ", er
     network.hidden_nodes[i].delta = NeuralNetwork.SigmoidPrime(network.hidden_nodes[i].raw_value)*er
 
   for i in range(len(network.inputs))[::-1]:
     er = 0
     for j in range(len(network.inputs[i].forward_weights)):
+        #  print "j=", j
+        #  print "arg 1 is ", network.inputs[i].forward_weights[j].value, "arg 2 is ", network.inputs[i].forward_neighbors[j].delta
       er += network.inputs[i].forward_weights[j].value*network.inputs[i].forward_neighbors[j].delta
+      #  print "error = ", er,
     network.inputs[i].delta = NeuralNetwork.SigmoidPrime(network.inputs[i].raw_value)*er
 
-
+    
   for node in network.outputs:
     for i in range(len(node.inputs)):
-      node.weights[i].value  += learning_rate*node.inputs[i].transformed_value*node.delta
-
+        #print "learning rate", learning_rate, "node input", node.inputs[i].transformed_value, "delta", node.delta
+      node.weights[i].value  += learning_rate*node.inputs[i].transformed_value *node.delta
 
   for node in network.hidden_nodes:
     for i in range(len(node.inputs)):
@@ -160,7 +168,6 @@ def Train(network, inputs, targets, learning_rate, epochs):
   """
 
   network.CheckComplete()
-
 
   for i in range(epochs):
     for i in range(len(inputs)):
@@ -239,9 +246,11 @@ class EncodedNetworkFramework(NetworkFramework):
     
     """
     # Replace line below by content of function
-
+        # for w in self.network.weights:
+        #print "%.2f" % w.value,
+        #print "----------"
     outputs = map(lambda node: node.transformed_value, self.network.outputs)
-
+    
     ret = 0 
     maxval = 0
     for i in range(len(outputs)):
@@ -335,7 +344,7 @@ class SimpleNetwork(EncodedNetworkFramework):
 
 
     # 2) Add an output node for each possible digit label.
-    for i in range(10):
+    for i in range(2):
       anode = Node()
       for node in self.network.inputs:
         anode.AddInput(node,0,self.network)
