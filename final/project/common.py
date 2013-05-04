@@ -12,4 +12,6 @@ def get_move(view):
     #for i in xrange(5):
     #  print view.GetImage()
   #time.sleep(0.1)
+  if(abs(view.GetXPos()) > 15 or abs(view.GetYPos())>15):
+    print "RANDOM OUTSIDE"
   return (random.randint(0,3), hasPlant)
