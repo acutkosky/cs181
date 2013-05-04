@@ -9,6 +9,7 @@ def classify(instance):
     r =  svm_predict([0], [instance], m, "-q")
     return r[2][0][0]
 
+print classify([1,1,1,1,1,1,1,1,1])
 """
 #test the good plants
 f = open("good_plants_small", 'r')
