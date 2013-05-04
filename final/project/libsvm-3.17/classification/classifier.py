@@ -20,7 +20,7 @@ for x in contents:
     if classify(list(x))>0:
         score += 1
 print score/float(tot)
-"""
+
 
 #now to test the bad plants
 f = open("bad_plants_small", 'r')
@@ -33,3 +33,4 @@ for x in contents:
     if classify(list(x))<0:
         score += 1
 print score/float(tot)
+"""
