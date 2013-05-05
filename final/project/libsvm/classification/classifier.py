@@ -1,4 +1,4 @@
-from svmutil import *
+from libsvm.classification.svmutil import *
 from pickle import load
 #hi ashok
 
@@ -9,11 +9,6 @@ def classify(instance):
     global m
     r =  svm_predict([0], [instance], m, "-q")
     return r[2][0][0]
-
-
-print classify([0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0])
-
-
 
 
 """
