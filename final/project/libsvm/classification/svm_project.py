@@ -10,16 +10,16 @@ f = open("good_plants_small", 'r')
 contents = load(f)
 print len(contents)
 random.shuffle(contents)
-good_data = contents[:15000]
-good_validation = contents[15000:20000]
+good_data = contents[:2000]
+good_validation = contents[2000:4000]
 f.close()
 
 f = open("bad_plants_small", 'r')
 contents = load(f)
 print len(contents)
 random.shuffle(contents)
-bad_data = contents[:30000]
-bad_validation = contents[30000:45000]
+bad_data = contents[:2000]
+bad_validation = contents[2000:4000]
 f.close()
 
 for x in good_data:
